@@ -4,20 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f162890-d362-487d-9e03-5caf2c0ed9bd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/csv/alunos.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/csv/candidaturas.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/csv/docentes.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/csv/projetos.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/model/data/PoEData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/model/fsm/IPoEState.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/model/fsm/PoEContext.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/model/fsm/PoEState.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/model/fsm/PoEStateAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/ui/gui/PoEGUI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/ui/text/PoEUI.java" afterDir="false" />
+    <list default="true" id="0f162890-d362-487d-9e03-5caf2c0ed9bd" name="Changes" comment="Ficheiro de apoio ao input (PAInput)">
+      <change afterPath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/utils/PAInput.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -65,6 +53,14 @@
       <option name="presentableId" value="Default" />
       <updated>1649798768538</updated>
     </task>
+    <task id="LOCAL-00001" summary="Início do projeto">
+      <created>1649856834835</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1649856834836</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -77,5 +73,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Início do projeto" />
+    <MESSAGE value="Ficheiro de apoio ao input (PAInput)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ficheiro de apoio ao input (PAInput)" />
   </component>
 </project>
