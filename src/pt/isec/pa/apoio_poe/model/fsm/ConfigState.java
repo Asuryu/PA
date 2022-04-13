@@ -8,6 +8,18 @@ class ConfigState extends PoEStateAdapter {
     }
 
     @Override
+    public boolean nextPhase(){
+        changeState(new ApplicationOptState(context, data));
+        return true;
+    }
+
+    @Override
+    public boolean previousPhase(){
+        changeState(new ConfigState(context, data));
+        return true;
+    }
+
+    @Override
     public PoEState getState(){
         return PoEState.CONFIG;
     }

@@ -15,6 +15,9 @@ public class PoEUI {
             case CONFIG:
                 System.out.println("Por implementar CONFIG!\n");
                 fsm.nextPhase();
+                System.out.println(fsm.getState());
+                fsm.previousPhase();
+                System.out.println(fsm.getState());
                 break;
             case APPLICATION_OPT:
                 System.out.println("Por implementar APPLICATION_OPT!\n");
