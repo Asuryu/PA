@@ -28,6 +28,6 @@ abstract class PoEStateAdapter implements IPoEState {
     public boolean exitAndSave() { return false; }
 
     @Override
-    public boolean loadSave() { return false; }
+    public boolean loadSave(String filename) { return false; }
 
 }

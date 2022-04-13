@@ -6,7 +6,7 @@ public interface IPoEState {
     boolean nextPhase();
     boolean previousPhase();
     boolean exitAndSave();
-    boolean loadSave();
+    boolean loadSave(String filename);
 
     PoEState getState();
 }

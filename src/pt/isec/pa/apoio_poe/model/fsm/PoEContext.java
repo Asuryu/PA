@@ -8,7 +8,7 @@ public class PoEContext {
 
     public PoEContext(){
         data = new PoEData();
-        state = PoEState.CONFIG.createState(this,data);
+        state = new ConfigState(this, data);
     }
 
     void changeState(IPoEState newState){
@@ -21,26 +21,24 @@ public class PoEContext {
         return state.getState();
     }
 
-    public void start(){}
-
-    public void closePhase(){
-        return data.closePhase();
+    public boolean closePhase(){
+        return state.closePhase();
     }
 
-    public void nextPhase(){
-        return data.nextPhase();
+    public boolean nextPhase(){
+        return state.nextPhase();
     }
 
-    public void previousPhase(){
-        return data.previousPhase();
+    public boolean previousPhase(){
+        return state.previousPhase();
     }
 
-    public void exitAndSave(){
-        return data.exitAndSave();
+    public boolean exitAndSave(){
+        return state.exitAndSave();
     }
 
-    public void loadSave(String filename){
-        return data.loadSave(String filename);
+    public boolean loadSave(String filename){
+        return state.loadSave(filename);
     }
 
 }
