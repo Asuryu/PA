@@ -17,7 +17,7 @@ class ConfigState extends PoEStateAdapter {
 
     @Override
     public boolean closePhase(){
-        if(data.getPropostas().size() => data.getAlunos().size()){
+        if(data.getPropostas().size() >= data.getAlunos().size()){
             data.closePhase(getState());
             return true;
         }else{
