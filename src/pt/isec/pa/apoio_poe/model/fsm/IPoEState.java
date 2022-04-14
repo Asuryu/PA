@@ -10,6 +10,7 @@ public interface IPoEState {
     boolean loadSave(String filename);
     boolean addAlunosCSV();
     boolean addDocentesCSV();
+    boolean addPropostasCSV();
 
     PoEState getState();
 }

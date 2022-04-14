@@ -6,11 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="0f162890-d362-487d-9e03-5caf2c0ed9bd" name="Changes" comment="Teste da FSM">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/csv/alunos.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/csv/alunos.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/csv/docentes.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/csv/docentes.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/model/data/PoEData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/model/data/PoEData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/model/data/PoEDocente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/model/data/PoEDocente.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/model/fsm/ConfigState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/model/fsm/ConfigState.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/model/fsm/IPoEState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/model/fsm/IPoEState.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/model/fsm/PoEContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/model/fsm/PoEContext.java" afterDir="false" />

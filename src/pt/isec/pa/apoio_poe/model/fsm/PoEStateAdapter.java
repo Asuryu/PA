@@ -39,4 +39,7 @@ abstract class PoEStateAdapter implements IPoEState {
     @Override
     public boolean addDocentesCSV() { return false; }
 
+    @Override
+    public boolean addPropostasCSV() { return false; }
+
 }

@@ -17,7 +17,7 @@ class ConfigState extends PoEStateAdapter {
 
     @Override
     public boolean closePhase(){
-        if(data.getPropostas().size() => data.getAlunos().size()){
+        if(data.getPropostas().size() >= data.getAlunos().size()){
             data.closePhase(getState());
             return true;
         }else{
@@ -48,7 +48,6 @@ class ConfigState extends PoEStateAdapter {
         //rever
         return true;
     }
-
 
     @Override
     public boolean addAlunosCSV(){
@@ -136,6 +135,11 @@ class ConfigState extends PoEStateAdapter {
             System.out.println("[!] Não foi possível abrir o ficheiro.");
             return false;
         }
+    }
+
+    @Override
+    public boolean addPropostasCSV(){
+        return true;
     }
 
     @Override

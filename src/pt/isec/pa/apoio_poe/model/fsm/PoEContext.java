@@ -56,4 +56,6 @@ public class PoEContext {
 
     public boolean addDocentesCSV(){ return state.addDocentesCSV(); }
 
+    public boolean addPropostasCSV(){ return state.addDocentesCSV(); }
+
 }
