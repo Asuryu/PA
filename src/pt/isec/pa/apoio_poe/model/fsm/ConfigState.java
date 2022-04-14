@@ -49,7 +49,6 @@ class ConfigState extends PoEStateAdapter {
         return true;
     }
 
-
     @Override
     public boolean addAlunosCSV(){
         try {
@@ -136,6 +135,11 @@ class ConfigState extends PoEStateAdapter {
             System.out.println("[!] Não foi possível abrir o ficheiro.");
             return false;
         }
+    }
+
+    @Override
+    public boolean addPropostasCSV(){
+        return true;
     }
 
     @Override

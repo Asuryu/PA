@@ -1,6 +1,7 @@
 package pt.isec.pa.apoio_poe.ui.text;
 
 import pt.isec.pa.apoio_poe.model.fsm.PoEContext;
+import pt.isec.pa.apoio_poe.model.fsm.PoEState;
 import pt.isec.pa.apoio_poe.utils.PAInput;
 
 import java.io.FileNotFoundException;
@@ -16,8 +17,6 @@ public class PoEUI {
     public void start() throws FileNotFoundException {
 
         System.out.println(mostrarASCII());
-        int option = PAInput.chooseOption("Escolha uma opção", "Gestão de Alunos", "Gestão de Docentes", "Gestão de propostas de estágio ou projeto", "Sair");
-        if(option == 4) { exit = true; }
 
         while(!exit){
             System.out.println("STATE: " + fsm.getState());
@@ -25,19 +24,19 @@ public class PoEUI {
             String comando = PAInput.readString("> ", false);
             switch(fsm.getState()){
                 case CONFIG:
-                    fsm.previousPhase();
-                    if(comando.equalsIgnoreCase("next")) {
-                        fsm.nextPhase();
+
+                    int option = PAInput.chooseOption("Escolha uma opção", "Gestão de Alunos", "Gestão de Docentes", "Gestão de propostas de estágio ou projeto", "Sair");
+                    switch (comando){
+                        case "next" -> fsm.nextPhase();
+                        case "close" -> {fsm.closePhase(); fsm.nextPhase();}
+                        case "add" -> {
+                            if(option == 1) fsm.addAlunosCSV();
+                            else if(option == 2) fsm.addDocentesCSV();
+                            else if(option == 3) fsm.addPropostasCSV();
+                            else if(option == 4) exit = true;
+                        }
+                        case "exit" -> exit = true;
                     }
-                    if(comando.equalsIgnoreCase("close")) {
-                        fsm.closePhase();
-                        fsm.nextPhase();
-                    }
-                    else if(comando.equalsIgnoreCase("add")){
-                        if(option == 1) fsm.addAlunosCSV();
-                        else if(option == 2) fsm.addDocentesCSV();
-                    }
-                    else if(comando.equalsIgnoreCase("exit")) exit = true;
                     break;
                 case APPLICATION_OPT:
                     if(comando.equalsIgnoreCase("next")) fsm.nextPhase();
