@@ -5,10 +5,9 @@ public class PoEDocente {
     private String email;
     private String papel;
 
-    public PoEDocente(String nome, String email, String papel) {
+    public PoEDocente(String nome, String email) {
         this.nome = nome;
         this.email = email;
-        this.papel = papel;
     }
 
     public String getNome() {
