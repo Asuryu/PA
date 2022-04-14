@@ -48,6 +48,9 @@ class ConfigState extends PoEStateAdapter {
     public boolean closePhase(){
         changeState(new ConfigState(context, data));
         return true;
+    }
+
+    @Override
     public boolean addAlunosCSV(){
         try {
             String filePath = PAInput.readString("Introduza o nome do ficheiro CSV (alunos): ", false);
