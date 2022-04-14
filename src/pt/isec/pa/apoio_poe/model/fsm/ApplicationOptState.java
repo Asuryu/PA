@@ -33,8 +33,13 @@ class ApplicationOptState extends PoEStateAdapter{
 
     @Override
     public boolean closePhase(){
-        changeState(new ApplicationOptState(context, data));
+        data.closePhase(getState());
         return true;
+    }
+
+    @Override
+    public boolean isClosed() {
+        return data.isPhaseClosed(getState());
     }
 
     @Override

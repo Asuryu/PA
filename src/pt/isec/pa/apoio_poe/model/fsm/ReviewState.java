@@ -27,8 +27,13 @@ class ReviewState extends PoEStateAdapter {
 
     @Override
     public boolean closePhase(){
-        changeState(new ReviewState(context, data));
+        data.closePhase(getState());
         return true;
+    }
+
+    @Override
+    public boolean isClosed() {
+        return data.isPhaseClosed(getState());
     }
 
     @Override

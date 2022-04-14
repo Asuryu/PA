@@ -17,8 +17,13 @@ class ConfigState extends PoEStateAdapter {
 
     @Override
     public boolean closePhase(){
-        data.closePhase(getState());
-        return true;
+        if(data.getPropostas().size() => data.getAlunos().size()){
+            data.closePhase(getState());
+            return true;
+        }else{
+            System.out.println("Não existem propostas suficientes para iniciar a fase de avaliação");
+            return false;
+        }
     }
 
     @Override
@@ -44,11 +49,6 @@ class ConfigState extends PoEStateAdapter {
         return true;
     }
 
-    @Override
-    public boolean closePhase(){
-        changeState(new ConfigState(context, data));
-        return true;
-    }
 
     @Override
     public boolean addAlunosCSV(){
