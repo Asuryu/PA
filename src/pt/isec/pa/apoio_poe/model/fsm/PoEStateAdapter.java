@@ -19,6 +19,9 @@ abstract class PoEStateAdapter implements IPoEState {
     public boolean closePhase() { return false; }
 
     @Override
+    public boolean isClosed() { return false; }
+
+    @Override
     public boolean nextPhase() { return false; }
 
     @Override
@@ -29,5 +32,11 @@ abstract class PoEStateAdapter implements IPoEState {
 
     @Override
     public boolean loadSave(String filename) { return false; }
+
+    @Override
+    public boolean addAlunosCSV() { return false; }
+
+    @Override
+    public boolean addDocentesCSV() { return false; }
 
 }

@@ -1,6 +1,15 @@
 package pt.isec.pa.apoio_poe.model.fsm;
 
+import com.sun.tools.jconsole.JConsoleContext;
+import pt.isec.pa.apoio_poe.model.data.PoEAluno;
 import pt.isec.pa.apoio_poe.model.data.PoEData;
+import pt.isec.pa.apoio_poe.model.data.PoEDocente;
+import pt.isec.pa.apoio_poe.utils.PAInput;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class PoEContext {
     IPoEState state;
@@ -25,6 +34,8 @@ public class PoEContext {
         return state.closePhase();
     }
 
+    public boolean isClosed(){ return state.isClosed(); }
+
     public boolean nextPhase(){
         return state.nextPhase();
     }
@@ -40,5 +51,9 @@ public class PoEContext {
     public boolean loadSave(String filename){
         return state.loadSave(filename);
     }
+
+    public boolean addAlunosCSV(){ return state.addAlunosCSV(); }
+
+    public boolean addDocentesCSV(){ return state.addDocentesCSV(); }
 
 }
