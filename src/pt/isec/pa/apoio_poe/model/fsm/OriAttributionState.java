@@ -33,7 +33,9 @@ class OriAttributionState extends PoEStateAdapter {
 
     @Override
     public boolean closePhase(){
+        // FALTA FAZER AS CONDIÇÕES DE FECHAMENTO DA FASE
         data.closePhase(getState());
+        nextPhase();
         return true;
     }
 

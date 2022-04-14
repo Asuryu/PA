@@ -1,5 +1,6 @@
 package pt.isec.pa.apoio_poe.ui.text;
 
+import com.sun.tools.jconsole.JConsoleContext;
 import pt.isec.pa.apoio_poe.model.fsm.PoEContext;
 import pt.isec.pa.apoio_poe.model.fsm.PoEState;
 import pt.isec.pa.apoio_poe.utils.PAInput;
@@ -14,27 +15,32 @@ public class PoEUI {
         this.fsm = fsm;
     }
 
-    public void start() throws FileNotFoundException {
+    public void start() {
 
         System.out.println(mostrarASCII());
+        boolean firstTime = true;
+        int option = 0;
 
         while(!exit){
             System.out.println("STATE: " + fsm.getState());
             System.out.println("CLOSED: " + fsm.isClosed());
+            if(firstTime){
+                option = PAInput.chooseOption("Escolha uma opção", "Gestão de Alunos", "Gestão de Docentes", "Gestão de propostas de estágio ou projeto");
+                firstTime = false;
+            }
             String comando = PAInput.readString("> ", false);
             switch(fsm.getState()){
                 case CONFIG:
-
-                    int option = PAInput.chooseOption("Escolha uma opção", "Gestão de Alunos", "Gestão de Docentes", "Gestão de propostas de estágio ou projeto", "Sair");
                     switch (comando){
                         case "next" -> fsm.nextPhase();
-                        case "close" -> {fsm.closePhase(); fsm.nextPhase();}
+                        case "close" -> fsm.closePhase();
                         case "add" -> {
                             if(option == 1) fsm.addAlunosCSV();
                             else if(option == 2) fsm.addDocentesCSV();
                             else if(option == 3) fsm.addPropostasCSV();
                             else if(option == 4) exit = true;
                         }
+                        case "mode" -> option = PAInput.chooseOption("Escolha uma opção", "Gestão de Alunos", "Gestão de Docentes", "Gestão de propostas de estágio ou projeto", "Sair");
                         case "exit" -> exit = true;
                     }
                     break;

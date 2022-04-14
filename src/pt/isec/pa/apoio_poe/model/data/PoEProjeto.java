@@ -4,7 +4,7 @@ public class PoEProjeto extends PoEProposta {
     private String[] ramosDestino;
     private PoEDocente docente;
 
-    public PoEProjeto(String id, String titulo, long nrAlunoAtribuido, String[] ramosDestino, PoEDocente docente) {
+    public PoEProjeto(String id, String titulo, Long nrAlunoAtribuido, String[] ramosDestino, PoEDocente docente) {
         super(id, titulo, nrAlunoAtribuido);
         this.ramosDestino = ramosDestino;
         this.docente = docente;

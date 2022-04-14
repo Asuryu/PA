@@ -1,8 +1,6 @@
 package pt.isec.pa.apoio_poe.model.fsm;
 
-import pt.isec.pa.apoio_poe.model.data.PoEAluno;
-import pt.isec.pa.apoio_poe.model.data.PoEData;
-import pt.isec.pa.apoio_poe.model.data.PoEDocente;
+import pt.isec.pa.apoio_poe.model.data.*;
 import pt.isec.pa.apoio_poe.utils.PAInput;
 
 import java.io.File;
@@ -17,11 +15,12 @@ class ConfigState extends PoEStateAdapter {
 
     @Override
     public boolean closePhase(){
+        // FALTA IMPLEMENTAR COISAS AQUI (tem de ser para cada ramo)
         if(data.getPropostas().size() >= data.getAlunos().size()){
             data.closePhase(getState());
             return true;
-        }else{
-            System.out.println("Não existem propostas suficientes para iniciar a fase de avaliação");
+        } else {
+            System.out.println("[!] Não existem propostas suficientes para fechar a fase de configuração.");
             return false;
         }
     }
@@ -59,6 +58,9 @@ class ConfigState extends PoEStateAdapter {
             while(sc.hasNextLine()) {
                 line++;
                 String[] values = sc.nextLine().split(",");
+                if(values.length != 7){
+                    System.out.println("[!] Linha " + line + " do ficheiro CSV (alunos) tem um número de colunas inválido.");
+                }
                 long nrEstudante = Long.parseLong(values[0]);
                 if (data.getAlunoById(nrEstudante) != null) {
                     System.out.println("[!] Aluno com o número " + nrEstudante + " já existe!");
@@ -113,12 +115,15 @@ class ConfigState extends PoEStateAdapter {
             while(sc.hasNextLine()) {
                 line++;
                 String[] values = sc.nextLine().split(",");
+                if(values.length != 2){
+                    System.out.println("[!] Linha " + line + " do ficheiro CSV (docentes) tem um número de colunas inválido.");
+                }
                 String nome = values[0];
                 if(data.getDocenteByName(nome) != null){
                     System.out.println("[!] Docente com o nome " + nome + " já existe!");
                     continue;
                 }
-                String email = values[2];
+                String email = values[1];
                 if(data.getDocenteByEmail(email) != null){
                     System.out.println("[!] Docente com o email " + email + " já existe!");
                     continue;
@@ -139,7 +144,95 @@ class ConfigState extends PoEStateAdapter {
 
     @Override
     public boolean addPropostasCSV(){
-        return true;
+        try {
+            String filePath = PAInput.readString("Introduza o nome do ficheiro CSV (propostas): ", false);
+            Scanner sc = new Scanner(new File(filePath));
+            sc.useDelimiter(",");
+            int line = 0, sucessos = 0;
+            while(sc.hasNextLine()) {
+                line++;
+                String[] values = sc.nextLine().split(",");
+                String tipo = values[0];
+                if(!tipo.matches("T1|T2|T3")){
+                    System.out.println("[!] Tipo de proposta inválido! Por favor corrija a linha " + line + " do ficheiro.");
+                    continue;
+                }
+                String id = values[1];
+                if(data.getPropostaById(id) != null){
+                    System.out.println("[!] Proposta com o id " + id + " já existe!");
+                    continue;
+                }
+
+                if(tipo.equalsIgnoreCase("T1")){
+                    String[] ramos = values[2].split("\\|");
+                    boolean flag = false;
+                    for(String ramo : ramos){
+                        if(!ramo.matches("DA|RAS|SI")) {
+                            System.out.println("[!] Ramo inválido! Por favor corrija a linha " + line + " do ficheiro.");
+                            flag = true;
+                            break;
+                        }
+                    }
+                    if(flag) continue;
+                    String titulo = values[3];
+                    String entidade = values[4];
+                    Long nrAlunoAtribuido = null;
+                    if(values.length == 6){
+                        nrAlunoAtribuido = Long.parseLong(values[5]);
+                    }
+                    PoEEstagio estagio = new PoEEstagio(id, titulo, nrAlunoAtribuido, ramos, entidade);
+                    data.addProposta(estagio);
+                    sucessos++;
+                }
+                else if(tipo.equalsIgnoreCase("T2")){
+                    String[] ramos = values[2].split("\\|");
+                    boolean flag = false;
+                    for(String ramo : ramos){
+                        if(!ramo.matches("DA|RAS|SI")) {
+                            System.out.println("[!] Ramo inválido! Por favor corrija a linha " + line + " do ficheiro.");
+                            flag = true;
+                            break;
+                        }
+                    }
+                    if(flag) continue;
+                    String titulo = values[3];
+                    String docente = values[4];
+                    if(data.getDocenteByEmail(docente) == null){
+                        System.out.println("[!] Docente com o email " + docente + " não existe!");
+                        continue;
+                    }
+                    PoEDocente doc = data.getDocenteByEmail(docente);
+                    Long nrAlunoAtribuido = null;
+                    if(values.length == 6){
+                        nrAlunoAtribuido = Long.parseLong(values[5]);
+                    }
+                    PoEProjeto projeto = new PoEProjeto(id, titulo, nrAlunoAtribuido, ramos, doc);
+                    data.addProposta(projeto);
+                    sucessos++;
+                }
+                else if(tipo.equalsIgnoreCase("T3")){
+                    String titulo = values[2];
+                    String emailEstudante = values[3];
+                    if(data.getAlunoByEmail(emailEstudante) == null){
+                        System.out.println("[!] Aluno com o email " + emailEstudante + " não existe!");
+                        continue;
+                    }
+                    PoEAluno aluno = data.getAlunoByEmail(emailEstudante);
+                    PoEAutoproposto autoproposto = new PoEAutoproposto(id, titulo, aluno);
+                    data.addProposta(autoproposto);
+                    sucessos++;
+                }
+                else{
+                    System.out.println("[!] Tipo de proposta inválido! Por favor corrija a linha " + line + " do ficheiro.");
+                }
+            }
+            System.out.println("[*] Foram adicionadas " + sucessos + " propostas.");
+            sc.close();
+            return true;
+        } catch (FileNotFoundException e){
+            System.out.println("[!] Não foi possível abrir o ficheiro.");
+            return false;
+        }
     }
 
     @Override

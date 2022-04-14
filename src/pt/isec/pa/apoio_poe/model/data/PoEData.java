@@ -1,16 +1,15 @@
 package pt.isec.pa.apoio_poe.model.data;
 
-import pt.isec.pa.apoio_poe.model.fsm.IPoEState;
 import pt.isec.pa.apoio_poe.model.fsm.PoEState;
 
 import java.util.ArrayList;
 
 public class PoEData {
-    private ArrayList<PoEAluno> alunos;
-    private ArrayList<PoEDocente> docentes;
-    private ArrayList<PoEProposta> propostas;
+    private final ArrayList<PoEAluno> alunos;
+    private final ArrayList<PoEDocente> docentes;
+    private final ArrayList<PoEProposta> propostas;
 
-    private ArrayList<PoEState> closedPhases;
+    private final ArrayList<PoEState> closedPhases;
 
     public PoEData() {
         alunos = new ArrayList<>();
@@ -25,6 +24,14 @@ public class PoEData {
     public PoEAluno getAlunoById(long nrEstudante) {
         for (PoEAluno aluno : alunos) {
             if (aluno.getNrEstudante() == nrEstudante) {
+                return aluno;
+            }
+        }
+        return null;
+    }
+    public PoEAluno getAlunoByEmail(String email) {
+        for (PoEAluno aluno : alunos) {
+            if (aluno.getEmail().equalsIgnoreCase(email)) {
                 return aluno;
             }
         }
@@ -66,7 +73,7 @@ public class PoEData {
     public ArrayList<PoEProposta> getPropostas() {
         return propostas;
     }
-    public PoEProposta getProposta(String nrProposta) {
+    public PoEProposta getPropostaById(String nrProposta) {
         for (PoEProposta proposta : propostas) {
             if (proposta.getId().equalsIgnoreCase(nrProposta)) {
                 return proposta;

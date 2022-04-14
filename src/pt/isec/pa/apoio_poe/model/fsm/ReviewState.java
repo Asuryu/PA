@@ -8,12 +8,6 @@ class ReviewState extends PoEStateAdapter {
     }
 
     @Override
-    public boolean previousPhase(){
-        changeState(new OriAttributionState(context, data));
-        return true;
-    }
-
-    @Override
     public boolean exitAndSave(){
         //rever
         return true;
@@ -23,17 +17,6 @@ class ReviewState extends PoEStateAdapter {
     public boolean loadSave(String filename){
         //rever
         return true;
-    }
-
-    @Override
-    public boolean closePhase(){
-        data.closePhase(getState());
-        return true;
-    }
-
-    @Override
-    public boolean isClosed() {
-        return data.isPhaseClosed(getState());
     }
 
     @Override

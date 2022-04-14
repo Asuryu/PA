@@ -34,6 +34,7 @@ class ApplicationOptState extends PoEStateAdapter{
     @Override
     public boolean closePhase(){
         data.closePhase(getState());
+        nextPhase();
         return true;
     }
 

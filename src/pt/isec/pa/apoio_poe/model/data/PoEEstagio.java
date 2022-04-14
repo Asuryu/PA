@@ -4,7 +4,7 @@ public class PoEEstagio extends PoEProposta {
     private String[] ramosDestino;
     private String entidade;
 
-    public PoEEstagio(String id, String titulo, long nrAlunoAtribuido, String[] ramosDestino, String entidade) {
+    public PoEEstagio(String id, String titulo, Long nrAlunoAtribuido, String[] ramosDestino, String entidade) {
         super(id, titulo, nrAlunoAtribuido);
         this.ramosDestino = ramosDestino;
         this.entidade = entidade;

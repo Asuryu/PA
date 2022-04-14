@@ -2,11 +2,11 @@ package pt.isec.pa.apoio_poe.model.data;
 
 public class PoEAluno {
     private String nome;
-    private long nrEstudante;
+    private final long nrEstudante;
     private String email;
     private String curso;
     private String ramo;
-    private double classificacao;
+    private final double classificacao;
     private boolean estagios;
 
     public PoEAluno(String nome, long nrEstudante, String email, String curso, String ramo, double classificacao, boolean estagios) {

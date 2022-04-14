@@ -35,9 +35,10 @@ class PropAttributionState extends PoEStateAdapter {
     public boolean closePhase(){
         if(data.isPhaseClosed(PoEState.CONFIG)){
             data.closePhase(getState());
+            nextPhase();
             return true;
         }else{
-            System.out.println("Fase não pode ser fechada, pois ainda não foi fechada a fase de configuração.");
+            System.out.println("[!] Esta fase não pode ser fechada. Feche primeiro a fase de configuração.");
             return false;
         }
     }
