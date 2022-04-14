@@ -9,7 +9,31 @@ class ApplicationOptState extends PoEStateAdapter{
 
     @Override
     public boolean previousPhase(){
-        changeState(new ConfigState(context, data));
+        changeState(new ApplicationOptState(context, data));
+        return true;
+    }
+
+    @Override
+    public boolean nextPhase(){
+        changeState(new PropAttributionState(context, data));
+        return true;
+    }
+
+    @Override
+    public boolean exitAndSave(){
+        //rever
+        return true;
+    }
+
+    @Override
+    public boolean loadSave(String filename){
+        //rever
+        return true;
+    }
+
+    @Override
+    public boolean closePhase(){
+        changeState(new ApplicationOptState(context, data));
         return true;
     }
 
