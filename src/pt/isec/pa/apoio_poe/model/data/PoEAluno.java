@@ -1,15 +1,17 @@
 package pt.isec.pa.apoio_poe.model.data;
 
+import java.util.Objects;
+
 public class PoEAluno {
     private String nome;
-    private final long nrEstudante;
+    private final Long nrEstudante;
     private String email;
     private String curso;
     private String ramo;
     private final double classificacao;
     private boolean estagios;
 
-    public PoEAluno(String nome, long nrEstudante, String email, String curso, String ramo, double classificacao, boolean estagios) {
+    public PoEAluno(String nome, Long nrEstudante, String email, String curso, String ramo, double classificacao, boolean estagios) {
         this.nome = nome;
         this.nrEstudante = nrEstudante;
         this.email = email;
@@ -27,7 +29,7 @@ public class PoEAluno {
         this.nome = nome;
     }
 
-    public long getNrEstudante() {
+    public Long getNrEstudante() {
         return nrEstudante;
     }
 
@@ -65,5 +67,41 @@ public class PoEAluno {
 
     public void setEstagios(boolean estagios) {
         this.estagios = estagios;
+    }
+
+    public String[] toStringArray(){
+        return new String[]{
+            String.valueOf(nrEstudante),
+            nome,
+            email,
+            curso,
+            ramo,
+            String.valueOf(classificacao),
+            String.valueOf(estagios)
+        };
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer();
+        sb.append("---- Aluno nº " + nrEstudante + " ----\n");
+        sb.append("Nome: " + nome + " (" + email + ")\n");
+        sb.append("Curso: " + curso + "   Ramo: " + ramo + "\n");
+        sb.append("Classificação: " + classificacao + "\n");
+        sb.append("Estágios?: " + estagios + "\n");
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PoEAluno poEAluno = (PoEAluno) o;
+        return nrEstudante == poEAluno.nrEstudante;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nrEstudante);
     }
 }
