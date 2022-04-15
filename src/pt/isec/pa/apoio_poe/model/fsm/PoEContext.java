@@ -1,6 +1,11 @@
 package pt.isec.pa.apoio_poe.model.fsm;
 
+import pt.isec.pa.apoio_poe.model.data.PoEAluno;
 import pt.isec.pa.apoio_poe.model.data.PoEData;
+import pt.isec.pa.apoio_poe.model.data.PoEDocente;
+import pt.isec.pa.apoio_poe.model.data.PoEProposta;
+
+import java.util.ArrayList;
 
 public class PoEContext {
     IPoEState state;
@@ -43,10 +48,45 @@ public class PoEContext {
         return state.loadSave(filename);
     }
 
-    public boolean addAlunosCSV(){ return state.addAlunosCSV(); }
+    public boolean addAlunosCSV(String filePath){ return state.addAlunosCSV(filePath); }
 
-    public boolean addDocentesCSV(){ return state.addDocentesCSV(); }
+    public boolean saveAlunosCSV(String filePath){ return state.saveAlunosCSV(filePath); }
 
-    public boolean addPropostasCSV(){ return state.addPropostasCSV(); }
+    public boolean addDocentesCSV(String filePath){ return state.addDocentesCSV(filePath); }
+
+    public boolean addPropostasCSV(String filePath){ return state.addPropostasCSV(filePath); }
+
+    public ArrayList<PoEAluno> getAlunos(){
+        return data.getAlunos();
+    }
+    public PoEAluno getAlunoById(long nrAluno){
+        return data.getAlunoById(nrAluno);
+    }
+    public ArrayList<PoEAluno> getAlunosByName(String nomeAluno){
+        return data.getAlunosByName(nomeAluno);
+    }
+    public ArrayList<PoEAluno> getAlunosByCurso(String curso){
+        return data.getAlunosByCurso(curso);
+    }
+    public ArrayList<PoEAluno> getAlunosByRamo(String ramo){
+        return data.getAlunosByRamo(ramo);
+    }
+    public PoEAluno getAlunoByEmail(String email){ return data.getAlunoByEmail(email); }
+    public boolean removeAluno(PoEAluno aluno){ return data.removeAluno(aluno); }
+    public ArrayList<PoEDocente> getDocentes() {
+        return data.getDocentes();
+    }
+    public PoEDocente getDocenteByEmail(String email){
+        return data.getDocenteByEmail(email);
+    }
+    public PoEDocente getDocenteByName(String nome) {
+        return data.getDocenteByName(nome);
+    }
+    public ArrayList<PoEProposta> getPropostas(){
+        return data.getPropostas();
+    }
+    public PoEProposta getPropostaById(String nrProposta){
+        return data.getPropostaById(nrProposta);
+    }
 
 }

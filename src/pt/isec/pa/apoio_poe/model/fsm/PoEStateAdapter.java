@@ -34,12 +34,15 @@ abstract class PoEStateAdapter implements IPoEState {
     public boolean loadSave(String filename) { return false; }
 
     @Override
-    public boolean addAlunosCSV() { return false; }
+    public boolean addAlunosCSV(String filePath) { return false; }
 
     @Override
-    public boolean addDocentesCSV() { return false; }
+    public boolean saveAlunosCSV(String filePath) { return false; }
 
     @Override
-    public boolean addPropostasCSV() { return false; }
+    public boolean addDocentesCSV(String filePath) { return false; }
+
+    @Override
+    public boolean addPropostasCSV(String filePath) { return false; }
 
 }

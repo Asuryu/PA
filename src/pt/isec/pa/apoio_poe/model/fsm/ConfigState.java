@@ -3,8 +3,7 @@ package pt.isec.pa.apoio_poe.model.fsm;
 import pt.isec.pa.apoio_poe.model.data.*;
 import pt.isec.pa.apoio_poe.utils.PAInput;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.Scanner;
 
 class ConfigState extends PoEStateAdapter {
@@ -49,9 +48,8 @@ class ConfigState extends PoEStateAdapter {
     }
 
     @Override
-    public boolean addAlunosCSV(){
+    public boolean addAlunosCSV(String filePath){
         try {
-            String filePath = PAInput.readString("Introduza o nome do ficheiro CSV (alunos): ", false);
             Scanner sc = new Scanner(new File(filePath));
             sc.useDelimiter(",");
             int line = 0, sucessos = 0;
@@ -60,6 +58,7 @@ class ConfigState extends PoEStateAdapter {
                 String[] values = sc.nextLine().split(",");
                 if(values.length != 7){
                     System.out.println("[!] Linha " + line + " do ficheiro CSV (alunos) tem um número de colunas inválido.");
+                    continue;
                 }
                 long nrEstudante = Long.parseLong(values[0]);
                 if (data.getAlunoById(nrEstudante) != null) {
@@ -95,7 +94,7 @@ class ConfigState extends PoEStateAdapter {
                 data.addAluno(aluno);
                 sucessos++;
             }
-            System.out.println("[*] Foram adicionados " + sucessos + " alunos.");
+            System.out.println("\n[·] Foram adicionados " + sucessos + " alunos.");
             sc.close();
             return true;
         }
@@ -106,9 +105,9 @@ class ConfigState extends PoEStateAdapter {
     }
 
     @Override
-    public boolean addDocentesCSV(){
+    public boolean addDocentesCSV(String filePath){
         try {
-            String filePath = PAInput.readString("Introduza o nome do ficheiro CSV (docentes): ", false);
+            //String filePath = PAInput.readString("Introduza o nome do ficheiro CSV (docentes): ", false);
             Scanner sc = new Scanner(new File(filePath));
             sc.useDelimiter(",");
             int line = 0, sucessos = 0;
@@ -117,6 +116,7 @@ class ConfigState extends PoEStateAdapter {
                 String[] values = sc.nextLine().split(",");
                 if(values.length != 2){
                     System.out.println("[!] Linha " + line + " do ficheiro CSV (docentes) tem um número de colunas inválido.");
+                    continue;
                 }
                 String nome = values[0];
                 if(data.getDocenteByName(nome) != null){
@@ -132,7 +132,7 @@ class ConfigState extends PoEStateAdapter {
                 data.addDocente(docente);
                 sucessos++;
             }
-            System.out.println("[*] Foram adicionados " + sucessos + " docentes.");
+            System.out.println("\n[·] Foram adicionados " + sucessos + " docentes.");
             sc.close();
             return true;
         }
@@ -143,9 +143,9 @@ class ConfigState extends PoEStateAdapter {
     }
 
     @Override
-    public boolean addPropostasCSV(){
+    public boolean addPropostasCSV(String filePath){
         try {
-            String filePath = PAInput.readString("Introduza o nome do ficheiro CSV (propostas): ", false);
+            //String filePath = PAInput.readString("Introduza o nome do ficheiro CSV (propostas): ", false);
             Scanner sc = new Scanner(new File(filePath));
             sc.useDelimiter(",");
             int line = 0, sucessos = 0;
@@ -226,11 +226,37 @@ class ConfigState extends PoEStateAdapter {
                     System.out.println("[!] Tipo de proposta inválido! Por favor corrija a linha " + line + " do ficheiro.");
                 }
             }
-            System.out.println("[*] Foram adicionadas " + sucessos + " propostas.");
+            System.out.println("\n[·] Foram adicionadas " + sucessos + " propostas.");
             sc.close();
             return true;
         } catch (FileNotFoundException e){
             System.out.println("[!] Não foi possível abrir o ficheiro.");
+            return false;
+        }
+    }
+
+    @Override
+    public boolean saveAlunosCSV(String filename) {
+        try {
+            if(filename.endsWith(".csv")){
+                filename = filename.substring(0, filename.length() - 4);
+            }
+            File f = new File(filename + ".csv");
+            FileWriter fw = new FileWriter(f);
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter pw = new PrintWriter(bw);
+            int success = 0;
+            for(PoEAluno aluno : data.getAlunos()){
+                String csv = String.join(",", aluno.toStringArray());
+                pw.println(csv);
+                pw.flush();
+                success++;
+            }
+            pw.close();
+            System.out.println("[·] Foram exportados " + success + " alunos para o ficheiro CSV");
+            return true;
+        } catch (IOException ignored){
+            System.out.println("[!] Ocorreu um erro ao abrir o ficheiro para escrita");
             return false;
         }
     }

@@ -8,9 +8,10 @@ public interface IPoEState {
     boolean previousPhase();
     boolean exitAndSave();
     boolean loadSave(String filename);
-    boolean addAlunosCSV();
-    boolean addDocentesCSV();
-    boolean addPropostasCSV();
+    boolean addAlunosCSV(String filePath);
+    boolean saveAlunosCSV(String filePath);
+    boolean addDocentesCSV(String filePath);
+    boolean addPropostasCSV(String filePath);
 
     PoEState getState();
 }
