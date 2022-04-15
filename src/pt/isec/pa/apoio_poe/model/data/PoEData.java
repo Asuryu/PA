@@ -29,6 +29,33 @@ public class PoEData {
         }
         return null;
     }
+    public ArrayList<PoEAluno> getAlunosByName(String nomeAluno) {
+        ArrayList<PoEAluno> alunosEncontrados = new ArrayList<>();
+        for (PoEAluno aluno : alunos) {
+            if (aluno.getNome().equalsIgnoreCase(nomeAluno)) {
+                alunosEncontrados.add(aluno);
+            }
+        }
+        return alunosEncontrados;
+    }
+    public ArrayList<PoEAluno> getAlunosByCurso(String curso) {
+        ArrayList<PoEAluno> alunosEncontrados = new ArrayList<>();
+        for (PoEAluno aluno : alunos) {
+            if (aluno.getCurso().equalsIgnoreCase(curso)) {
+                alunosEncontrados.add(aluno);
+            }
+        }
+        return alunosEncontrados;
+    }
+    public ArrayList<PoEAluno> getAlunosByRamo(String ramo) {
+        ArrayList<PoEAluno> alunosEncontrados = new ArrayList<>();
+        for (PoEAluno aluno : alunos) {
+            if (aluno.getRamo().equalsIgnoreCase(ramo)) {
+                alunosEncontrados.add(aluno);
+            }
+        }
+        return alunosEncontrados;
+    }
     public PoEAluno getAlunoByEmail(String email) {
         for (PoEAluno aluno : alunos) {
             if (aluno.getEmail().equalsIgnoreCase(email)) {
@@ -40,8 +67,8 @@ public class PoEData {
     public void addAluno(PoEAluno aluno) {
         alunos.add(aluno);
     }
-    public void removeAluno(PoEAluno aluno) {
-        alunos.remove(aluno);
+    public boolean removeAluno(PoEAluno aluno) {
+        return alunos.remove(aluno);
     }
 
     public ArrayList<PoEDocente> getDocentes() {
