@@ -46,6 +46,21 @@ public final class PAInput {
         }
     }
 
+    public static long readLong(String title) {
+        while (true) {
+            if (title != null)
+                System.out.print(title);
+            else
+                System.out.print("> ");
+            if (sc.hasNextLong()) {
+                long intValue = sc.nextLong();
+                sc.nextLine();
+                return intValue;
+            } else
+                sc.nextLine();
+        }
+    }
+
     public static double readNumber(String title) {
         while (true) {
             if (title != null)
