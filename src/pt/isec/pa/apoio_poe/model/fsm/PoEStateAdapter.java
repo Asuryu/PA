@@ -11,19 +11,36 @@ abstract class PoEStateAdapter implements IPoEState {
         this.data = data;
     }
 
+    /**
+     * Altera o estado da máquina de estados
+     * @param newState novo estado da máquina de estados
+     */
     protected void changeState(IPoEState newState){
         context.changeState(newState);
     }
 
+    /**
+     * Fecha a fase atual
+     */
     @Override
     public boolean closePhase() { return false; }
 
+    /**
+     * Verifica se a fase se encontra fechada
+     * @return true se a fase estiver fechada, false caso contrário
+     */
     @Override
     public boolean isClosed() { return false; }
 
+    /**
+     * Avança para a próxima fase da máquina de estados
+     */
     @Override
     public boolean nextPhase() { return false; }
 
+    /**
+     * Retrocede para a fase anterior da máquina de estados
+     */
     @Override
     public boolean previousPhase() { return false; }
 
@@ -43,6 +60,12 @@ abstract class PoEStateAdapter implements IPoEState {
     public boolean addDocentesCSV(String filePath) { return false; }
 
     @Override
+    public boolean saveDocentesCSV(String filePath) { return false; }
+
+    @Override
     public boolean addPropostasCSV(String filePath) { return false; }
+
+    @Override
+    public boolean savePropostasCSV(String filePath) { return false; }
 
 }

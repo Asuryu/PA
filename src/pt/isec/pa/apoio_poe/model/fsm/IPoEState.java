@@ -11,7 +11,9 @@ public interface IPoEState {
     boolean addAlunosCSV(String filePath);
     boolean saveAlunosCSV(String filePath);
     boolean addDocentesCSV(String filePath);
+    boolean saveDocentesCSV(String filePath);
     boolean addPropostasCSV(String filePath);
+    boolean savePropostasCSV(String filePath);
 
     PoEState getState();
 }

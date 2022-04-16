@@ -36,7 +36,7 @@ public class PoEProposta {
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer();
-        sb.append("---- Proposta nº " + id + "----\n");
+        sb.append("---- Proposta nº " + id + " ----\n");
         sb.append("Título: " + titulo + "\n");
         sb.append("Nr. Aluno Atribuido: " + nrAlunoAtribuido + "\n");
         return sb.toString();

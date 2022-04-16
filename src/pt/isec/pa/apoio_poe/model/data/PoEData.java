@@ -2,6 +2,7 @@ package pt.isec.pa.apoio_poe.model.data;
 
 import pt.isec.pa.apoio_poe.model.fsm.PoEState;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class PoEData {
@@ -93,8 +94,8 @@ public class PoEData {
     public void addDocente(PoEDocente docente) {
         docentes.add(docente);
     }
-    public void removeDocente(PoEDocente docente) {
-        docentes.remove(docente);
+    public boolean removeDocente(PoEDocente docente) {
+        return docentes.remove(docente);
     }
 
     public ArrayList<PoEProposta> getPropostas() {
@@ -108,11 +109,32 @@ public class PoEData {
         }
         return null;
     }
+    public ArrayList<PoEProposta> getPropostasByTitle(String titulo) {
+        ArrayList<PoEProposta> propostasEncontradas = new ArrayList<>();
+        for (PoEProposta proposta : propostas) {
+            if (proposta.getTitulo().equalsIgnoreCase(titulo)) {
+                propostasEncontradas.add(proposta);
+            }
+        }
+        return propostasEncontradas;
+    }
+    public ArrayList<PoEProposta> getPropostasByType(String tipo){
+        ArrayList<PoEProposta> propostasEncontradas = new ArrayList<>();
+        for (PoEProposta proposta : propostas) {
+            if (tipo.equalsIgnoreCase("T1"))
+                if(proposta instanceof PoEEstagio) propostasEncontradas.add(proposta);
+            else if (tipo.equalsIgnoreCase("T2"))
+                if(proposta instanceof PoEProjeto) propostasEncontradas.add(proposta);
+            else if (tipo.equalsIgnoreCase("T3"))
+                if(proposta instanceof PoEAutoproposto) propostasEncontradas.add(proposta);
+        }
+        return propostasEncontradas;
+    }
     public void addProposta(PoEProposta proposta) {
         propostas.add(proposta);
     }
-    public void removeProposta(PoEProposta proposta) {
-        propostas.remove(proposta);
+    public boolean removeProposta(PoEProposta proposta) {
+        return propostas.remove(proposta);
     }
 
     public void closePhase(PoEState state) {

@@ -4,6 +4,7 @@ import pt.isec.pa.apoio_poe.model.data.*;
 import pt.isec.pa.apoio_poe.utils.PAInput;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 class ConfigState extends PoEStateAdapter {
@@ -47,6 +48,11 @@ class ConfigState extends PoEStateAdapter {
         return true;
     }
 
+    /**
+     * Adiciona alunos ao sistema a partir de um ficheiro CSV
+     * @param filePath Caminho do ficheiro CSV
+     * @return True se não ocorreu nenhum erro
+     */
     @Override
     public boolean addAlunosCSV(String filePath){
         try {
@@ -104,6 +110,11 @@ class ConfigState extends PoEStateAdapter {
         }
     }
 
+    /**
+     * Adiciona docentes ao sistema a partir de um ficheiro CSV
+     * @param filePath Caminho do ficheiro CSV
+     * @return True se não ocorreu nenhum erro
+     */
     @Override
     public boolean addDocentesCSV(String filePath){
         try {
@@ -142,6 +153,11 @@ class ConfigState extends PoEStateAdapter {
         }
     }
 
+    /**
+     * Adiciona propostas ao sistema a partir de um ficheiro CSV
+     * @param filePath Caminho do ficheiro CSV
+     * @return True se não ocorreu nenhum erro
+     */
     @Override
     public boolean addPropostasCSV(String filePath){
         try {
@@ -235,8 +251,19 @@ class ConfigState extends PoEStateAdapter {
         }
     }
 
+    /**
+     * Guarda os alunos registados no sistema num ficheiro CSV
+     * @param filename Caminho do ficheiro CSV
+     * @return True se não ocorreu nenhum erro
+     * False se ocorreu um erro ou não haviam alunos para exportar
+     */
     @Override
     public boolean saveAlunosCSV(String filename) {
+        ArrayList<PoEAluno> alunos = data.getAlunos();
+        if(alunos.size() == 0){
+            System.out.println("[!] Não existem alunos para exportar.");
+            return false;
+        }
         try {
             if(filename.endsWith(".csv")){
                 filename = filename.substring(0, filename.length() - 4);
@@ -246,7 +273,7 @@ class ConfigState extends PoEStateAdapter {
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
             int success = 0;
-            for(PoEAluno aluno : data.getAlunos()){
+            for(PoEAluno aluno : alunos){
                 String csv = String.join(",", aluno.toStringArray());
                 pw.println(csv);
                 pw.flush();
@@ -261,6 +288,89 @@ class ConfigState extends PoEStateAdapter {
         }
     }
 
+    /**
+     * Guarda os docentes registados no sistema num ficheiro CSV
+     * @param filename Caminho do ficheiro CSV
+     * @return True se não ocorreu nenhum erro
+     * False se ocorreu um erro ou não haviam docentes para exportar
+     */
+    @Override
+    public boolean saveDocentesCSV(String filename){
+        ArrayList<PoEDocente> docentes = data.getDocentes();
+        if(docentes.size() == 0){
+            System.out.println("[!] Não existem docentes para exportar.");
+            return false;
+        }
+        try {
+            if(filename.endsWith(".csv")){
+                filename = filename.substring(0, filename.length() - 4);
+            }
+            File f = new File(filename + ".csv");
+            FileWriter fw = new FileWriter(f);
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter pw = new PrintWriter(bw);
+            int success = 0;
+            for(PoEDocente docente : docentes){
+                String csv = String.join(",", docente.toStringArray());
+                pw.println(csv);
+                pw.flush();
+                success++;
+            }
+            pw.close();
+            System.out.println("[·] Foram exportados " + success + " docentes para o ficheiro CSV");
+            return true;
+        } catch (IOException ignored){
+            System.out.println("[!] Ocorreu um erro ao abrir o ficheiro para escrita");
+            return false;
+        }
+    }
+
+    /**
+     * Guarda as propostas registados no sistema num ficheiro CSV
+     * @param filename Caminho do ficheiro CSV
+     * @return True se não ocorreu nenhum erro
+     * False se ocorreu um erro ou não haviam propostas para exportar
+     */
+    @Override
+    public boolean savePropostasCSV(String filename){
+        ArrayList<PoEProposta> propostas = data.getPropostas();
+        if(propostas.size() == 0){
+            System.out.println("[!] Não existem propostas para exportar.");
+            return false;
+        }
+        if(filename.endsWith(".csv")){
+            filename = filename.substring(0, filename.length() - 4);
+        }
+        try {
+            File f = new File(filename + ".csv");
+            FileWriter fw = new FileWriter(f);
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter pw = new PrintWriter(bw);
+            int success = 0;
+            for(PoEProposta proposta : propostas){
+                String csv = String.join(",", proposta.toStringArray());
+                pw.println(csv);
+                pw.flush();
+                success++;
+            }
+            pw.close();
+            System.out.println("[·] Foram exportadas " + success + " propostas para o ficheiro CSV");
+            return true;
+        } catch (IOException ignored){
+            System.out.println("[!] Ocorreu um erro ao abrir o ficheiro para escrita");
+            return false;
+        }
+    }
+
+    /**
+     * Obtém a fase atual da máquina de estados:<p>
+     * · CONFIG - Fase de configuração<p>
+     * · APPLICATION_OPT - Opções da proposta<p>
+     * · ORI_ATTRIBUTION - Atribuição de orientador<p>
+     * · PROP_ATTRIBUTION - Atribuição de proposta<p>
+     * · REVIEW - Revisão da proposta
+     * @return a fase atual da máquina de estados
+     */
     @Override
     public PoEState getState(){
         return PoEState.CONFIG;

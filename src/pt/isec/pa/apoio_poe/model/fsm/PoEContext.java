@@ -54,7 +54,11 @@ public class PoEContext {
 
     public boolean addDocentesCSV(String filePath){ return state.addDocentesCSV(filePath); }
 
+    public boolean saveDocentesCSV(String filePath){ return state.saveDocentesCSV(filePath); }
+
     public boolean addPropostasCSV(String filePath){ return state.addPropostasCSV(filePath); }
+
+    public boolean savePropostasCSV(String filePath){ return state.savePropostasCSV(filePath); }
 
     public ArrayList<PoEAluno> getAlunos(){
         return data.getAlunos();
@@ -82,11 +86,19 @@ public class PoEContext {
     public PoEDocente getDocenteByName(String nome) {
         return data.getDocenteByName(nome);
     }
+    public boolean removeDocente(PoEDocente docente){ return data.removeDocente(docente); }
     public ArrayList<PoEProposta> getPropostas(){
         return data.getPropostas();
     }
     public PoEProposta getPropostaById(String nrProposta){
         return data.getPropostaById(nrProposta);
     }
+    public ArrayList<PoEProposta> getPropostasByTitle(String titulo){
+        return data.getPropostasByTitle(titulo);
+    }
+    public ArrayList<PoEProposta> getPropostasByType(String tipo){
+        return data.getPropostasByType(tipo);
+    }
+    public boolean removeProposta(PoEProposta proposta) { return data.removeProposta(proposta); }
 
 }
