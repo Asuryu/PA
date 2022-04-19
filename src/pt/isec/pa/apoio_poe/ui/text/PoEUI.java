@@ -5,6 +5,8 @@ import pt.isec.pa.apoio_poe.utils.Menu;
 import pt.isec.pa.apoio_poe.utils.PAInput;
 import pt.isec.pa.apoio_poe.utils.Utils;
 
+import java.io.Serializable;
+
 public class PoEUI {
     private final PoEContext fsm;
     private boolean exit = false;
@@ -20,12 +22,11 @@ public class PoEUI {
         int option = 0;
 
         while(!exit){
-            if(changeMode){
+            System.out.println("STATE: " + fsm.getState());
+            System.out.println("CLOSED: " + fsm.isClosed());
+            if(changeMode) {
                 option = PAInput.chooseOption("Escolha uma opção", "Gestão de Alunos", "Gestão de Docentes", "Gestão de propostas de estágio ou projeto", "Próxima fase", "Fechar a fase", "Sair");
                 changeMode = false;
-            } else {
-                System.out.println("STATE: " + fsm.getState());
-                System.out.println("CLOSED: " + fsm.isClosed());
             }
             switch(fsm.getState()){
                 case CONFIG:
@@ -40,7 +41,11 @@ public class PoEUI {
                             changeMode = Menu.menuPropostas(fsm);
                         }
                         case 4 -> fsm.nextPhase();
-                        case 5 -> fsm.closePhase();
+                        case 5 -> {
+                            fsm.closePhase();
+                            Utils.pressToContinue();
+                            changeMode = true;
+                        }
                         case 6 -> System.exit(0);
                     }
                     break;
@@ -62,5 +67,4 @@ public class PoEUI {
             }
         }
     }
-
 }
