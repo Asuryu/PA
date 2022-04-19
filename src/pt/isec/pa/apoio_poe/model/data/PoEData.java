@@ -4,6 +4,7 @@ import pt.isec.pa.apoio_poe.model.fsm.PoEState;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class PoEData {
     private final ArrayList<PoEAluno> alunos;
@@ -127,6 +128,15 @@ public class PoEData {
                 if(proposta instanceof PoEProjeto) propostasEncontradas.add(proposta);
             else if (tipo.equalsIgnoreCase("T3"))
                 if(proposta instanceof PoEAutoproposto) propostasEncontradas.add(proposta);
+        }
+        return propostasEncontradas;
+    }
+    public ArrayList<PoEProposta> getPropostasByRamo(String ramo){
+        ArrayList<PoEProposta> propostasEncontradas = new ArrayList<>();
+        for(PoEProposta proposta : propostas){
+            if(proposta.getRamosDestino().contains(ramo)){
+                propostasEncontradas.add(proposta);
+            }
         }
         return propostasEncontradas;
     }

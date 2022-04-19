@@ -1,5 +1,7 @@
 package pt.isec.pa.apoio_poe.model.data;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class PoEProposta {
@@ -32,6 +34,8 @@ public class PoEProposta {
     public void setNrAlunoAtribuido(long nrAlunoAtribuido) {
         this.nrAlunoAtribuido = nrAlunoAtribuido;
     }
+
+    public ArrayList<String> getRamosDestino(){ return new ArrayList<>(); }
 
     @Override
     public String toString() {

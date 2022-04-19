@@ -4,7 +4,9 @@ import pt.isec.pa.apoio_poe.model.data.*;
 import pt.isec.pa.apoio_poe.utils.PAInput;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 class ConfigState extends PoEStateAdapter {
@@ -15,14 +17,23 @@ class ConfigState extends PoEStateAdapter {
 
     @Override
     public boolean closePhase(){
-        // FALTA IMPLEMENTAR COISAS AQUI (tem de ser para cada ramo)
-        if(data.getPropostas().size() >= data.getAlunos().size()){
-            data.closePhase(getState());
-            return true;
-        } else {
-            System.out.println("[!] Não existem propostas suficientes para fechar a fase de configuração.");
-            return false;
-        }
+        int propostasDA = data.getPropostasByRamo("DA").size();
+        int propostasSI = data.getPropostasByRamo("SI").size();
+        int propostasRAS = data.getPropostasByRamo("RAS").size();
+
+        int alunosDA = data.getAlunosByRamo("DA").size();
+        int alunosSI = data.getAlunosByRamo("SI").size();
+        int alunosRAS = data.getAlunosByRamo("RAS").size();
+
+        if(propostasDA >= alunosDA) {
+            if (propostasSI >= alunosSI) {
+                if (propostasRAS >= alunosRAS) {
+                    System.out.println("[·] Fase de CONFIGURAÇÃO fechada com sucesso!");
+                    data.closePhase(getState());
+                    return true;
+                } else { System.out.println("[!] Não existem propostas suficientes para os alunos do ramo RAS"); return false; }
+            } else { System.out.println("[!] Não existem propostas suficientes para os alunos do ramo SI"); return false; }
+        } else { System.out.println("[!] Não existem propostas suficientes para os alunos do ramo DA"); return false; }
     }
 
     @Override
@@ -180,7 +191,7 @@ class ConfigState extends PoEStateAdapter {
                 }
 
                 if(tipo.equalsIgnoreCase("T1")){
-                    String[] ramos = values[2].split("\\|");
+                    ArrayList<String> ramos = new ArrayList<>(List.of(values[2].split("\\|")));
                     boolean flag = false;
                     for(String ramo : ramos){
                         if(!ramo.matches("DA|RAS|SI")) {
@@ -201,7 +212,7 @@ class ConfigState extends PoEStateAdapter {
                     sucessos++;
                 }
                 else if(tipo.equalsIgnoreCase("T2")){
-                    String[] ramos = values[2].split("\\|");
+                    ArrayList<String> ramos = new ArrayList<>(List.of(values[2].split("\\|")));
                     boolean flag = false;
                     for(String ramo : ramos){
                         if(!ramo.matches("DA|RAS|SI")) {

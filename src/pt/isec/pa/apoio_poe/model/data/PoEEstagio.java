@@ -1,22 +1,24 @@
 package pt.isec.pa.apoio_poe.model.data;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class PoEEstagio extends PoEProposta {
-    private String[] ramosDestino;
+    private ArrayList<String> ramosDestino;
     private String entidade;
 
-    public PoEEstagio(String id, String titulo, Long nrAlunoAtribuido, String[] ramosDestino, String entidade) {
+    public PoEEstagio(String id, String titulo, Long nrAlunoAtribuido, ArrayList<String> ramosDestino, String entidade) {
         super(id, titulo, nrAlunoAtribuido);
         this.ramosDestino = ramosDestino;
         this.entidade = entidade;
     }
 
-    public String[] getRamosDestino() {
+    @Override
+    public ArrayList<String> getRamosDestino() {
         return ramosDestino;
     }
 
-    public void setRamosDestino(String[] ramosDestino) {
+    public void setRamosDestino(ArrayList<String> ramosDestino) {
         this.ramosDestino = ramosDestino;
     }
 
@@ -33,7 +35,7 @@ public class PoEEstagio extends PoEProposta {
         final StringBuffer sb = new StringBuffer();
         sb.append(super.toString());
         sb.append("Tipo: Estágio\n");
-        sb.append("Ramos destino: " + Arrays.toString(ramosDestino) + "\n");
+        sb.append("Ramos destino: " + ramosDestino.toString() + "\n");
         sb.append("Entidade: " + entidade + "\n");
         return sb.toString();
     }

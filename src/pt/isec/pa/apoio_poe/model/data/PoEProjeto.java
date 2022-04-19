@@ -1,22 +1,23 @@
 package pt.isec.pa.apoio_poe.model.data;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class PoEProjeto extends PoEProposta {
-    private String[] ramosDestino;
+    private ArrayList<String> ramosDestino;
     private PoEDocente docente;
 
-    public PoEProjeto(String id, String titulo, Long nrAlunoAtribuido, String[] ramosDestino, PoEDocente docente) {
+    public PoEProjeto(String id, String titulo, Long nrAlunoAtribuido, ArrayList<String> ramosDestino, PoEDocente docente) {
         super(id, titulo, nrAlunoAtribuido);
         this.ramosDestino = ramosDestino;
         this.docente = docente;
     }
 
-    public String[] getRamosDestino() {
+    public ArrayList<String> getRamosDestino() {
         return ramosDestino;
     }
 
-    public void setRamosDestino(String[] ramosDestino) {
+    public void setRamosDestino(ArrayList<String> ramosDestino) {
         this.ramosDestino = ramosDestino;
     }
 
@@ -33,7 +34,7 @@ public class PoEProjeto extends PoEProposta {
         final StringBuffer sb = new StringBuffer();
         sb.append(super.toString());
         sb.append("Tipo: Projeto\n");
-        sb.append("Ramos destino: " + Arrays.toString(ramosDestino) + "\n");
+        sb.append("Ramos destino: " + ramosDestino.toString() + "\n");
         sb.append("Docente: " + docente.getNome() + "   (" + docente.getEmail() + ")\n");
         return sb.toString();
     }
