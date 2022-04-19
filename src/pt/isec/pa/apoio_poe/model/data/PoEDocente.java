@@ -1,8 +1,11 @@
 package pt.isec.pa.apoio_poe.model.data;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Objects;
 
-public class PoEDocente {
+public class PoEDocente implements Serializable {
+    static final long serialVersionUID = 100L;
     private String nome;
     private String email;
     private String papel;
