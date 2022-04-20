@@ -1,13 +1,11 @@
 package pt.isec.pa.apoio_poe.utils;
 
 import pt.isec.pa.apoio_poe.model.data.PoEAluno;
+import pt.isec.pa.apoio_poe.model.data.PoECandidatura;
 import pt.isec.pa.apoio_poe.model.data.PoEDocente;
 import pt.isec.pa.apoio_poe.model.data.PoEProposta;
 import pt.isec.pa.apoio_poe.model.fsm.PoEContext;
-import pt.isec.pa.apoio_poe.utils.PAInput;
-import pt.isec.pa.apoio_poe.utils.Utils;
 
-import javax.print.Doc;
 import java.util.ArrayList;
 
 /**
@@ -153,7 +151,7 @@ public class Menu {
                         if(docente != null){
                             System.out.println(docente);
                         } else {
-                            System.out.println("Não foi encontrado nenhum docente com o email " + email);
+                            System.out.println("[!] Não foi encontrado nenhum docente com o email " + email);
                         }
                     }
                     case 4 -> {
@@ -171,7 +169,7 @@ public class Menu {
                     fsm.removeDocente(docente);
                     System.out.println("[·] Docente " + docente.getNome() + " removido com sucesso");
                 } else {
-                    System.out.println("[·] Não existe nenhum docente com o email " + emailDocente);
+                    System.out.println("[!] Não existe nenhum docente com o email " + emailDocente);
                 }
             }
             case 6 -> {
@@ -257,7 +255,7 @@ public class Menu {
                     fsm.removeProposta(proposta);
                     System.out.println("[·] Proposta " + proposta.getId() + " removida com sucesso");
                 } else {
-                    System.out.println("[·] Não existe nenhuma proposta com o ID " + idProposta);
+                    System.out.println("[!] Não existe nenhuma proposta com o ID " + idProposta);
                 }
             }
             case 6 -> {
@@ -266,5 +264,98 @@ public class Menu {
         }
         Utils.pressToContinue();
         return false;
+    }
+
+    public static boolean menuCandidaturas(PoEContext fsm){
+        int escolhaProposta = PAInput.chooseOption("[OPÇÕES DE CANDIDATURA] - Gerir Candidaturas]\nEscolha uma opção", "Importar candidaturas a partir de um ficheiro CSV", "Exportar candidaturas para um ficheiro CSV", "Consultar candidaturas", "Editar candidatura", "Remover candidatura", "Voltar");
+        switch(escolhaProposta){
+            case 1 -> {
+                String filePath = PAInput.readString("Introduza o nome do ficheiro CSV (candidaturas): ", false);
+                fsm.addCandidaturasCSV(filePath);
+            }
+            case 2 -> {
+                String filePath = PAInput.readString("Introduza o nome do ficheiro CSV (candidaturas): ", false);
+                fsm.saveCandidaturasCSV(filePath);
+            }
+            case 3 -> {
+                int chooseSearchParam = PAInput.chooseOption("[CONFIGURAÇÃO - Consultar Candidaturas]\nEscolha o tipo de pesquisa", "Todas", "Aluno", "Proposta", "Voltar");
+                switch(chooseSearchParam){
+                    case 1 -> {
+                        ArrayList<PoECandidatura> candidaturas = fsm.getCandidaturas();
+                        for(PoECandidatura candidatura : candidaturas){
+                            System.out.println(candidatura.toString());
+                        }
+                        if(candidaturas.size() == 0){
+                            System.out.println("[!] Não existem candidaturas registadas");
+                        }
+                    }
+                    case 2 -> {
+                        Long numeroAluno = PAInput.readLong("Número de aluno: ");
+                        PoECandidatura candidatura = fsm.getCandidaturaByAluno(numeroAluno);
+                        if(candidatura != null){
+                            System.out.println(candidatura);
+                        }
+                        else{
+                            System.out.println("[!] Não existe nenhuma candidatura para o aluno " + numeroAluno);
+                        }
+                    }
+                    case 3 -> {
+                        String idProposta = PAInput.readString("ID da Proposta: ", true);
+                        ArrayList<PoECandidatura> candidaturas = fsm.getCandidaturasByProposta(idProposta);
+                        for(PoECandidatura candidatura : candidaturas){
+                            System.out.println(candidatura);
+                        }
+                        if(candidaturas.size() == 0){
+                            System.out.println("[!] Não existem candidaturas registadas para a proposta com ID " + idProposta);
+                        }
+                    }
+                    case 4 -> {
+                        return false;
+                    }
+                }
+            }
+            case 4 -> {
+                System.out.println("Editar Candidatura");
+            }
+            case 5 -> {
+                Long nrAluno = PAInput.readLong("Número de aluno: ");
+                PoECandidatura candidatura = fsm.getCandidaturaByAluno(nrAluno);
+                if(candidatura != null){
+                    fsm.removeCandidatura(candidatura);
+                }
+                else{
+                    System.out.println("[!] Não existe nenhuma candidatura para o aluno " + nrAluno);
+                }
+            }
+            case 6 -> {
+                return true;
+            }
+        }
+        Utils.pressToContinue();
+        return false;
+    }
+
+    public static boolean menuListasAlunos(PoEContext fsm) {
+        int escolhaOpcao = PAInput.chooseOption("[OPÇÕES DE CANDIDATURA - Listas de Alunos]\nEscolha uma opção", "Com autoproposta", "Com candidatura já registada", "Sem candidatura", "Voltar");
+        switch (escolhaOpcao) {
+            case 1 -> {
+                return false;
+            }
+            case 2 -> {
+                return false;
+            }
+            case 3 -> {
+                return false;
+            }
+            case 4 -> {
+                return true;
+            }
+        }
+        Utils.pressToContinue();
+        return false;
+    }
+
+    public static boolean menuListasPropostas(PoEContext fsm) {
+        return true;
     }
 }
