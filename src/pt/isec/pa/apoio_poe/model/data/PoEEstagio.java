@@ -1,7 +1,6 @@
 package pt.isec.pa.apoio_poe.model.data;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class PoEEstagio extends PoEProposta {
     private ArrayList<String> ramosDestino;
