@@ -1,9 +1,6 @@
 package pt.isec.pa.apoio_poe.model.fsm;
 
-import pt.isec.pa.apoio_poe.model.data.PoEAluno;
-import pt.isec.pa.apoio_poe.model.data.PoEData;
-import pt.isec.pa.apoio_poe.model.data.PoEDocente;
-import pt.isec.pa.apoio_poe.model.data.PoEProposta;
+import pt.isec.pa.apoio_poe.model.data.*;
 
 import java.util.ArrayList;
 
@@ -60,6 +57,10 @@ public class PoEContext {
 
     public boolean savePropostasCSV(String filePath){ return state.savePropostasCSV(filePath); }
 
+    public boolean addCandidaturasCSV(String filePath){ return state.addCandidaturasCSV(filePath); }
+
+    public boolean saveCandidaturasCSV(String filePath){ return state.saveCandidaturasCSV(filePath); }
+
     public ArrayList<PoEAluno> getAlunos(){
         return data.getAlunos();
     }
@@ -100,5 +101,22 @@ public class PoEContext {
         return data.getPropostasByType(tipo);
     }
     public boolean removeProposta(PoEProposta proposta) { return data.removeProposta(proposta); }
+    public ArrayList<PoECandidatura> getCandidaturas(){
+        return data.getCandidaturas();
+    }
+    public void addCandidatura(PoECandidatura candidatura){
+        data.addCandidatura(candidatura);
+    }
+    public boolean removeCandidatura(PoECandidatura candidatura) { return data.removeCandidatura(candidatura); }
+    public PoECandidatura getCandidaturaByAluno(Long nrAluno){
+        PoEAluno aluno = data.getAlunoById(nrAluno);
+        if(aluno == null) return null;
+        return data.getCandidaturaByAluno(aluno);
+    }
+    public ArrayList<PoECandidatura> getCandidaturasByProposta(String nrProposta){
+        PoEProposta proposta = data.getPropostaById(nrProposta);
+        if(proposta == null) return new ArrayList<>();
+        return data.getCandidaturasByProposta(proposta);
+    }
 
 }

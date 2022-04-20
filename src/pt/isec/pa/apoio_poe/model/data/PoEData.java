@@ -10,6 +10,7 @@ public class PoEData {
     private final ArrayList<PoEAluno> alunos;
     private final ArrayList<PoEDocente> docentes;
     private final ArrayList<PoEProposta> propostas;
+    private final ArrayList<PoECandidatura> candidaturas;
 
     private final ArrayList<PoEState> closedPhases;
 
@@ -17,6 +18,7 @@ public class PoEData {
         alunos = new ArrayList<>();
         docentes = new ArrayList<>();
         propostas = new ArrayList<>();
+        candidaturas = new ArrayList<>();
         closedPhases = new ArrayList<>();
     }
 
@@ -145,6 +147,33 @@ public class PoEData {
     }
     public boolean removeProposta(PoEProposta proposta) {
         return propostas.remove(proposta);
+    }
+
+    public void addCandidatura(PoECandidatura candidatura) {
+        candidaturas.add(candidatura);
+    }
+    public boolean removeCandidatura(PoECandidatura candidatura) {
+        return candidaturas.remove(candidatura);
+    }
+    public ArrayList<PoECandidatura> getCandidaturas() {
+        return candidaturas;
+    }
+    public PoECandidatura getCandidaturaByAluno(PoEAluno aluno) {
+        for (PoECandidatura candidatura : candidaturas) {
+            if (candidatura.getNrEstudante() == aluno.getNrEstudante()) {
+                return candidatura;
+            }
+        }
+        return null;
+    }
+    public ArrayList<PoECandidatura> getCandidaturasByProposta(PoEProposta proposta) {
+        ArrayList<PoECandidatura> candidaturasEncontradas = new ArrayList<>();
+        for (PoECandidatura candidatura : candidaturas) {
+            if (candidatura.getPreferencias().contains(proposta.getId())) {
+                candidaturasEncontradas.add(candidatura);
+            }
+        }
+        return candidaturasEncontradas;
     }
 
     public void closePhase(PoEState state) {
