@@ -17,6 +17,12 @@ class ConfigState extends PoEStateAdapter {
 
     @Override
     public boolean closePhase(){
+
+        if(isClosed()){
+            System.out.println("[!] A fase de configuração já se encontra fechada!");
+            return false;
+        }
+
         int propostasDA = data.getPropostasByRamo("DA").size();
         int propostasSI = data.getPropostasByRamo("SI").size();
         int propostasRAS = data.getPropostasByRamo("RAS").size();
@@ -25,9 +31,9 @@ class ConfigState extends PoEStateAdapter {
         int alunosSI = data.getAlunosByRamo("SI").size();
         int alunosRAS = data.getAlunosByRamo("RAS").size();
 
-        if(propostasDA >= alunosDA) {
-            if (propostasSI >= alunosSI) {
-                if (propostasRAS >= alunosRAS) {
+        if(propostasDA >= alunosDA && propostasDA > 0 && alunosDA > 0){
+            if (propostasSI >= alunosSI && propostasSI > 0 && alunosSI > 0) {
+                if (propostasRAS >= alunosRAS && propostasRAS > 0 && alunosRAS > 0) {
                     System.out.println("[·] Fase de CONFIGURAÇÃO fechada com sucesso!");
                     data.closePhase(getState());
                     return true;

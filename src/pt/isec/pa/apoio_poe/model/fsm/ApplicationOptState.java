@@ -39,10 +39,15 @@ class ApplicationOptState extends PoEStateAdapter{
     @Override
     public boolean closePhase(){
         if(data.isPhaseClosed(PoEState.CONFIG)){
+            if(isClosed()){
+                System.out.println("[!] A fase de opções de candidatura já se encontra fechada.");
+                return false;
+            }
             data.closePhase(getState());
             nextPhase();
             return true;
-        } else {
+        }
+        else {
             System.out.println("[!] A fase de configuração ainda não foi fechada.");
             return false;
         }

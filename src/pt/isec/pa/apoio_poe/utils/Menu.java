@@ -24,6 +24,11 @@ public class Menu {
         int escolhaAluno = PAInput.chooseOption("[CONFIGURAÇÃO - Gerir Alunos]\nEscolha uma opção", "Importar alunos a partir de um ficheiro CSV", "Exportar alunos para um ficheiro CSV", "Consultar alunos", "Editar aluno", "Remover aluno", "Voltar");
         switch(escolhaAluno){
             case 1 -> {
+                if(fsm.isClosed()){
+                    System.out.println("[!] Fase de CONFIGURAÇÃO fechada!\n[!] Apenas é possível consultar os dados.");
+                    Utils.pressToContinue();
+                    return false;
+                }
                 String filePath = PAInput.readString("Introduza o nome do ficheiro CSV (alunos): ", false);
                 fsm.addAlunosCSV(filePath);
             }
@@ -88,9 +93,19 @@ public class Menu {
                 }
             }
             case 4 -> {
+                if(fsm.isClosed()){
+                    System.out.println("[!] Fase de CONFIGURAÇÃO fechada!\n[!] Apenas é possível consultar os dados.");
+                    Utils.pressToContinue();
+                    return false;
+                }
                 System.out.println("Editar Aluno");
             }
             case 5 -> {
+                if(fsm.isClosed()){
+                    System.out.println("[!] Fase de CONFIGURAÇÃO fechada!\n[!] Apenas é possível consultar os dados.");
+                    Utils.pressToContinue();
+                    return false;
+                }
                 Long nrAluno = PAInput.readLong("Número do Aluno: ");
                 PoEAluno aluno = fsm.getAlunoById(nrAluno);
                 if(aluno != null){
@@ -117,6 +132,11 @@ public class Menu {
         int escolhaDocente = PAInput.chooseOption("[CONFIGURAÇÃO - Gerir Docentes]\nEscolha uma opção", "Importar docentes a partir de um ficheiro CSV", "Exportar docentes para um ficheiro CSV", "Consultar docentes", "Editar docente", "Remover docente", "Voltar");
         switch(escolhaDocente){
             case 1 -> {
+                if(fsm.isClosed()){
+                    System.out.println("[!] Fase de CONFIGURAÇÃO fechada!\n[!] Apenas é possível consultar os dados.");
+                    Utils.pressToContinue();
+                    return false;
+                }
                 String filePath = PAInput.readString("Introduza o nome do ficheiro CSV (docentes): ", false);
                 fsm.addDocentesCSV(filePath);
             }
@@ -160,9 +180,19 @@ public class Menu {
                 }
             }
             case 4 -> {
+                if(fsm.isClosed()){
+                    System.out.println("[!] Fase de CONFIGURAÇÃO fechada!\n[!] Apenas é possível consultar os dados.");
+                    Utils.pressToContinue();
+                    return false;
+                }
                 System.out.println("Editar Docente");
             }
             case 5 -> {
+                if(fsm.isClosed()){
+                    System.out.println("[!] Fase de CONFIGURAÇÃO fechada!\n[!] Apenas é possível consultar os dados.");
+                    Utils.pressToContinue();
+                    return false;
+                }
                 String emailDocente = PAInput.readString("Email do Docente: ", true);
                 PoEDocente docente = fsm.getDocenteByEmail(emailDocente);
                 if(docente != null){
@@ -188,6 +218,11 @@ public class Menu {
         int escolhaProposta = PAInput.chooseOption("[CONFIGURAÇÃO - Gerir Propostas]\nEscolha uma opção", "Importar propostas a partir de um ficheiro CSV", "Exportar propostas para um ficheiro CSV", "Consultar propostas", "Editar proposta", "Remover proposta", "Voltar");
         switch(escolhaProposta){
             case 1 -> {
+                if(fsm.isClosed()){
+                    System.out.println("[!] Fase de CONFIGURAÇÃO fechada!\n[!] Apenas é possível consultar os dados.");
+                    Utils.pressToContinue();
+                    return false;
+                }
                 String filePath = PAInput.readString("Introduza o nome do ficheiro CSV (propostas): ", false);
                 fsm.addPropostasCSV(filePath);
             }
