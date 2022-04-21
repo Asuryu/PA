@@ -10,6 +10,7 @@ public class PoEAluno {
     private String ramo;
     private final double classificacao;
     private boolean estagios;
+    private PoECandidatura candidatura;
 
     public PoEAluno(String nome, Long nrEstudante, String email, String curso, String ramo, double classificacao, boolean estagios) {
         this.nome = nome;
@@ -19,6 +20,7 @@ public class PoEAluno {
         this.ramo = ramo;
         this.classificacao = classificacao;
         this.estagios = estagios;
+        this.candidatura = null;
     }
 
     public String getNome() {
@@ -67,6 +69,18 @@ public class PoEAluno {
 
     public void setEstagios(boolean estagios) {
         this.estagios = estagios;
+    }
+
+    public void setCandidatura(PoECandidatura candidatura) {
+        this.candidatura = candidatura;
+    }
+
+    public void removeCandidatura() {
+        this.candidatura = null;
+    }
+
+    public PoECandidatura getCandidatura() {
+        return this.candidatura;
     }
 
     public String[] toStringArray(){

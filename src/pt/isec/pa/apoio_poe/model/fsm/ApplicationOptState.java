@@ -93,6 +93,7 @@ class ApplicationOptState extends PoEStateAdapter{
                 }
                 PoECandidatura candidatura = new PoECandidatura(Long.parseLong(values[0]), propostasValidas);
                 data.addCandidatura(candidatura);
+                data.getAlunoById(Long.parseLong(values[0])).setCandidatura(candidatura);
                 sucessos++;
             }
             System.out.println("\n[·] Foram adicionadas " + sucessos + " candidaturas.");
