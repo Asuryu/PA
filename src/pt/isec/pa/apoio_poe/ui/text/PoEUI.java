@@ -6,7 +6,7 @@ import pt.isec.pa.apoio_poe.utils.PAInput;
 import pt.isec.pa.apoio_poe.utils.Utils;
 
 public class PoEUI {
-    private final PoEContext fsm;
+    private PoEContext fsm;
     private boolean exit = false;
 
     public PoEUI(PoEContext fsm) {
@@ -14,6 +14,12 @@ public class PoEUI {
     }
 
     public void start() {
+
+        PoEContext ctx = fsm.loadSave("save.ser");
+        if(ctx != null){
+            this.fsm = ctx;
+            System.out.println("[>] Lido com sucesso!");
+        }
 
         Utils.mostrarASCII();
         boolean changeMode = true;
@@ -96,5 +102,10 @@ public class PoEUI {
                     break;
             }
         }
+
+        if(fsm.exitAndSave("save.ser")){
+            System.out.println("[>] Guardado com sucesso");
+        };
+
     }
 }

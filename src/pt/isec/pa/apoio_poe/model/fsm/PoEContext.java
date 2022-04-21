@@ -49,20 +49,20 @@ public class PoEContext implements Serializable{
         try(ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(filename)))){
             oos.writeObject(this);
         }catch(Exception e){
-            System.out.println("Erro ao carregar o ficheiro");
+            System.out.println("[!] Erro ao carregar o ficheiro");
         }
         return state.exitAndSave();
     }
 
-    public boolean loadSave(String filename){
+    public PoEContext loadSave(String filename){
         try(ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filename)))){
             PoEContext context = (PoEContext)ois.readObject();
             this.data = context.data;
             this.state = context.state;
-            return true;
+            return context;
         }catch(Exception e){
-            System.out.println("Erro ao carregar o ficheiro");
-            return false;
+            System.out.println("[!] Erro ao carregar o ficheiro");
+            return null;
         }
     }
 
