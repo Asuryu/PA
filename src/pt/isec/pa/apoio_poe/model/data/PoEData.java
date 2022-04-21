@@ -2,11 +2,13 @@ package pt.isec.pa.apoio_poe.model.data;
 
 import pt.isec.pa.apoio_poe.model.fsm.PoEState;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class PoEData {
+public class PoEData implements Serializable{
+    static final long serialVersionUID = 102L;
     private final ArrayList<PoEAluno> alunos;
     private final ArrayList<PoEDocente> docentes;
     private final ArrayList<PoEProposta> propostas;

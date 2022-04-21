@@ -1,8 +1,11 @@
 package pt.isec.pa.apoio_poe.model.fsm;
 
+import java.io.Serializable;
+
 import pt.isec.pa.apoio_poe.model.data.PoEData;
 
-abstract class PoEStateAdapter implements IPoEState {
+abstract class PoEStateAdapter implements IPoEState, Serializable{
+    static final long serialVersionUID = 111L;
     protected PoEContext context;
     protected PoEData data;
 

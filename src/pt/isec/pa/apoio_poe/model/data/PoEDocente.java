@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class PoEDocente implements Serializable {
-    static final long serialVersionUID = 100L;
+    static final long serialVersionUID = 103L;
     private String nome;
     private String email;
     private String papel;

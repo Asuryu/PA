@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-class ConfigState extends PoEStateAdapter {
-
+class ConfigState extends PoEStateAdapter implements Serializable{
+    static final long serialVersionUID = 108L;
     ConfigState(PoEContext context, PoEData data) {
         super(context, data);
     }

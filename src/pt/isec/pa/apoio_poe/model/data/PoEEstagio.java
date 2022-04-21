@@ -1,8 +1,10 @@
 package pt.isec.pa.apoio_poe.model.data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class PoEEstagio extends PoEProposta {
+public class PoEEstagio extends PoEProposta implements Serializable{
+    static final long serialVersionUID = 104L;
     private ArrayList<String> ramosDestino;
     private String entidade;
 

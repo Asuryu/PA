@@ -1,7 +1,9 @@
 package pt.isec.pa.apoio_poe.model.data;
 
-public class PoEAutoproposto extends PoEProposta {
+import java.io.Serializable;
 
+public class PoEAutoproposto extends PoEProposta implements Serializable{
+    static final long serialVersionUID = 101L;
     PoEAluno aluno;
 
     public PoEAutoproposto(String id, String titulo, PoEAluno aluno) {

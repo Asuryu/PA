@@ -6,8 +6,12 @@ import pt.isec.pa.apoio_poe.model.data.PoEData;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.Serializable;
 
-class ApplicationOptState extends PoEStateAdapter{
+import pt.isec.pa.apoio_poe.model.data.PoEData;
+
+class ApplicationOptState extends PoEStateAdapter implements Serializable{
+    static final long serialVersionUID = 107L;
     ApplicationOptState(PoEContext context, PoEData data) {
         super(context, data);
     }

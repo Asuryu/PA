@@ -2,9 +2,17 @@ package pt.isec.pa.apoio_poe.model.fsm;
 
 import pt.isec.pa.apoio_poe.model.data.*;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class PoEContext {
+public class PoEContext implements Serializable{
+    static final long serialVersionUID = 110L;
     IPoEState state;
     PoEData data;
 
@@ -37,12 +45,25 @@ public class PoEContext {
         return state.previousPhase();
     }
 
-    public boolean exitAndSave(){
+    public boolean exitAndSave(String filename){
+        try(ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(filename)))){
+            oos.writeObject(this);
+        }catch(Exception e){
+            System.out.println("Erro ao carregar o ficheiro");
+        }
         return state.exitAndSave();
     }
 
     public boolean loadSave(String filename){
-        return state.loadSave(filename);
+        try(ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filename)))){
+            PoEContext context = (PoEContext)ois.readObject();
+            this.data = context.data;
+            this.state = context.state;
+            return true;
+        }catch(Exception e){
+            System.out.println("Erro ao carregar o ficheiro");
+            return false;
+        }
     }
 
     public boolean addAlunosCSV(String filePath){ return state.addAlunosCSV(filePath); }

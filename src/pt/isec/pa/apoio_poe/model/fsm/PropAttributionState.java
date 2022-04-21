@@ -1,8 +1,11 @@
 package pt.isec.pa.apoio_poe.model.fsm;
 
+import java.io.Serializable;
+
 import pt.isec.pa.apoio_poe.model.data.PoEData;
 
-class PropAttributionState extends PoEStateAdapter {
+class PropAttributionState extends PoEStateAdapter implements Serializable{
+    static final long serialVersionUID = 112L;
     PropAttributionState(PoEContext context, PoEData data) {
         super(context, data);
     }

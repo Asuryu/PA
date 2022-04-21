@@ -1,9 +1,11 @@
 package pt.isec.pa.apoio_poe.model.data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class PoEProjeto extends PoEProposta {
+public class PoEProjeto extends PoEProposta implements Serializable{
+    static final long serialVersionUID = 105L;
     private ArrayList<String> ramosDestino;
     private PoEDocente docente;
 

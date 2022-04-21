@@ -1,9 +1,11 @@
 package pt.isec.pa.apoio_poe.model.data;
-
+import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class PoEProposta {
+public class PoEProposta implements Serializable{
+    static final long serialVersionUID = 106L;
     private final String id;
     private String titulo;
     private Long nrAlunoAtribuido;
