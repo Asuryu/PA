@@ -10,6 +10,11 @@ public class PoEAutoproposto extends PoEProposta {
     }
 
     @Override
+    public PoEAluno getAluno() {
+        return aluno;
+    }
+
+    @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer();
         sb.append(super.toString());

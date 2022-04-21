@@ -126,10 +126,10 @@ public class PoEData {
         for (PoEProposta proposta : propostas) {
             if (tipo.equalsIgnoreCase("T1"))
                 if(proposta instanceof PoEEstagio) propostasEncontradas.add(proposta);
-            else if (tipo.equalsIgnoreCase("T2"))
+            if (tipo.equalsIgnoreCase("T2"))
                 if(proposta instanceof PoEProjeto) propostasEncontradas.add(proposta);
-            else if (tipo.equalsIgnoreCase("T3"))
-                if(proposta instanceof PoEAutoproposto) propostasEncontradas.add(proposta);
+            if (tipo.equalsIgnoreCase("T3"))
+                if (proposta instanceof PoEAutoproposto) propostasEncontradas.add(proposta);
         }
         return propostasEncontradas;
     }

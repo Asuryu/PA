@@ -339,13 +339,32 @@ public class Menu {
         int escolhaOpcao = PAInput.chooseOption("[OPÇÕES DE CANDIDATURA - Listas de Alunos]\nEscolha uma opção", "Com autoproposta", "Com candidatura já registada", "Sem candidatura", "Voltar");
         switch (escolhaOpcao) {
             case 1 -> {
-                return false;
+                // ISTO ESTÁ MAL, É PARA MUDAR
+                ArrayList<PoEProposta> propostas = fsm.getPropostasByType("T3");
+                System.out.println("[·] Alunos com autoproposta (" + propostas.size() + ")");
+                for(PoEProposta proposta : propostas){
+                    System.out.println(proposta.getAluno());
+                }
             }
             case 2 -> {
-                return false;
+                ArrayList<PoECandidatura> candidaturas = fsm.getCandidaturas();
+                System.out.println("[·] Alunos com candidatura registada (" + candidaturas.size() + ")");
+                for(PoECandidatura candidatura : candidaturas){
+                    System.out.println(fsm.getAlunoById(candidatura.getNrEstudante()));
+                }
             }
             case 3 -> {
-                return false;
+                ArrayList<PoEAluno> alunos = fsm.getAlunos();
+                ArrayList<PoEAluno> alunosSemCandidatura = new ArrayList<>();
+                for(PoEAluno aluno : alunos){
+                    if(fsm.getCandidaturaByAluno(aluno.getNrEstudante()) == null){
+                        alunosSemCandidatura.add(aluno);
+                    }
+                }
+                System.out.println("[·] Alunos sem candidatura (" + alunosSemCandidatura.size() + ")");
+                for(PoEAluno aluno : alunosSemCandidatura){
+                    System.out.println(aluno);
+                }
             }
             case 4 -> {
                 return true;
@@ -356,6 +375,49 @@ public class Menu {
     }
 
     public static boolean menuListasPropostas(PoEContext fsm) {
-        return true;
+        int escolhaOpcao = PAInput.chooseOption("[OPÇÕES DE CANDIDATURA - Listas de Propostas]\nEscolha uma opção", "Autopropostas de alunos", "Propostas de docentes", "Propostas com candidaturas", "Propostas sem candidatura", "Voltar");
+        switch (escolhaOpcao) {
+            case 1 -> {
+                ArrayList<PoEProposta> proposta = fsm.getPropostasByType("T3");
+                System.out.println("[·] Autopropostas de alunos (" + proposta.size() + ")");
+                for(PoEProposta prop : proposta){
+                    System.out.println(prop);
+                }
+            }
+            case 2 -> {
+                ArrayList<PoEProposta> proposta = fsm.getPropostasByType("T2");
+                System.out.println("[·] Propostas de docentes (" + proposta.size() + ")");
+                for(PoEProposta prop : proposta){
+                    System.out.println(prop);
+                }
+            }
+            case 3 -> {
+                ArrayList<PoEProposta> propostas = fsm.getPropostas();
+                ArrayList<PoEProposta> propostasComCandidatura = new ArrayList<>();
+                for(PoEProposta proposta : propostas){
+                    if(proposta.getCandidaturas().size() > 0) propostasComCandidatura.add(proposta);
+                }
+                System.out.println("[·] Propostas com candidaturas (" + propostasComCandidatura.size() + ")");
+                for(PoEProposta prop : propostasComCandidatura){
+                    System.out.println(prop);
+                }
+            }
+            case 4 -> {
+                ArrayList<PoEProposta> propostas = fsm.getPropostas();
+                ArrayList<PoEProposta> propostasSemCandidatura = new ArrayList<>();
+                for(PoEProposta proposta : propostas){
+                    if(proposta.getCandidaturas().size() == 0) propostasSemCandidatura.add(proposta);
+                }
+                System.out.println("[·] Propostas sem candidaturas (" + propostasSemCandidatura.size() + ")");
+                for(PoEProposta prop : propostasSemCandidatura){
+                    System.out.println(prop);
+                }
+            }
+            case 5 -> {
+                return true;
+            }
+        }
+        Utils.pressToContinue();
+        return false;
     }
 }

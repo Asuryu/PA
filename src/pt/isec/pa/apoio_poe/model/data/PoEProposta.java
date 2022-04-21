@@ -1,6 +1,5 @@
 package pt.isec.pa.apoio_poe.model.data;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -8,11 +7,13 @@ public class PoEProposta {
     private final String id;
     private String titulo;
     private Long nrAlunoAtribuido;
+    private ArrayList<PoECandidatura> candidaturas;
 
     public PoEProposta(String id, String titulo, Long nrAlunoAtribuido) {
         this.id = id;
         this.titulo = titulo;
         this.nrAlunoAtribuido = nrAlunoAtribuido;
+        this.candidaturas = new ArrayList<>();
     }
 
     public String getId() {
@@ -36,6 +37,18 @@ public class PoEProposta {
     }
 
     public ArrayList<String> getRamosDestino(){ return new ArrayList<>(); }
+
+    public PoEAluno getAluno(){
+        return null;
+    }
+
+    public ArrayList<PoECandidatura> getCandidaturas() {
+        return candidaturas;
+    }
+
+    public void addCandidatura(PoECandidatura candidatura) {
+        this.candidaturas.add(candidatura);
+    }
 
     @Override
     public String toString() {
