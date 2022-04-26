@@ -15,6 +15,7 @@ public class PoEAluno implements Serializable{
     private boolean estagios;
     private PoECandidatura candidatura;
     private PoEProposta propostaAtribuida;
+    private boolean isAutoProposto = false;
 
     public PoEAluno(String nome, Long nrEstudante, String email, String curso, String ramo, double classificacao, boolean estagios) {
         this.nome = nome;

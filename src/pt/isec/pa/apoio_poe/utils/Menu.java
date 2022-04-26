@@ -674,6 +674,82 @@ public class Menu {
                     }
                 }
             }
+            case 5 -> {
+                int opcao = PAInput.chooseOption("Escolha uma opção:", "Têm autoproposta associada", "Têm candidatura já registada", "Têm proposta atribuída", "Não têm qualquer proposta atribuída", "Voltar");
+                switch (opcao){
+                    case 1 -> {
+                        System.out.println("[–] Funcionalidade por implementar...");
+                        Utils.pressToContinue();
+                        return true;
+                    }
+                    case 2 -> {
+                        ArrayList<PoEAluno> alunos = fsm.getAlunos();
+                        for(PoEAluno aluno : alunos){
+                            if(aluno.getCandidatura() != null){
+                                System.out.println(aluno);
+                            }
+                        }
+                        Utils.pressToContinue();
+                        return true;
+                    }
+                    case 3 -> {
+                        ArrayList<PoEAluno> alunos = fsm.getAlunos();
+                        for(PoEAluno aluno : alunos){
+                            if(aluno.getPropostaAtribuida() != null){
+                                int ordemPreferencia = aluno.getCandidatura().getPreferencias().indexOf(aluno.getPropostaAtribuida());
+                                System.out.println(aluno);
+                                if(ordemPreferencia != -1) System.out.println("Ordem de Preferência: " + ordemPreferencia);
+                            }
+                        }
+                    }
+                    case 4 -> {
+                        ArrayList<PoEAluno> alunos = fsm.getAlunos();
+                        for(PoEAluno aluno : alunos){
+                            if(aluno.getPropostaAtribuida() == null){
+                                System.out.println(aluno);
+                            }
+                        }
+                        Utils.pressToContinue();
+                        return true;
+                    }
+                }
+            }
+            case 6 -> {
+                int opcao = PAInput.chooseOption("Escolha uma opção: ", "Autopropostas de alunos", "Propostas de docentes", "Propostas disponíveis", "Propostas atribuídas");
+                switch (opcao){
+                    case 1 -> {
+                        System.out.println("[–] Funcionalidade por implementar...");
+                    }
+                    case 2 -> {
+                        ArrayList<PoEProposta> projetos = fsm.getPropostasByType("T2");
+                        for(PoEProposta proposta : projetos){
+                            System.out.println(proposta);
+                        }
+                        Utils.pressToContinue();
+                        return true;
+                    }
+                    case 3 -> {
+                        ArrayList<PoEProposta> projetos = fsm.getPropostas();
+                        for(PoEProposta proposta : projetos){
+                            if(proposta.getNrAlunoAtribuido() == null){
+                                System.out.println(proposta);
+                            }
+                        }
+                        Utils.pressToContinue();
+                        return true;
+                    }
+                    case 4 -> {
+                        ArrayList<PoEProposta> projetos = fsm.getPropostas();
+                        for(PoEProposta proposta : projetos){
+                            if(proposta.getNrAlunoAtribuido() != null){
+                                System.out.println(proposta);
+                            }
+                        }
+                        Utils.pressToContinue();
+                        return true;
+                    }
+                }
+            }
         }
         Utils.pressToContinue();
         return false;

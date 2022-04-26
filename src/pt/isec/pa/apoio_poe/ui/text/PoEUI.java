@@ -113,10 +113,10 @@ public class PoEUI {
                             changeMode = Menu.menuAtribuicaoPropostas(fsm, option);
                         }
                         case 5 -> {
-
+                            changeMode = Menu.menuAtribuicaoPropostas(fsm, option);
                         }
                         case 6 -> {
-
+                            changeMode = Menu.menuAtribuicaoPropostas(fsm, option);
                         }
                         case 7 -> {
                             fsm.previousPhase();
