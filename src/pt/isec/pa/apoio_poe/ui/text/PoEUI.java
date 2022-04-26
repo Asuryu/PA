@@ -135,8 +135,37 @@ public class PoEUI {
                     }
                     break;
                 case ORI_ATTRIBUTION:
-                    System.out.println("Por implementar ORI_ATTRIBUTION!\n");
-                    break;
+                if(changeMode) {
+                    option = PAInput.chooseOption("Escolha uma opção", "Atribuição automática de orientadores", "Gestão de orientadores", "Atribuição manual de orientações", "Listagem de orientadores", "Fase anterior", "Fechar a fase", "Sair");
+                    changeMode = false;
+                }
+                switch(option){
+                    case 1 -> {
+                        changeMode = Menu.menuAtribuicaoOrientador(fsm, option);
+                    }
+                    case 2 -> {
+                        changeMode = Menu.menuAtribuicaoOrientador(fsm, option);
+                    }
+                    case 3 -> {
+                        changeMode = Menu.menuAtribuicaoOrientador(fsm, option);
+                    }
+                    case 4 -> {
+                        changeMode = Menu.menuAtribuicaoOrientador(fsm, option);
+                    }
+                    case 5 -> {
+                        fsm.previousPhase();
+                        changeMode = true;
+                    }
+                    case 6 -> {
+                        fsm.closePhase();
+                        Utils.pressToContinue();
+                        changeMode = true;
+                    }
+                    case 7 -> {
+                        exit = true;
+                    }
+                }
+                break;
                 case REVIEW:
                     System.out.println("Por implementar REVIEW!\n");
                     break;

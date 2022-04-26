@@ -10,12 +10,21 @@ public class PoEProposta implements Serializable{
     private String titulo;
     private Long nrAlunoAtribuido;
     private final ArrayList<PoECandidatura> candidaturas;
+    private PoEOrientador orientador;
 
     public PoEProposta(String id, String titulo, Long nrAlunoAtribuido) {
         this.id = id;
         this.titulo = titulo;
         this.nrAlunoAtribuido = nrAlunoAtribuido;
         this.candidaturas = new ArrayList<>();
+    }
+
+    public PoEOrientador getOrientador() {
+        return orientador;
+    }
+
+    public void setOrientador(PoEOrientador orientador) {
+        this.orientador = orientador;
     }
 
     public String getId() {

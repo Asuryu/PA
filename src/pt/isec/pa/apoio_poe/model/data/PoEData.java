@@ -186,4 +186,12 @@ public class PoEData implements Serializable{
     public boolean isPhaseClosed(PoEState state) {
         return closedPhases.contains(state);
     }
+
+    public PoEOrientador getOrientador() {
+        return null;
+    }
+
+    public ArrayList<PoEOrientador> getOrientadores() {
+        return null;
+    }
 }

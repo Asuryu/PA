@@ -84,6 +84,8 @@ public class PoEContext implements Serializable{
 
     public boolean saveCandidaturasCSV(String filePath){ return state.saveCandidaturasCSV(filePath); }
 
+    public ArrayList<PoEOrientador> getOrientador(){ return data.getOrientadores(); }
+
     public ArrayList<PoEAluno> getAlunos(){
         return data.getAlunos();
     }
