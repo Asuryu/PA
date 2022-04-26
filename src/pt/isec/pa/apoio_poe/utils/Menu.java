@@ -886,10 +886,27 @@ public class Menu {
                 }
             }
             case 3 -> {
-
+                System.out.println("[–] Funcionalidade por implementar...");
             }
             case 4 -> {
-
+                int chooseSearchParam = PAInput.chooseOption("[ATRIBUIÇÃO - Consultar Dados]\nEscolha o tipo de pesquisa", 
+                    "Lista de estudantes com proposta e orientador", 
+                            "Lista de estudantes com proposta sem orientador",
+                        "Estatística de docentes", "Voltar");
+                switch (chooseSearchParam) {
+                    case 1 -> {
+                        System.out.println("[–] Funcionalidade por implementar...");
+                    }
+                    case 2 -> {
+                        System.out.println("[–] Funcionalidade por implementar...");
+                    }
+                    case 3 -> {
+                        System.out.println("[–] Funcionalidade por implementar...");
+                    }
+                    case 4 -> {
+                        return false;
+                    }
+                }
             }
         }
         Utils.pressToContinue();
