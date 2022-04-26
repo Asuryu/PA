@@ -6,8 +6,20 @@
   <component name="ChangeListManager">
     <list default="true" id="0f162890-d362-487d-9e03-5caf2c0ed9bd" name="Changes" comment="Teste da FSM">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Enunciado-trabalho-pratico-21-22-v1.0.1.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/Enunciado PA.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docente.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/save.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/csv/propostas.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/csv/propostas.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/model/data/PoEAluno.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/model/data/PoEAluno.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/model/data/PoECandidatura.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/model/data/PoECandidatura.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/model/data/PoEProposta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/model/data/PoEProposta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/model/fsm/ApplicationOptState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/model/fsm/ApplicationOptState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/model/fsm/ConfigState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/model/fsm/ConfigState.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/model/fsm/PoEContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/model/fsm/PoEContext.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/model/fsm/PropAttributionState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/model/fsm/PropAttributionState.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/ui/text/PoEUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/ui/text/PoEUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/utils/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pt/isec/pa/apoio_poe/utils/Menu.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
