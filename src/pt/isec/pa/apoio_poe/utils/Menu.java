@@ -679,4 +679,44 @@ public class Menu {
         return false;
     }
 
+    public static boolean menuAtribuicaoOrientador(PoEContext fsm, int option){
+        switch (option){
+            case 1 -> {
+                if(fsm.isClosed()){
+                    System.out.println("[!] Fase de ATRIBUIÇÃO DE PROPOSTAS fechada!\n[!] Apenas é possível consultar os dados.");
+                    Utils.pressToContinue();
+                    return true;
+                }
+                ArrayList<PoEOrientador> orientadoresSemProposta = new ArrayList<>();
+                for(PoEOrientador orientador : fsm.getOrientador()){
+                    if(orientador.getDocente() == null) orientadoresSemProposta.add(orientador);
+                }
+                Collections.shuffle(orientadoresSemProposta);
+                for(PoEOrientador orientador : orientadoresSemProposta){
+                    ArrayList<PoEProposta> propostasDisponiveis = new ArrayList<>();
+                    for(PoEProposta proposta : fsm.getPropostas()){
+                        if(proposta.getOrientador().getDocente().getEmail() == null) propostasDisponiveis.add(proposta);
+                    }
+                    System.out.println("\n[·] Propostas disponíveis (" + propostasDisponiveis.size() + ")");
+                    StringBuilder idsPropostasDisponiveis = new StringBuilder();
+                    for(PoEProposta prop : propostasDisponiveis){
+                        idsPropostasDisponiveis.append(prop.getId()).append(" ");
+                    }
+                    idsPropostasDisponiveis.append("\n");
+                }
+            }
+            case 2 -> {
+
+            }
+            case 3 -> {
+
+            }
+            case 4 -> {
+
+            }
+        }
+        Utils.pressToContinue();
+        return false;
+    }
+
 }
