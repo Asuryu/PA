@@ -1,8 +1,12 @@
 package pt.isec.pa.apoio_poe.model.fsm;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
+import pt.isec.pa.apoio_poe.model.data.PoEAluno;
+import pt.isec.pa.apoio_poe.model.data.PoECandidatura;
 import pt.isec.pa.apoio_poe.model.data.PoEData;
+import pt.isec.pa.apoio_poe.utils.Utils;
 
 class OriAttributionState extends PoEStateAdapter implements Serializable{
     static final long serialVersionUID = 109L;
@@ -36,7 +40,6 @@ class OriAttributionState extends PoEStateAdapter implements Serializable{
 
     @Override
     public boolean closePhase(){
-        // FALTA FAZER AS CONDIÇÕES DE FECHAMENTO DA FASE
         data.closePhase(getState());
         nextPhase();
         return true;
