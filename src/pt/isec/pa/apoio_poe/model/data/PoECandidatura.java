@@ -1,8 +1,10 @@
 package pt.isec.pa.apoio_poe.model.data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class PoECandidatura {
+public class PoECandidatura implements Serializable {
+    static final long serialVersionUID = 121L;
     private long nrEstudante;
     private ArrayList<String> preferencias;
 

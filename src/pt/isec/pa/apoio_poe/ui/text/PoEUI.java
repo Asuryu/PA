@@ -14,11 +14,17 @@ public class PoEUI {
     }
 
     public void start() {
-
-        PoEContext ctx = fsm.loadSave("save.ser");
-        if(ctx != null){
-            this.fsm = ctx;
-            System.out.println("[>] Lido com sucesso!");
+        Utils.mostrarASCII();
+        int load = PAInput.chooseOption("Deseja carregar um ficheiro de estado?", "Sim", "Não");
+        if(load == 1) {
+            String fsmFile = PAInput.readString("Insira o nome do ficheiro de estado: ", true);
+            PoEContext ctx = fsm.loadSave(fsmFile);
+            if(ctx != null){
+                this.fsm = ctx;
+            } else {
+                System.out.println("[!] Ocorreu um erro ao ler o ficheiro com o estado guardado");
+                Utils.pressToContinue();
+            }
         }
 
         Utils.mostrarASCII();
@@ -59,7 +65,7 @@ public class PoEUI {
                     break;
                 case APPLICATION_OPT:
                     if(changeMode) {
-                        option = PAInput.chooseOption("Escolha uma opção", "Gestão de Candidaturas", "Listas de Alunos", "Listas de Propostas", "Fase Anterior", "Próxima fase", "Fechar a fase", "Sair");
+                        option = PAInput.chooseOption("Escolha uma opção", "Gestão de Candidaturas", "Listas de Alunos", "Listas de Propostas", "Fase anterior", "Próxima fase", "Fechar a fase", "Sair");
                         changeMode = false;
                     }
                     switch (option){
@@ -89,7 +95,44 @@ public class PoEUI {
                     }
                     break;
                 case PROP_ATTRIBUTION:
-                    System.out.println("Por implementar PROP_ATTRIBUTION!\n");
+                    if(changeMode) {
+                        option = PAInput.chooseOption("Escolha uma opção", "Atribuição automática das propostas com aluno associado", "Atribuição automática de uma proposta (alunos sem atribuições)", "Atribuição manual de propostas (alunos sem atribuição)", "Remoção manual de uma atribuição", "Listas de Alunos", "Listas de Propostas", "Fase anterior", "Fase seguinte", "Fechar a fase", "Sair");
+                        changeMode = false;
+                    }
+                    switch(option){
+                        case 1 -> {
+                            changeMode = Menu.menuAtribuicaoPropostas(fsm, option);
+                        }
+                        case 2 -> {
+                            changeMode = Menu.menuAtribuicaoPropostas(fsm, option);
+                        }
+                        case 3 -> {
+                            changeMode = Menu.menuAtribuicaoPropostas(fsm, option);
+                        }
+                        case 4 -> {
+                            changeMode = Menu.menuAtribuicaoPropostas(fsm, option);
+                        }
+                        case 5 -> {
+
+                        }
+                        case 6 -> {
+
+                        }
+                        case 7 -> {
+                            fsm.previousPhase();
+                            changeMode = true;
+                        }
+                        case 8 -> {
+                            fsm.nextPhase();
+                            changeMode = true;
+                        }
+                        case 9 -> {
+                            fsm.closePhase();
+                            Utils.pressToContinue();
+                            changeMode = true;
+                        }
+                        case 10 -> exit = true;
+                    }
                     break;
                 case ORI_ATTRIBUTION:
                     System.out.println("Por implementar ORI_ATTRIBUTION!\n");
@@ -103,9 +146,14 @@ public class PoEUI {
             }
         }
 
-        if(fsm.exitAndSave("save.ser")){
-            System.out.println("[>] Guardado com sucesso");
-        };
-
+        int save = PAInput.chooseOption("Guardar estado atual?", "Sim", "Não");
+        if(save == 1) {
+            String filename = PAInput.readString("[>] Nome do ficheiro para guardar o estado atual: ", false);
+            if(fsm.exitAndSave(filename)){
+                System.out.println("[·] Estado atual do programa gravado com sucesso!");
+            } else {
+                System.out.println("[!] Ocorreu um erro ao gravar o estado do programa");
+            }
+        }
     }
 }

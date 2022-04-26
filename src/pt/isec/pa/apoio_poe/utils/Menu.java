@@ -1,12 +1,15 @@
 package pt.isec.pa.apoio_poe.utils;
 
-import pt.isec.pa.apoio_poe.model.data.PoEAluno;
-import pt.isec.pa.apoio_poe.model.data.PoECandidatura;
-import pt.isec.pa.apoio_poe.model.data.PoEDocente;
-import pt.isec.pa.apoio_poe.model.data.PoEProposta;
+import pt.isec.pa.apoio_poe.model.data.*;
 import pt.isec.pa.apoio_poe.model.fsm.PoEContext;
+import pt.isec.pa.apoio_poe.model.fsm.PoEState;
 
+import java.sql.Array;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
+import java.util.Scanner;
 
 /**
  * Classe que implementa menus para várias ocasiões
@@ -281,9 +284,19 @@ public class Menu {
                 }
             }
             case 4 -> {
+                if(fsm.isClosed()){
+                    System.out.println("[!] Fase de CONFIGURAÇÃO fechada!\n[!] Apenas é possível consultar os dados.");
+                    Utils.pressToContinue();
+                    return false;
+                }
                 System.out.println("Editar Proposta");
             }
             case 5 -> {
+                if(fsm.isClosed()){
+                    System.out.println("[!] Fase de CONFIGURAÇÃO fechada!\n[!] Apenas é possível consultar os dados.");
+                    Utils.pressToContinue();
+                    return false;
+                }
                 String idProposta = PAInput.readString("ID da Proposta: ", true);
                 PoEProposta proposta = fsm.getPropostaById(idProposta);
                 if(proposta != null){
@@ -305,6 +318,11 @@ public class Menu {
         int escolhaProposta = PAInput.chooseOption("[OPÇÕES DE CANDIDATURA] - Gerir Candidaturas]\nEscolha uma opção", "Importar candidaturas a partir de um ficheiro CSV", "Exportar candidaturas para um ficheiro CSV", "Consultar candidaturas", "Editar candidatura", "Remover candidatura", "Voltar");
         switch(escolhaProposta){
             case 1 -> {
+                if(fsm.isClosed()){
+                    System.out.println("[!] Fase de OPÇÕES DE CANDIDATURA fechada!\n[!] Apenas é possível consultar os dados.");
+                    Utils.pressToContinue();
+                    return false;
+                }
                 String filePath = PAInput.readString("Introduza o nome do ficheiro CSV (candidaturas): ", false);
                 fsm.addCandidaturasCSV(filePath);
             }
@@ -350,9 +368,19 @@ public class Menu {
                 }
             }
             case 4 -> {
+                if(fsm.isClosed()){
+                    System.out.println("[!] Fase de OPÇÕES DE CANDIDATURA fechada!\n[!] Apenas é possível consultar os dados.");
+                    Utils.pressToContinue();
+                    return false;
+                }
                 System.out.println("Editar Candidatura");
             }
             case 5 -> {
+                if(fsm.isClosed()){
+                    System.out.println("[!] Fase de OPÇÕES DE CANDIDATURA fechada!\n[!] Apenas é possível consultar os dados.");
+                    Utils.pressToContinue();
+                    return false;
+                }
                 Long nrAluno = PAInput.readLong("Número de aluno: ");
                 PoECandidatura candidatura = fsm.getCandidaturaByAluno(nrAluno);
                 if(candidatura != null){
@@ -455,4 +483,200 @@ public class Menu {
         Utils.pressToContinue();
         return false;
     }
+
+    public static boolean menuAtribuicaoPropostas(PoEContext fsm, int option){
+        switch (option){
+            case 1 -> {
+                if(fsm.isClosed()) {
+                    System.out.println("[!] Fase de ATRIBUIÇÃO DE PROPOSTAS fechada!\n[!] Apenas é possível consultar os dados.");
+                    Utils.pressToContinue();
+                    return false;
+                }
+                ArrayList<PoEProposta> propostas = fsm.getPropostas();
+                for(PoEProposta proposta : propostas){
+                    Long nrAlunoAtribuido = proposta.getNrAlunoAtribuido();
+                    if(nrAlunoAtribuido != null){
+                        PoEAluno aluno = fsm.getAlunoById(nrAlunoAtribuido);
+                        aluno.setPropostaAtribuida(proposta);
+                        System.out.println("[·] Proposta com o ID " + proposta.getId() + " atribuída ao aluno com o número " + aluno.getNrEstudante());
+                    }
+                }
+                Utils.pressToContinue();
+                return true;
+            }
+            case 2 -> {
+                if(fsm.isClosed()){
+                    System.out.println("[!] Fase de ATRIBUIÇÃO DE PROPOSTAS fechada!\n[!] Apenas é possível consultar os dados.");
+                    Utils.pressToContinue();
+                    return false;
+                }
+                if(!fsm.isPhaseClosed(PoEState.APPLICATION_OPT)){
+                    System.out.println("[!] A fase de OPÇÕES DE CANDIDATURA ainda se encontra aberta.\n[!] Para selecionar esta opção necessita de fechar a fase anterior.");
+                    Utils.pressToContinue();
+                    return false;
+                }
+                ArrayList<PoEProposta> propostas = fsm.getPropostas();
+                ArrayList<PoEAluno> alunos = fsm.getAlunos();
+                for(PoEProposta proposta : propostas){
+                    ArrayList<PoEAluno> alunosSemProposta = new ArrayList<>();
+                    for(PoEAluno aluno : alunos){
+                        if(aluno.getPropostaAtribuida() == null) alunosSemProposta.add(aluno);
+                    }
+                    if(alunosSemProposta.size() == 0){
+                        System.out.println("[·] Todos os alunos têm proposta atribuída");
+                        Utils.pressToContinue();
+                        return true;
+                    }
+                    if(proposta.getNrAlunoAtribuido() != null) continue;
+                    ArrayList<PoECandidatura> candidaturas = proposta.getCandidaturas();
+                    if(candidaturas.size() == 0){
+                        // Atribuir a aluno aleatorio dos alunos sem proposta
+                        Random r = new Random();
+                        int index = r.nextInt(alunosSemProposta.size());
+                        PoEAluno aluno = alunosSemProposta.get(index);
+                        aluno.setPropostaAtribuida(proposta);
+                        proposta.setNrAlunoAtribuido(aluno.getNrEstudante());
+                        System.out.println("[·] Proposta com o ID " + proposta.getId() + " atribuída ao aluno com o número " + aluno.getNrEstudante());
+                    }
+                    else if(candidaturas.size() == 1){
+                        // Atribuir a aluno da candidatura
+                        PoECandidatura candidatura = candidaturas.get(0);
+                        PoEAluno aluno = fsm.getAlunoById(candidatura.getNrEstudante());
+                        aluno.setPropostaAtribuida(proposta);
+                        proposta.setNrAlunoAtribuido(aluno.getNrEstudante());
+                        System.out.println("[·] Proposta com o ID " + proposta.getId() + " atribuída ao aluno com o número " + aluno.getNrEstudante());
+                    }
+                    else {
+                        // Obter alunos envolvidos
+                        ArrayList<PoEAluno> alunosEnvolvidos = new ArrayList<>();
+                        System.out.println(proposta);
+                        for(PoECandidatura candidatura : candidaturas){
+                            PoEAluno aluno = fsm.getAlunoById(candidatura.getNrEstudante());
+                            alunosEnvolvidos.add(aluno);
+                            System.out.println(aluno);
+                        }
+                        String opcao = PAInput.readString("[?] Selecione o aluno que pretende atribuir a esta proposta: ", false);
+                        if(opcao.equals("")){
+                            System.out.println("[!] Não foi selecionado nenhum aluno.");
+                            Utils.pressToContinue();
+                        }
+                        else {
+                            PoEAluno aluno = fsm.getAlunoById(Long.parseLong(opcao));
+                            if(aluno == null){
+                                System.out.println("[!] Não existe aluno com o número " + opcao + ".");
+                                Utils.pressToContinue();
+                            }
+                            else {
+                                if(alunosEnvolvidos.contains(aluno)){
+                                    aluno.setPropostaAtribuida(proposta);
+                                    proposta.setNrAlunoAtribuido(aluno.getNrEstudante());
+                                    System.out.println("[·] Proposta com o ID " + proposta.getId() + " atribuída ao aluno com o número " + aluno.getNrEstudante());
+                                }
+                                else {
+                                    System.out.println("[!] O aluno com o número " + opcao + " não está envolvido na proposta.");
+                                    Utils.pressToContinue();
+                                }
+                            }
+                        }
+                    }
+                }
+                Utils.pressToContinue();
+                return true;
+            }
+            case 3 -> {
+                if(fsm.isClosed()){
+                    System.out.println("[!] Fase de ATRIBUIÇÃO DE PROPOSTAS fechada!\n[!] Apenas é possível consultar os dados.");
+                    Utils.pressToContinue();
+                    return true;
+                }
+                if(!fsm.isPhaseClosed(PoEState.APPLICATION_OPT)){
+                    System.out.println("[!] A fase de OPÇÕES DE CANDIDATURA ainda se encontra aberta.\n[!] Para selecionar esta opção necessita de fechar a fase anterior.");
+                    Utils.pressToContinue();
+                    return true;
+                }
+                ArrayList<PoEAluno> alunosSemProposta = new ArrayList<>();
+                for(PoEAluno aluno : fsm.getAlunos()){
+                    if(aluno.getPropostaAtribuida() == null) alunosSemProposta.add(aluno);
+                }
+                Collections.shuffle(alunosSemProposta);
+                for(PoEAluno aluno : alunosSemProposta){
+                    ArrayList<PoEProposta> propostasDisponiveis = new ArrayList<>();
+                    for(PoEProposta proposta : fsm.getPropostas()){
+                        if(proposta.getNrAlunoAtribuido() == null) propostasDisponiveis.add(proposta);
+                    }
+                    System.out.println("\n[·] Propostas disponíveis (" + propostasDisponiveis.size() + ")");
+                    StringBuilder idsPropostasDisponiveis = new StringBuilder();
+                    for(PoEProposta prop : propostasDisponiveis){
+                        idsPropostasDisponiveis.append(prop.getId()).append(" ");
+                    }
+                    idsPropostasDisponiveis.append("\n");
+                    System.out.println(idsPropostasDisponiveis);
+                    System.out.println(aluno);
+                    Scanner sc = new Scanner(System.in);
+                    System.out.print("[?] Selecione a proposta que pretende atribuir a este aluno: ");
+                    String input = sc.nextLine().toUpperCase();
+                    if(input.equals("")){
+                        System.out.println("[!] Não foi selecionada nenhuma proposta.");
+                    } else {
+                        if(propostasDisponiveis.contains(fsm.getPropostaById(input))){
+                            PoEProposta proposta = fsm.getPropostaById(input);
+                            proposta.setNrAlunoAtribuido(aluno.getNrEstudante());
+                            aluno.setPropostaAtribuida(proposta);
+                            System.out.println("[·] Proposta com o ID " + proposta.getId() + " atribuída ao aluno com o número " + aluno.getNrEstudante());
+                        }
+                        else {
+                            System.out.println("[!] A proposta selecionada não existe ou já foi atribuída a outro aluno.");
+                        }
+                    }
+                }
+                Utils.pressToContinue();
+                return true;
+            }
+            case 4 -> {
+                if(fsm.isClosed()){
+                    System.out.println("[!] Fase de ATRIBUIÇÃO DE PROPOSTAS fechada!\n[!] Apenas é possível consultar os dados.");
+                    Utils.pressToContinue();
+                    return false;
+                }
+                int opcao = PAInput.chooseOption("Escolha uma opção:", "Todos", "Nrº Aluno", "Voltar");
+                switch (opcao){
+                    case 1 -> {
+                        ArrayList<PoEAluno> alunos = fsm.getAlunos();
+                        for(PoEAluno aluno : alunos){
+                            PoEProposta proposta = aluno.getPropostaAtribuida();
+                            if(proposta != null){
+                                if(proposta.getNrAlunoAtribuido() != null){
+                                    aluno.setPropostaAtribuida(null);
+                                    proposta.setNrAlunoAtribuido(null);
+                                    System.out.println("[·] Proposta com ID " + proposta.getId() + " desassociada do aluno com número " + aluno.getNrEstudante());
+                                }
+                            }
+                        }
+                    }
+                    case 2 -> {
+                        Long nrAluno = PAInput.readLong("Número de aluno: ");
+                        PoEAluno aluno = fsm.getAlunoById(nrAluno);
+                        if(aluno == null){
+                            System.out.println("[!] Não foi encontrado nenhum aluno com o número " + nrAluno);
+                            return false;
+                        }
+                        PoEProposta proposta = aluno.getPropostaAtribuida();
+                        if(proposta != null){
+                            if(proposta.getNrAlunoAtribuido() != null){
+                                aluno.setPropostaAtribuida(null);
+                                proposta.setNrAlunoAtribuido(null);
+                                System.out.println("[·] Proposta com ID " + proposta.getId() + " desassociada do aluno com número " + aluno.getNrEstudante());
+                            }
+                        }
+                    }
+                    case 3 -> {
+                        return true;
+                    }
+                }
+            }
+        }
+        Utils.pressToContinue();
+        return false;
+    }
+
 }

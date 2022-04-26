@@ -9,7 +9,7 @@ public class PoEProposta implements Serializable{
     private final String id;
     private String titulo;
     private Long nrAlunoAtribuido;
-    private ArrayList<PoECandidatura> candidaturas;
+    private final ArrayList<PoECandidatura> candidaturas;
 
     public PoEProposta(String id, String titulo, Long nrAlunoAtribuido) {
         this.id = id;
@@ -34,7 +34,7 @@ public class PoEProposta implements Serializable{
         return nrAlunoAtribuido;
     }
 
-    public void setNrAlunoAtribuido(long nrAlunoAtribuido) {
+    public void setNrAlunoAtribuido(Long nrAlunoAtribuido) {
         this.nrAlunoAtribuido = nrAlunoAtribuido;
     }
 

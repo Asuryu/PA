@@ -27,13 +27,14 @@ class ConfigState extends PoEStateAdapter implements Serializable{
         int propostasSI = data.getPropostasByRamo("SI").size();
         int propostasRAS = data.getPropostasByRamo("RAS").size();
 
-        int alunosDA = data.getAlunosByRamo("DA").size();
-        int alunosSI = data.getAlunosByRamo("SI").size();
-        int alunosRAS = data.getAlunosByRamo("RAS").size();
-
-        if(propostasDA >= alunosDA && propostasDA > 0 && alunosDA > 0){
-            if (propostasSI >= alunosSI && propostasSI > 0 && alunosSI > 0) {
-                if (propostasRAS >= alunosRAS && propostasRAS > 0 && alunosRAS > 0) {
+        int alunos = data.getAlunos().size();
+        if(alunos == 0){
+            System.out.println("[!] Não existem alunos inscritos!");
+            return false;
+        }
+        if(propostasDA >= alunos){
+            if (propostasSI >= alunos) {
+                if (propostasRAS >= alunos) {
                     System.out.println("[·] Fase de CONFIGURAÇÃO fechada com sucesso!");
                     data.closePhase(getState());
                     return true;

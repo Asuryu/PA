@@ -10,6 +10,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class PoEContext implements Serializable{
     static final long serialVersionUID = 110L;
@@ -49,6 +50,7 @@ public class PoEContext implements Serializable{
         try(ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(filename)))){
             oos.writeObject(this);
         }catch(Exception e){
+            System.out.println(Arrays.toString(e.getStackTrace()));
             System.out.println("[!] Erro ao carregar o ficheiro");
         }
         return state.exitAndSave();
@@ -138,6 +140,10 @@ public class PoEContext implements Serializable{
         PoEProposta proposta = data.getPropostaById(nrProposta);
         if(proposta == null) return new ArrayList<>();
         return data.getCandidaturasByProposta(proposta);
+    }
+
+    public boolean isPhaseClosed(PoEState state){
+        return data.isPhaseClosed(state);
     }
 
 }

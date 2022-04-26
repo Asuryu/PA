@@ -47,6 +47,7 @@ class ApplicationOptState extends PoEStateAdapter implements Serializable{
                 System.out.println("[!] A fase de opções de candidatura já se encontra fechada.");
                 return false;
             }
+            System.out.println("[·] Fase de OPÇÕES DE CANDIDATURA fechada com sucesso!");
             data.closePhase(getState());
             nextPhase();
             return true;

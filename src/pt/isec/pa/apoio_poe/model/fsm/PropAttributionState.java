@@ -36,14 +36,9 @@ class PropAttributionState extends PoEStateAdapter implements Serializable{
 
     @Override
     public boolean closePhase(){
-        if(data.isPhaseClosed(PoEState.CONFIG)){
-            data.closePhase(getState());
-            nextPhase();
-            return true;
-        }else{
-            System.out.println("[!] Esta fase não pode ser fechada. Feche primeiro a fase de configuração.");
-            return false;
-        }
+        data.closePhase(PoEState.PROP_ATTRIBUTION);
+        nextPhase();
+        return true;
     }
 
     @Override
