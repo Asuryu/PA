@@ -23,10 +23,12 @@ public class PoEProjeto extends PoEProposta implements Serializable{
         this.ramosDestino = ramosDestino;
     }
 
+    @Override
     public PoEDocente getDocente() {
         return docente;
     }
 
+    @Override
     public void setDocente(PoEDocente docente) {
         this.docente = docente;
     }

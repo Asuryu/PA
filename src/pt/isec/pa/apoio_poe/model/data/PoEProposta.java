@@ -26,6 +26,14 @@ public class PoEProposta implements Serializable{
     public void setOrientador(PoEOrientador orientador) {
         this.orientador = orientador;
     }
+    
+    public PoEDocente getDocente() {
+        return null;
+    }
+
+    public void setDocente(PoEDocente docente) {
+        return;
+    }
 
     public String getId() {
         return id;
@@ -67,6 +75,9 @@ public class PoEProposta implements Serializable{
         sb.append("---- Proposta nº " + id + " ----\n");
         sb.append("Título: " + titulo + "\n");
         sb.append("Nr. Aluno Atribuido: " + nrAlunoAtribuido + "\n");
+        if(orientador != null){
+            sb.append("Orientador: " + orientador.getDocente().getNome() + "   (" + orientador.getDocente().getEmail() + ")\n");
+        }
         return sb.toString();
     }
 
