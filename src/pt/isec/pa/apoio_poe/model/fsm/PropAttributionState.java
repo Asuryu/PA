@@ -36,7 +36,7 @@ class PropAttributionState extends PoEStateAdapter implements Serializable{
             if(aluno.getCandidatura() != null){
                 if(aluno.getPropostaAtribuida() == null){
                     flag = true;
-                    System.out.println("[!] O aluno com o número " + aluno.getNrEstudante() + " ainda não tem projeto atribuído.");
+                    System.out.println("[!] O aluno com o número " + aluno.getNrEstudante() + " ainda não tem proposta atribuída.");
                 }
             }
         }

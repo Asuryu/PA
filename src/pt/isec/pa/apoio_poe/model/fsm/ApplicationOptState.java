@@ -39,7 +39,7 @@ class ApplicationOptState extends PoEStateAdapter implements Serializable{
             return true;
         }
         else {
-            System.out.println("[!] A fase de configuração ainda não foi fechada.");
+            System.out.println("[!] A fase de CONFIGURAÇÃO ainda não foi fechada.");
             return false;
         }
     }
