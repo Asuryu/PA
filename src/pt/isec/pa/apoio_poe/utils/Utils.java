@@ -5,6 +5,7 @@ import java.io.IOException;
 /**
  * Classe com várias funções de utilidade
  */
+@SuppressWarnings("ALL")
 public class Utils {
 
     private Utils() {}
@@ -34,10 +35,12 @@ public class Utils {
      * que pode servir como cabeça de menu
      */
     public static void mostrarASCII(){
-        System.out.println( "  ____       _____   ____  _____ ___ ____  \n" +
-                            " |  _ \\ ___ | ____| |  _ \\| ____|_ _/ ___|\n" +
-                            " | |_) / _ \\|  _|   | | | |  _|  | |\\___ \\ \n" +
-                            " |  __/ (_) | |___  | |_| | |___ | | ___) |\n" +
-                            " |_|   \\___/|_____| |____/|_____|___|____/ \n");
+        System.out.println("""
+                  ____       _____   ____  _____ ___ ____ \s
+                 |  _ \\ ___ | ____| |  _ \\| ____|_ _/ ___|
+                 | |_) / _ \\|  _|   | | | |  _|  | |\\___ \\\s
+                 |  __/ (_) | |___  | |_| | |___ | | ___) |
+                 |_|   \\___/|_____| |____/|_____|___|____/\s
+                """);
     }
 }

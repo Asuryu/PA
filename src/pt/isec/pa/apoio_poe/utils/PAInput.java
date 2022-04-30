@@ -2,6 +2,7 @@ package pt.isec.pa.apoio_poe.utils;
 
 import java.util.Scanner;
 
+@SuppressWarnings("ALL")
 public final class PAInput {
     private PAInput() {}       // impedir criacao de objectos
 
