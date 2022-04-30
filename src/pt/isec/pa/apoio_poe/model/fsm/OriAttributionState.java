@@ -1,12 +1,8 @@
 package pt.isec.pa.apoio_poe.model.fsm;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
-import pt.isec.pa.apoio_poe.model.data.PoEAluno;
-import pt.isec.pa.apoio_poe.model.data.PoECandidatura;
 import pt.isec.pa.apoio_poe.model.data.PoEData;
-import pt.isec.pa.apoio_poe.utils.Utils;
 
 class OriAttributionState extends PoEStateAdapter implements Serializable{
     static final long serialVersionUID = 109L;
@@ -21,27 +17,10 @@ class OriAttributionState extends PoEStateAdapter implements Serializable{
     }
 
     @Override
-    public boolean nextPhase(){
-        changeState(new ReviewState(context, data));
-        return true;
-    }
-
-    @Override
-    public boolean exitAndSave(){
-        //rever
-        return true;
-    }
-
-    @Override
-    public boolean loadSave(String filename){
-        //rever
-        return true;
-    }
-
-    @Override
     public boolean closePhase(){
         data.closePhase(getState());
-        nextPhase();
+        changeState(new ReviewState(context, data));
+        System.out.println("[·] Fase de ATRIBUIÇÃO DE ORIENTADORES fechada com sucesso!");
         return true;
     }
 

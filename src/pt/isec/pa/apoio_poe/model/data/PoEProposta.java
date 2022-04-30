@@ -1,6 +1,5 @@
 package pt.isec.pa.apoio_poe.model.data;
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -29,10 +28,6 @@ public class PoEProposta implements Serializable{
     
     public PoEDocente getDocente() {
         return null;
-    }
-
-    public void setDocente(PoEDocente docente) {
-        return;
     }
 
     public String getId() {
@@ -71,12 +66,12 @@ public class PoEProposta implements Serializable{
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer();
-        sb.append("---- Proposta nº " + id + " ----\n");
-        sb.append("Título: " + titulo + "\n");
-        sb.append("Nr. Aluno Atribuido: " + nrAlunoAtribuido + "\n");
+        final StringBuilder sb = new StringBuilder();
+        sb.append("---- Proposta nº ").append(id).append(" ----\n");
+        sb.append("Título: ").append(titulo).append("\n");
+        sb.append("Nr. Aluno Atribuido: ").append(nrAlunoAtribuido).append("\n");
         if(orientador != null){
-            sb.append("Orientador: " + orientador.getDocente().getNome() + "   (" + orientador.getDocente().getEmail() + ")\n");
+            sb.append("Orientador: ").append(orientador.getDocente().getNome()).append("   (").append(orientador.getDocente().getEmail()).append(")\n");
         }
         return sb.toString();
     }
@@ -92,8 +87,7 @@ public class PoEProposta implements Serializable{
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof PoEProposta)) return false;
-        PoEProposta that = (PoEProposta) o;
+        if (!(o instanceof PoEProposta that)) return false;
         return id.equals(that.id);
     }
 

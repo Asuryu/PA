@@ -1,12 +1,10 @@
 package pt.isec.pa.apoio_poe.model.fsm;
 
 import pt.isec.pa.apoio_poe.model.data.PoECandidatura;
-import pt.isec.pa.apoio_poe.model.data.PoEData;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.Serializable;
 
 import pt.isec.pa.apoio_poe.model.data.PoEData;
 
@@ -25,18 +23,6 @@ class ApplicationOptState extends PoEStateAdapter implements Serializable{
     @Override
     public boolean nextPhase(){
         changeState(new PropAttributionState(context, data));
-        return true;
-    }
-
-    @Override
-    public boolean exitAndSave(){
-        //rever
-        return true;
-    }
-
-    @Override
-    public boolean loadSave(String filename){
-        //rever
         return true;
     }
 

@@ -26,20 +26,7 @@ class PropAttributionState extends PoEStateAdapter implements Serializable{
     }
 
     @Override
-    public boolean exitAndSave(){
-        //rever
-        return true;
-    }
-
-    @Override
-    public boolean loadSave(String filename){
-        //rever
-        return true;
-    }
-
-    @Override
     public boolean closePhase(){
-        // Fase só pode ser fechada se todos os alunos com candidaturas tiverem projeto atribuído
         ArrayList<PoEAluno> alunos = data.getAlunos();
         boolean flag = false;
         for(PoEAluno aluno : alunos){

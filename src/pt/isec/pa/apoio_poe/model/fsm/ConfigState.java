@@ -1,10 +1,9 @@
 package pt.isec.pa.apoio_poe.model.fsm;
 
 import pt.isec.pa.apoio_poe.model.data.*;
-import pt.isec.pa.apoio_poe.utils.PAInput;
 
 import java.io.*;
-import java.lang.reflect.Array;
+import java.rmi.server.ExportException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -16,13 +15,12 @@ class ConfigState extends PoEStateAdapter implements Serializable{
     }
 
     @Override
-    public boolean closePhase(){
+    public boolean closePhase() {
 
         if(isClosed()){
             System.out.println("[!] A fase de configuração já se encontra fechada!");
             return false;
         }
-
         int propostasDA = data.getPropostasByRamo("DA").size();
         int propostasSI = data.getPropostasByRamo("SI").size();
         int propostasRAS = data.getPropostasByRamo("RAS").size();
@@ -51,18 +49,6 @@ class ConfigState extends PoEStateAdapter implements Serializable{
     @Override
     public boolean nextPhase(){
         changeState(new ApplicationOptState(context, data));
-        return true;
-    }
-
-    @Override
-    public boolean exitAndSave(){
-        //rever
-        return true;
-    }
-
-    @Override
-    public boolean loadSave(String filename){
-        //rever
         return true;
     }
 
@@ -393,4 +379,5 @@ class ConfigState extends PoEStateAdapter implements Serializable{
     public PoEState getState(){
         return PoEState.CONFIG;
     }
+
 }

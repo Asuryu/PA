@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class PoEAutoproposto extends PoEProposta implements Serializable{
     static final long serialVersionUID = 101L;
-    PoEAluno aluno;
+    final PoEAluno aluno;
 
     public PoEAutoproposto(String id, String titulo, PoEAluno aluno) {
         super(id, titulo, aluno.getNrEstudante());
@@ -18,10 +18,8 @@ public class PoEAutoproposto extends PoEProposta implements Serializable{
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer();
-        sb.append(super.toString());
-        sb.append("Tipo: Estágio/projeto autoproposto\n");
-        return sb.toString();
+        return super.toString() +
+                "Tipo: Estágio/projeto autoproposto\n";
     }
 
     @Override

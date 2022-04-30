@@ -31,11 +31,9 @@ public class PoECandidatura implements Serializable {
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer();
-        sb.append("---- Candidatura ----\n");
-        sb.append("Nrº Aluno: " + nrEstudante + "\n");
-        sb.append("Propostas (por ordem de preferência): " + preferencias.toString() + "\n");
-        return sb.toString();
+        return "---- Candidatura ----\n" +
+                "Nrº Aluno: " + nrEstudante + "\n" +
+                "Propostas (por ordem de preferência): " + preferencias.toString() + "\n";
     }
 
     public String[] toStringArray(){

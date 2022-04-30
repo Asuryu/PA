@@ -1,7 +1,6 @@
 package pt.isec.pa.apoio_poe.model.data;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.Objects;
 
 public class PoEAluno implements Serializable{
@@ -15,7 +14,6 @@ public class PoEAluno implements Serializable{
     private boolean estagios;
     private PoECandidatura candidatura;
     private PoEProposta propostaAtribuida;
-    private boolean isAutoProposto = false;
 
     public PoEAluno(String nome, Long nrEstudante, String email, String curso, String ramo, double classificacao, boolean estagios) {
         this.nome = nome;
@@ -116,13 +114,13 @@ public class PoEAluno implements Serializable{
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
-        sb.append("---- Aluno nº " + nrEstudante + " ----\n");
-        sb.append("Nome: " + nome + " (" + email + ")\n");
-        sb.append("Curso: " + curso + "   Ramo: " + ramo + "\n");
-        sb.append("Classificação: " + classificacao + "\n");
-        sb.append("Estágios?: " + estagios + "\n");
-        if(candidatura != null) sb.append("Candidaturas: " + candidatura.getPreferencias() + "\n");
-        if(propostaAtribuida != null) sb.append("Proposta Atribuida: " + propostaAtribuida.getId() + "\n");
+        sb.append("---- Aluno nº ").append(nrEstudante).append(" ----\n");
+        sb.append("Nome: ").append(nome).append(" (").append(email).append(")\n");
+        sb.append("Curso: ").append(curso).append("   Ramo: ").append(ramo).append("\n");
+        sb.append("Classificação: ").append(classificacao).append("\n");
+        sb.append("Estágios?: ").append(estagios).append("\n");
+        if(candidatura != null) sb.append("Candidaturas: ").append(candidatura.getPreferencias()).append("\n");
+        if(propostaAtribuida != null) sb.append("Proposta Atribuida: ").append(propostaAtribuida.getId()).append("\n");
         return sb.toString();
     }
 
@@ -131,7 +129,7 @@ public class PoEAluno implements Serializable{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PoEAluno poEAluno = (PoEAluno) o;
-        return nrEstudante == poEAluno.nrEstudante;
+        return Objects.equals(nrEstudante, poEAluno.nrEstudante);
     }
 
     @Override

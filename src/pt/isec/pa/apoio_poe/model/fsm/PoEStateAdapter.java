@@ -6,8 +6,8 @@ import pt.isec.pa.apoio_poe.model.data.PoEData;
 
 abstract class PoEStateAdapter implements IPoEState, Serializable{
     static final long serialVersionUID = 111L;
-    protected PoEContext context;
-    protected PoEData data;
+    protected final PoEContext context;
+    protected final PoEData data;
 
     protected PoEStateAdapter(PoEContext context, PoEData data){
         this.context = context;
@@ -46,12 +46,6 @@ abstract class PoEStateAdapter implements IPoEState, Serializable{
      */
     @Override
     public boolean previousPhase() { return false; }
-
-    @Override
-    public boolean exitAndSave() { return false; }
-
-    @Override
-    public boolean loadSave(String filename) { return false; }
 
     @Override
     public boolean addAlunosCSV(String filePath) { return false; }

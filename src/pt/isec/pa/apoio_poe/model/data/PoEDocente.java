@@ -1,6 +1,5 @@
 package pt.isec.pa.apoio_poe.model.data;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -41,12 +40,10 @@ public class PoEDocente implements Serializable {
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer();
-        sb.append("---- Docente ----\n");
-        sb.append("Nome: " + nome + "\n");
-        sb.append("Email: " + email + "\n");
-        sb.append("Papel: " + papel + "\n");
-        return sb.toString();
+        return "---- Docente ----\n" +
+                "Nome: " + nome + "\n" +
+                "Email: " + email + "\n" +
+                "Papel: " + papel + "\n";
     }
 
     public String[] toStringArray(){

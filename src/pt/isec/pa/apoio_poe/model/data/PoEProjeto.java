@@ -2,12 +2,11 @@ package pt.isec.pa.apoio_poe.model.data;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class PoEProjeto extends PoEProposta implements Serializable{
     static final long serialVersionUID = 105L;
     private ArrayList<String> ramosDestino;
-    private PoEDocente docente;
+    private final PoEDocente docente;
 
     public PoEProjeto(String id, String titulo, Long nrAlunoAtribuido, ArrayList<String> ramosDestino, PoEDocente docente) {
         super(id, titulo, nrAlunoAtribuido);
@@ -29,18 +28,11 @@ public class PoEProjeto extends PoEProposta implements Serializable{
     }
 
     @Override
-    public void setDocente(PoEDocente docente) {
-        this.docente = docente;
-    }
-
-    @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer();
-        sb.append(super.toString());
-        sb.append("Tipo: Projeto\n");
-        sb.append("Ramos destino: " + ramosDestino.toString() + "\n");
-        sb.append("Docente: " + docente.getNome() + "   (" + docente.getEmail() + ")\n");
-        return sb.toString();
+        return super.toString() +
+                "Tipo: Projeto\n" +
+                "Ramos destino: " + ramosDestino.toString() + "\n" +
+                "Docente: " + docente.getNome() + "   (" + docente.getEmail() + ")\n";
     }
 
     @Override

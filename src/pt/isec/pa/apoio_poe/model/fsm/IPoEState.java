@@ -6,8 +6,6 @@ public interface IPoEState {
     boolean isClosed();
     boolean nextPhase();
     boolean previousPhase();
-    boolean exitAndSave();
-    boolean loadSave(String filename);
     boolean addAlunosCSV(String filePath);
     boolean saveAlunosCSV(String filePath);
     boolean addDocentesCSV(String filePath);

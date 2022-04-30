@@ -33,12 +33,10 @@ public class PoEEstagio extends PoEProposta implements Serializable{
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer();
-        sb.append(super.toString());
-        sb.append("Tipo: Estágio\n");
-        sb.append("Ramos destino: " + ramosDestino.toString() + "\n");
-        sb.append("Entidade: " + entidade + "\n");
-        return sb.toString();
+        return super.toString() +
+                "Tipo: Estágio\n" +
+                "Ramos destino: " + ramosDestino.toString() + "\n" +
+                "Entidade: " + entidade + "\n";
     }
 
     @Override
