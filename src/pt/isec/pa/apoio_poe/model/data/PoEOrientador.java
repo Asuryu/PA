@@ -1,20 +1,17 @@
 package pt.isec.pa.apoio_poe.model.data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class PoEOrientador implements Serializable{
     static final long serialVersionUID = 114L;
     PoEDocente docente;
-    PoEProposta proposta;
+    final ArrayList<PoEProposta> propostas;
 
-    public PoEOrientador(PoEDocente docente, PoEProposta proposta) {
+    public PoEOrientador(PoEDocente docente) {
         this.docente = docente;
-        this.proposta = proposta;
-    }
-
-    public PoEOrientador getOrientador() {
-        return this;
+        this.propostas = new ArrayList<>();
     }
 
     public PoEDocente getDocente() {
@@ -25,34 +22,39 @@ public class PoEOrientador implements Serializable{
         this.docente = docente;
     }
 
-    public PoEProposta getPropostaAtribuida() {
-        return proposta;
+    public ArrayList<PoEProposta> getPropostas() {
+        return propostas;
     }
 
-    public void setPropostaAtribuida(PoEProposta proposta) {
-        this.proposta = proposta;
+    public void addProposta(PoEProposta proposta) {
+        if(!propostas.contains(proposta)){
+            propostas.add(proposta);
+        }
     }
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer();
+        final StringBuilder sb = new StringBuilder();
+        StringBuilder propostasStr = new StringBuilder();
+        for(PoEProposta proposta : propostas){
+            propostasStr.append(proposta.getId()).append(", ");
+        }
+        propostasStr = new StringBuilder(propostasStr.substring(0, propostasStr.length() - 2));
         sb.append("---- Orientador ----\n");
-        sb.append("Docente: " + docente.toString() + "\n");
-        sb.append("Proposta: " + proposta.toString() + "\n");
+        sb.append("Docente: ").append(docente.getNome()).append("    (").append(docente.getEmail()).append(")\n");
+        sb.append("Propostas Atribuídas: ").append(propostasStr).append("\n");
         return sb.toString();
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        PoEOrientador that = (PoEOrientador) o;
-        return Objects.equals(docente, that.docente) &&
-                Objects.equals(proposta, that.proposta);
+        if (!(o instanceof PoEOrientador that)) return false;
+        return getDocente().equals(that.getDocente()) && Objects.equals(getPropostas(), that.getPropostas());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(docente, proposta);
+        return Objects.hash(getDocente(), getPropostas());
     }
 }

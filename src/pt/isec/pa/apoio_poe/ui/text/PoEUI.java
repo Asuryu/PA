@@ -34,23 +34,16 @@ public class PoEUI {
         while(!exit){
             System.out.println("STATE: " + fsm.getState());
             System.out.println("CLOSED: " + fsm.isClosed());
-            switch(fsm.getState()){
-                case CONFIG:
-                    if(changeMode) {
+            switch (fsm.getState()) {
+                case CONFIG -> {
+                    if (changeMode) {
                         option = PAInput.chooseOption("Escolha uma opção", "Gestão de Alunos", "Gestão de Docentes", "Gestão de propostas de estágio ou projeto", "Próxima fase", "Fechar a fase", "Sair");
                         changeMode = false;
                     }
-                    switch (option){
-                        case 1 -> {
-
-                            changeMode = Menu.menuAlunos(fsm);
-                        }
-                        case 2 -> {
-                            changeMode = Menu.menuDocentes(fsm);
-                        }
-                        case 3 -> {
-                            changeMode = Menu.menuPropostas(fsm);
-                        }
+                    switch (option) {
+                        case 1 -> changeMode = Menu.menuAlunos(fsm);
+                        case 2 -> changeMode = Menu.menuDocentes(fsm);
+                        case 3 -> changeMode = Menu.menuPropostas(fsm);
                         case 4 -> {
                             fsm.nextPhase();
                             changeMode = true;
@@ -62,22 +55,16 @@ public class PoEUI {
                         }
                         case 6 -> exit = true;
                     }
-                    break;
-                case APPLICATION_OPT:
-                    if(changeMode) {
+                }
+                case APPLICATION_OPT -> {
+                    if (changeMode) {
                         option = PAInput.chooseOption("Escolha uma opção", "Gestão de Candidaturas", "Listas de Alunos", "Listas de Propostas", "Fase anterior", "Próxima fase", "Fechar a fase", "Sair");
                         changeMode = false;
                     }
-                    switch (option){
-                        case 1 -> {
-                            changeMode = Menu.menuCandidaturas(fsm);
-                        }
-                        case 2 -> {
-                            changeMode = Menu.menuListasAlunos(fsm);
-                        }
-                        case 3 -> {
-                            changeMode = Menu.menuListasPropostas(fsm);
-                        }
+                    switch (option) {
+                        case 1 -> changeMode = Menu.menuCandidaturas(fsm);
+                        case 2 -> changeMode = Menu.menuListasAlunos(fsm);
+                        case 3 -> changeMode = Menu.menuListasPropostas(fsm);
                         case 4 -> {
                             fsm.previousPhase();
                             changeMode = true;
@@ -93,85 +80,48 @@ public class PoEUI {
                         }
                         case 7 -> exit = true;
                     }
-                    break;
-                case PROP_ATTRIBUTION:
-                    if(changeMode) {
+                }
+                case PROP_ATTRIBUTION -> {
+                    if (changeMode) {
                         option = PAInput.chooseOption("Escolha uma opção", "Atribuição automática das propostas com aluno associado", "Atribuição automática de uma proposta (alunos sem atribuições)", "Atribuição manual de propostas (alunos sem atribuição)", "Remoção manual de uma atribuição", "Listas de Alunos", "Listas de Propostas", "Fase anterior", "Fase seguinte", "Fechar a fase", "Sair");
                         changeMode = false;
                     }
-                    switch(option){
-                        case 1 -> {
-                            changeMode = Menu.menuAtribuicaoPropostas(fsm, option);
-                        }
-                        case 2 -> {
-                            changeMode = Menu.menuAtribuicaoPropostas(fsm, option);
-                        }
-                        case 3 -> {
-                            changeMode = Menu.menuAtribuicaoPropostas(fsm, option);
-                        }
-                        case 4 -> {
-                            changeMode = Menu.menuAtribuicaoPropostas(fsm, option);
-                        }
-                        case 5 -> {
-                            changeMode = Menu.menuAtribuicaoPropostas(fsm, option);
-                        }
-                        case 6 -> {
-                            changeMode = Menu.menuAtribuicaoPropostas(fsm, option);
-                        }
-                        case 7 -> {
-                            fsm.previousPhase();
-                            changeMode = true;
-                        }
-                        case 8 -> {
-                            fsm.nextPhase();
-                            changeMode = true;
-                        }
-                        case 9 -> {
-                            fsm.closePhase();
-                            Utils.pressToContinue();
-                            changeMode = true;
-                        }
-                        case 10 -> exit = true;
-                    }
-                    break;
-                case ORI_ATTRIBUTION:
-                if(changeMode) {
-                    option = PAInput.chooseOption("Escolha uma opção", "Atribuição automática de orientadores", "Gestão de orientadores", "Atribuição manual de orientações", "Listagem de orientadores", "Fase anterior", "Fechar a fase", "Sair");
-                    changeMode = false;
-                }
-                switch(option){
-                    case 1 -> {
-                        changeMode = Menu.menuAtribuicaoOrientador(fsm, option);
-                    }
-                    case 2 -> {
-                        changeMode = Menu.menuAtribuicaoOrientador(fsm, option);
-                    }
-                    case 3 -> {
-                        changeMode = Menu.menuAtribuicaoOrientador(fsm, option);
-                    }
-                    case 4 -> {
-                        changeMode = Menu.menuAtribuicaoOrientador(fsm, option);
-                    }
-                    case 5 -> {
+                    if (option == 1 || option == 2 || option == 3 || option == 4 || option == 5 || option == 6) {
+                        changeMode = Menu.menuAtribuicaoPropostas(fsm, option);
+                    } else if (option == 7) {
                         fsm.previousPhase();
                         changeMode = true;
-                    }
-                    case 6 -> {
+                    } else if (option == 8) {
+                        fsm.nextPhase();
+                        changeMode = true;
+                    } else if (option == 9) {
                         fsm.closePhase();
                         Utils.pressToContinue();
                         changeMode = true;
-                    }
-                    case 7 -> {
+                    } else if (option == 10) {
                         exit = true;
                     }
                 }
-                break;
-                case REVIEW:
-                    System.out.println("Por implementar REVIEW!\n");
-                    break;
-                default:
-                    System.exit(-1);
-                    break;
+                case ORI_ATTRIBUTION -> {
+                    if (changeMode) {
+                        option = PAInput.chooseOption("Escolha uma opção", "Atribuição automática de orientadores", "Gestão de Orientadores", "Atribuição manual de orientadores", "Listagem de Dados", "Fase anterior", "Fechar a fase", "Sair");
+                        changeMode = false;
+                    }
+                    if (option == 1 || option == 2 || option == 3 || option == 4) {
+                        changeMode = Menu.menuAtribuicaoOrientador(fsm, option);
+                    } else if (option == 5) {
+                        fsm.previousPhase();
+                        changeMode = true;
+                    } else if (option == 6) {
+                        fsm.closePhase();
+                        Utils.pressToContinue();
+                        changeMode = true;
+                    } else if (option == 7) {
+                        exit = true;
+                    }
+                }
+                case REVIEW -> System.out.println("Por implementar REVIEW!\n");
+                default -> System.exit(-1);
             }
         }
 

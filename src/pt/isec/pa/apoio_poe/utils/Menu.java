@@ -4,8 +4,6 @@ import pt.isec.pa.apoio_poe.model.data.*;
 import pt.isec.pa.apoio_poe.model.fsm.PoEContext;
 import pt.isec.pa.apoio_poe.model.fsm.PoEState;
 
-import java.sql.Array;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -115,7 +113,7 @@ public class Menu {
                     Utils.pressToContinue();
                     return false;
                 }
-                Long nrAluno = PAInput.readLong("Número do Aluno: ");
+                long nrAluno = PAInput.readLong("Número do Aluno: ");
                 PoEAluno aluno = fsm.getAlunoById(nrAluno);
                 if (aluno != null) {
                     fsm.removeAluno(aluno);
@@ -699,7 +697,7 @@ public class Menu {
                         }
                     }
                     case 2 -> {
-                        Long nrAluno = PAInput.readLong("Número de aluno: ");
+                        long nrAluno = PAInput.readLong("Número de aluno: ");
                         PoEAluno aluno = fsm.getAlunoById(nrAluno);
                         if (aluno == null) {
                             System.out.println("[!] Não foi encontrado nenhum aluno com o número " + nrAluno);
@@ -745,7 +743,7 @@ public class Menu {
                         for (PoEAluno aluno : alunos) {
                             if (aluno.getPropostaAtribuida() != null) {
                                 int ordemPreferencia = aluno.getCandidatura().getPreferencias()
-                                        .indexOf(aluno.getPropostaAtribuida());
+                                        .indexOf(aluno.getPropostaAtribuida().getId());
                                 System.out.println(aluno);
                                 if (ordemPreferencia != -1)
                                     System.out.println("Ordem de Preferência: " + ordemPreferencia);
@@ -768,9 +766,7 @@ public class Menu {
                 int opcao = PAInput.chooseOption("Escolha uma opção: ", "Autopropostas de alunos",
                         "Propostas de docentes", "Propostas disponíveis", "Propostas atribuídas");
                 switch (opcao) {
-                    case 1 -> {
-                        System.out.println("[–] Funcionalidade por implementar...");
-                    }
+                    case 1 -> System.out.println("[–] Funcionalidade por implementar...");
                     case 2 -> {
                         ArrayList<PoEProposta> projetos = fsm.getPropostasByType("T2");
                         for (PoEProposta proposta : projetos) {
@@ -817,91 +813,145 @@ public class Menu {
                 }
                 ArrayList<PoEProposta> projetos = fsm.getPropostasByType("T2");
                 for (PoEProposta proposta : projetos) {
-                    PoEOrientador orientador = new PoEOrientador(proposta.getDocente(), proposta);
+                    PoEOrientador orientador = fsm.getOrientadorByDocente(proposta.getDocente());
+                    if(orientador == null) {
+                        orientador = new PoEOrientador(proposta.getDocente());
+                        fsm.addOrientador(orientador);
+                    }
+                    if(orientador.getPropostas().contains(proposta)) {
+                        continue;
+                    }
+                    orientador.addProposta(proposta);
                     proposta.setOrientador(orientador);
                     System.out.println("[·] Proposta com ID " + proposta.getId()
                             + " associada ao orientador com o email " + orientador.getDocente().getEmail());
                 }
             }
             case 2 -> {
-                int chooseSearchParam = PAInput.chooseOption("Escolha uma opção:", "Atribuir orientadores", "Consultar orientadores",
-                        "Alterar orientadores", "Eliminar orientadores", "Voltar");
+                int chooseSearchParam = PAInput.chooseOption("Escolha uma opção:", "Atribuir Orientadores", "Consultar Orientadores",
+                        "Alterar Orientadores", "Eliminar Orientadores", "Voltar");
                 switch (chooseSearchParam) {
-                    case 1 -> {
-                        String email = PAInput.readString("Email do orientador: ", true);
-                        PoEDocente docente = fsm.getDocenteByEmail(email);
-                        if (docente == null) {
-                            System.out.println("[!] Não foi encontrado nenhum orientador com o email " + email);
-                            return false;
-                        }
-                        String idProposta = PAInput.readString("ID da proposta: ", true);
-                        PoEProposta proposta = fsm.getPropostaById(idProposta);
-                        if (proposta == null) {
-                            System.out.println("[!] Não foi encontrado nenhuma proposta com o ID " + idProposta);
-                            return false;
-                        }
-                        PoEOrientador orientador = new PoEOrientador(docente, proposta);
-                        proposta.setOrientador(orientador);
-                    }
+                    case 1 -> System.out.println("[–] Funcionalidade por implementar...");
                     case 2 -> {
-                        String email = PAInput.readString("Email do orientador: ", true);
-                        PoEDocente docente = fsm.getDocenteByEmail(email);
-                        if (docente != null) {
-                            System.out.println(docente);
-                        } else {
-                            System.out.println("[!] Não foi encontrado nenhum orientador com o email " + email);
-                            return false;
+                        int suboption = PAInput.chooseOption("Procurar Orientador por:", "Todos", "Email", "Nome", "Voltar");
+                        switch (suboption) {
+                            case 1 -> {
+                                ArrayList<PoEOrientador> orientadores = fsm.getOrientadores();
+                                for (PoEOrientador orientador : orientadores) {
+                                    System.out.println(orientador);
+                                }
+                                Utils.pressToContinue();
+                                return false;
+                            }
+                            case 2 -> {
+                                String email = PAInput.readString("Email do Orientador: ", true);
+                                PoEOrientador orientador = fsm.getOrientadorByDocente(fsm.getDocenteByEmail(email));
+                                if (orientador == null) {
+                                    System.out.println("[!] Não existe nenhum orientador com o email " + email);
+                                }
+                                else System.out.println(orientador);
+                                Utils.pressToContinue();
+                                return false;
+                            }
+                            case 3 -> {
+                                String nome = PAInput.readString("Nome do Orientador: ", false);
+                                PoEOrientador orientador = fsm.getOrientadorByDocente(fsm.getDocenteByName(nome));
+                                if (orientador == null) {
+                                    System.out.println("[!] Não existe nenhum orientador com o nome " + nome);
+                                }
+                                else System.out.println(orientador);
+                                Utils.pressToContinue();
+                                return false;
+                            }
+                            case 4 -> {
+                                return true;
+                            }
                         }
                     }
                     case 3 -> {
                         String idProposta = PAInput.readString("ID da proposta a alterar: ", true);
                         PoEProposta proposta = fsm.getPropostaById(idProposta);
                         if (proposta == null) {
-                            System.out.println("[!] Não foi encontrado nenhuma proposta com o ID " + idProposta);
+                            System.out.println("[!] Não foi encontrada nenhuma proposta com o ID " + idProposta);
+                            Utils.pressToContinue();
                             return false;
                         }
                         String email = PAInput.readString("Email do orientador a alterar: ", true);
                         PoEDocente docente = fsm.getDocenteByEmail(email);
                         if (docente == null) {
-                            System.out.println("[!] Não foi encontrado nenhum orientador com o email " + email);
+                            System.out.println("[!] Não foi encontrada nenhum orientador com o email " + email);
+                            Utils.pressToContinue();
                             return false;
                         }
-                        PoEOrientador orientador = new PoEOrientador(docente, proposta);
+                        PoEOrientador orientador = fsm.getOrientadorByDocente(docente);
+                        if(orientador == null) {
+                            orientador = new PoEOrientador(docente);
+                        }
+                        // Isto só permite adicionar uma proposta nova e não remover
+                        orientador.addProposta(proposta);
                         proposta.setOrientador(orientador);
+                        System.out.println("[·] Orientador alterado com sucesso!");
+                        Utils.pressToContinue();
+                        return false;
                     }
                     case 4 -> {
-                        String idProposta = PAInput.readString("ID da proposta a alterar: ", true);
-                        PoEProposta proposta = fsm.getPropostaById(idProposta);
-                        if (proposta == null) {
-                            System.out.println("[!] Não foi encontrado nenhuma proposta com o ID " + idProposta);
-                            return false;
-                        }else{
-                            System.out.println("[·] Orientador " + proposta.getDocente().getNome() + " removido com sucesso");
-                            proposta.setOrientador(null);
+                        String email = PAInput.readString("Email do orientador a eliminar: ", true);
+                        PoEOrientador orientador = fsm.getOrientadorByDocente(fsm.getDocenteByEmail(email));
+                        if(fsm.removeOrientador(orientador)){
+                            System.out.println("[·] Orientador com o email " + orientador.getDocente().getEmail() + " eliminado com sucesso!");
+                        } else {
+                            System.out.println("[!] Não existe nenhum orientador com o email " + email);
                         }
+                        Utils.pressToContinue();
+                        return false;
                     }
                     case 5 -> {
-                        return false;
+                        return true;
                     }
                 }
             }
-            case 3 -> {
-                System.out.println("[–] Funcionalidade por implementar...");
-            }
+            case 3 -> System.out.println("[–] Funcionalidade por implementar...");
             case 4 -> {
                 int chooseSearchParam = PAInput.chooseOption("[ATRIBUIÇÃO - Consultar Dados]\nEscolha o tipo de pesquisa", 
-                    "Lista de estudantes com proposta e orientador", 
-                            "Lista de estudantes com proposta sem orientador",
-                        "Estatística de docentes", "Voltar");
+                        "Lista de estudantes com proposta e orientador",
+                                "Lista de estudantes com proposta sem orientador",
+                                "Estatísticas sobre os orientadores", "Voltar");
                 switch (chooseSearchParam) {
                     case 1 -> {
-                        System.out.println("[–] Funcionalidade por implementar...");
+                        ArrayList<PoEAluno> alunos = fsm.getAlunos();
+                        for (PoEAluno aluno : alunos) {
+                            if (aluno.getPropostaAtribuida() != null && aluno.getPropostaAtribuida().getOrientador() != null) {
+                                System.out.println(aluno);
+                            }
+                        }
+                        Utils.pressToContinue();
+                        return false;
                     }
                     case 2 -> {
-                        System.out.println("[–] Funcionalidade por implementar...");
+                        ArrayList<PoEAluno> alunos = fsm.getAlunos();
+                        for (PoEAluno aluno : alunos) {
+                            if (aluno.getPropostaAtribuida() != null && aluno.getPropostaAtribuida().getOrientador() == null) {
+                                System.out.println(aluno);
+                            }
+                        }
+                        Utils.pressToContinue();
+                        return false;
                     }
                     case 3 -> {
-                        System.out.println("[–] Funcionalidade por implementar...");
+                        ArrayList<PoEOrientador> orientadores = fsm.getOrientadores();
+                        int min = orientadores.get(0).getPropostas().size(), max = 0;
+                        float average = 0;
+                        for (PoEOrientador orientador : orientadores) {
+                            if(orientador.getPropostas().size() > max) {
+                                max = orientador.getPropostas().size();
+                            }
+                            if(orientador.getPropostas().size() < min) {
+                                min = orientador.getPropostas().size();
+                            }
+                            average += orientador.getPropostas().size();
+                            System.out.println(orientador + "Nr. de orientações: " + orientador.getPropostas().size() + "\n");
+                        }
+                        System.out.println("\n---- Estatística ----:\nMínimo: " + min + "\nMáximo: " + max + "\nMédia: " + average/orientadores.size());
                     }
                     case 4 -> {
                         return false;
