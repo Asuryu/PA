@@ -14,9 +14,9 @@ import java.util.Scanner;
 /**
  * Classe que implementa menus para várias ocasiões
  */
-public class Menu {
+public class PoEMenu {
 
-    private Menu() {
+    private PoEMenu() {
     }
 
     /**

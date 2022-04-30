@@ -50,9 +50,9 @@ public class PoEUI {
                         changeMode = false;
                     }
                     switch (option) {
-                        case 1 -> changeMode = Menu.menuAlunos(fsm);
-                        case 2 -> changeMode = Menu.menuDocentes(fsm);
-                        case 3 -> changeMode = Menu.menuPropostas(fsm);
+                        case 1 -> changeMode = PoEMenu.menuAlunos(fsm);
+                        case 2 -> changeMode = PoEMenu.menuDocentes(fsm);
+                        case 3 -> changeMode = PoEMenu.menuPropostas(fsm);
                         case 4 -> {
                             fsm.nextPhase();
                             changeMode = true;
@@ -71,9 +71,9 @@ public class PoEUI {
                         changeMode = false;
                     }
                     switch (option) {
-                        case 1 -> changeMode = Menu.menuCandidaturas(fsm);
-                        case 2 -> changeMode = Menu.menuListasAlunos(fsm);
-                        case 3 -> changeMode = Menu.menuListasPropostas(fsm);
+                        case 1 -> changeMode = PoEMenu.menuCandidaturas(fsm);
+                        case 2 -> changeMode = PoEMenu.menuListasAlunos(fsm);
+                        case 3 -> changeMode = PoEMenu.menuListasPropostas(fsm);
                         case 4 -> {
                             fsm.previousPhase();
                             changeMode = true;
@@ -96,7 +96,7 @@ public class PoEUI {
                         changeMode = false;
                     }
                     if (option == 1 || option == 2 || option == 3 || option == 4 || option == 5 || option == 6) {
-                        changeMode = Menu.menuAtribuicaoPropostas(fsm, option);
+                        changeMode = PoEMenu.menuAtribuicaoPropostas(fsm, option);
                     } else if(option == 7){
                         String filePath = PAInput.readString("Introduza o nome do ficheiro CSV (alunos): ", false);
                         fsm.saveAlunosCSV(filePath);
@@ -122,7 +122,7 @@ public class PoEUI {
                         changeMode = false;
                     }
                     if (option == 1 || option == 2 || option == 3 || option == 4) {
-                        changeMode = Menu.menuAtribuicaoOrientador(fsm, option);
+                        changeMode = PoEMenu.menuAtribuicaoOrientador(fsm, option);
                     } else if(option == 5){
                         String filePath = PAInput.readString("Introduza o nome do ficheiro CSV (alunos): ", false);
                         fsm.saveAlunosCSV(filePath);
@@ -148,7 +148,7 @@ public class PoEUI {
                         changeMode = false;
                     }
                     if(option == 1 || option == 2 || option == 3 || option == 4 || option == 5 || option == 6){
-                        Menu.menuConsultaDados(fsm, option);
+                        PoEMenu.menuConsultaDados(fsm, option);
                         changeMode = true;
                     }
                     else if(option == 7){
