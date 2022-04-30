@@ -3,9 +3,7 @@ package pt.isec.pa.apoio_poe.model.data;
 import pt.isec.pa.apoio_poe.model.fsm.PoEState;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class PoEData implements Serializable{
     static final long serialVersionUID = 102L;
@@ -13,6 +11,7 @@ public class PoEData implements Serializable{
     private final ArrayList<PoEDocente> docentes;
     private final ArrayList<PoEProposta> propostas;
     private final ArrayList<PoECandidatura> candidaturas;
+    private final ArrayList<PoEOrientador> orientadores;
 
     private final ArrayList<PoEState> closedPhases;
 
@@ -22,6 +21,7 @@ public class PoEData implements Serializable{
         propostas = new ArrayList<>();
         candidaturas = new ArrayList<>();
         closedPhases = new ArrayList<>();
+        orientadores = new ArrayList<>();
     }
 
     public ArrayList<PoEAluno> getAlunos() {
@@ -187,11 +187,32 @@ public class PoEData implements Serializable{
         return closedPhases.contains(state);
     }
 
-    public PoEOrientador getOrientador() {
+    public void addOrientador(PoEOrientador orientador) {
+        orientadores.add(orientador);
+    }
+
+    public ArrayList<PoEOrientador> getOrientadores(){
+        return orientadores;
+    }
+
+    public PoEOrientador getOrientadorByDocente(PoEDocente docente){
+        for(PoEOrientador orientador : orientadores){
+            if(orientador.getDocente() == docente)
+                return orientador;
+        }
         return null;
     }
 
-    public ArrayList<PoEOrientador> getOrientadores() {
-        return null;
+    public ArrayList<PoEOrientador> getOrientadoresByProjeto(PoEProposta proposta){
+        ArrayList<PoEOrientador> orientadoresEncontrados = new ArrayList<>();
+        for(PoEOrientador orientador : orientadores){
+            if(orientador.getPropostas().contains(proposta))
+                orientadoresEncontrados.add(orientador);
+        }
+        return orientadoresEncontrados;
+    }
+
+    public boolean removeOrientador(PoEOrientador orientador){
+        return orientadores.remove(orientador);
     }
 }

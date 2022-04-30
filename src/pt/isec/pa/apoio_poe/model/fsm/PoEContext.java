@@ -49,11 +49,12 @@ public class PoEContext implements Serializable{
     public boolean exitAndSave(String filename){
         try(ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(filename)))){
             oos.writeObject(this);
+            return true;
         }catch(Exception e){
             System.out.println(Arrays.toString(e.getStackTrace()));
             System.out.println("[!] Erro ao carregar o ficheiro");
+            return false;
         }
-        return state.exitAndSave();
     }
 
     public PoEContext loadSave(String filename){
@@ -143,9 +144,24 @@ public class PoEContext implements Serializable{
         if(proposta == null) return new ArrayList<>();
         return data.getCandidaturasByProposta(proposta);
     }
+    public void addOrientador(PoEOrientador orientador){
+        data.addOrientador(orientador);
+    }
+    public ArrayList<PoEOrientador> getOrientadores(){
+        return data.getOrientadores();
+    }
+    public PoEOrientador getOrientadorByDocente(PoEDocente docente){
+        return data.getOrientadorByDocente(docente);
+    }
+    public ArrayList<PoEOrientador> getOrientadoresByProjeto(PoEProposta proposta){
+        return data.getOrientadoresByProjeto(proposta);
+    }
 
     public boolean isPhaseClosed(PoEState state){
         return data.isPhaseClosed(state);
     }
 
+    public boolean removeOrientador(PoEOrientador orientador) {
+        return data.removeOrientador(orientador);
+    }
 }
