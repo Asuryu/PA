@@ -1,9 +1,14 @@
 package pt.isec.pa.apoio_poe.ui.text;
 
 import pt.isec.pa.apoio_poe.model.fsm.PoEContext;
-import pt.isec.pa.apoio_poe.utils.Menu;
 import pt.isec.pa.apoio_poe.utils.PAInput;
 import pt.isec.pa.apoio_poe.utils.Utils;
+
+// TODO: Fase 3 - Listas de Alunos -> Têm autoproposta associada
+// TODO: Fase 3 - Listas de Propostas -> Autopropostas de alunos
+
+// TODO: Fase 4 - Atribuição manual de orientadores
+// TODO: Fase 4 - Gestão de Orientadore -> Atribuir Orientadores
 
 public class PoEUI {
     private PoEContext fsm;
@@ -27,13 +32,17 @@ public class PoEUI {
             }
         }
 
-        Utils.mostrarASCII();
         boolean changeMode = true;
         int option = 0;
 
         while(!exit){
-            System.out.println("STATE: " + fsm.getState());
-            System.out.println("CLOSED: " + fsm.isClosed());
+            Utils.mostrarASCII();
+            System.out.println("· FASE " + (fsm.getState().ordinal() + 1) + ": " + fsm.getState() + " ·");
+            if (fsm.isClosed()) {
+                System.out.println("ESTADO: Fechada (Read-Only) ");
+            } else {
+                System.out.println("ESTADO: Aberta");
+            }
             switch (fsm.getState()) {
                 case CONFIG -> {
                     if (changeMode) {
@@ -83,44 +92,75 @@ public class PoEUI {
                 }
                 case PROP_ATTRIBUTION -> {
                     if (changeMode) {
-                        option = PAInput.chooseOption("Escolha uma opção", "Atribuição automática das propostas com aluno associado", "Atribuição automática de uma proposta (alunos sem atribuições)", "Atribuição manual de propostas (alunos sem atribuição)", "Remoção manual de uma atribuição", "Listas de Alunos", "Listas de Propostas", "Fase anterior", "Fase seguinte", "Fechar a fase", "Sair");
+                        option = PAInput.chooseOption("Escolha uma opção", "Atribuição automática das propostas com aluno associado", "Atribuição automática de uma proposta (alunos sem atribuições)", "Atribuição manual de propostas (alunos sem atribuição)", "Remoção manual de uma atribuição", "Listas de Alunos", "Listas de Propostas", "Exportar alunos para um ficheiro CSV", "Fase anterior", "Fase seguinte", "Fechar a fase", "Sair");
                         changeMode = false;
                     }
                     if (option == 1 || option == 2 || option == 3 || option == 4 || option == 5 || option == 6) {
                         changeMode = Menu.menuAtribuicaoPropostas(fsm, option);
-                    } else if (option == 7) {
-                        fsm.previousPhase();
+                    } else if(option == 7){
+                        String filePath = PAInput.readString("Introduza o nome do ficheiro CSV (alunos): ", false);
+                        fsm.saveAlunosCSV(filePath);
+                        Utils.pressToContinue();
                         changeMode = true;
                     } else if (option == 8) {
-                        fsm.nextPhase();
+                        fsm.previousPhase();
                         changeMode = true;
                     } else if (option == 9) {
+                        fsm.nextPhase();
+                        changeMode = true;
+                    } else if (option == 10) {
                         fsm.closePhase();
                         Utils.pressToContinue();
                         changeMode = true;
-                    } else if (option == 10) {
+                    } else if (option == 11) {
                         exit = true;
                     }
                 }
                 case ORI_ATTRIBUTION -> {
                     if (changeMode) {
-                        option = PAInput.chooseOption("Escolha uma opção", "Atribuição automática de orientadores", "Gestão de Orientadores", "Atribuição manual de orientadores", "Listagem de Dados", "Fase anterior", "Fechar a fase", "Sair");
+                        option = PAInput.chooseOption("Escolha uma opção", "Atribuição automática de orientadores", "Gestão de Orientadores", "Atribuição manual de orientadores", "Listagem de Dados", "Exportar alunos para um ficheiro CSV", "Fase anterior", "Fechar a fase", "Sair");
                         changeMode = false;
                     }
                     if (option == 1 || option == 2 || option == 3 || option == 4) {
                         changeMode = Menu.menuAtribuicaoOrientador(fsm, option);
-                    } else if (option == 5) {
-                        fsm.previousPhase();
-                        changeMode = true;
-                    } else if (option == 6) {
-                        fsm.closePhase();
+                    } else if(option == 5){
+                        String filePath = PAInput.readString("Introduza o nome do ficheiro CSV (alunos): ", false);
+                        fsm.saveAlunosCSV(filePath);
                         Utils.pressToContinue();
                         changeMode = true;
+                    } else if (option == 6) {
+                        fsm.previousPhase();
+                        changeMode = true;
                     } else if (option == 7) {
+                        System.out.println("[!] Após fechar esta fase não será possível voltar atrás.");
+                        if (PAInput.readString("Deseja fechar a fase? (S/N): ", true).equalsIgnoreCase("s")) {
+                            fsm.closePhase();
+                            Utils.pressToContinue();
+                            changeMode = true;
+                        }
+                    } else if (option == 8) {
                         exit = true;
                     }
                 }
-                case REVIEW -> System.out.println("Por implementar REVIEW!\n");
+                case REVIEW -> {
+                    if (changeMode) {
+                        option = PAInput.chooseOption("Escolha uma opção", "Lista de estudantes com propostas atribuídas", "Lista de estudantes sem propostas atribuídas e com opções de candidatura", "Exportar alunos para um ficheiro CSV", "Propostas disponíveis", "Propostas atribuídas", "Estatísticas", "Concluir processo", "Sair");
+                        changeMode = false;
+                    }
+                    if(option == 1 || option == 2 || option == 3 || option == 4 || option == 5 || option == 6){
+                        Menu.menuConsultaDados(fsm, option);
+                        changeMode = true;
+                    }
+                    else if(option == 7){
+                        Utils.mostrarASCII();
+                        System.out.println("[·] Processo concluído com sucesso!");
+                        Utils.pressToContinue();
+                        exit = true;
+                    }
+                    else if(option == 8){
+                        exit = true;
+                    }
+                }
                 default -> System.exit(-1);
             }
         }
