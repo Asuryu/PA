@@ -857,35 +857,7 @@ public class PoEMenu {
                         "Alterar Orientadores", "Eliminar Orientadores", "Voltar");
                 switch (chooseSearchParam) {
                     case 1 -> {
-                        String idProposta = PAInput.readString("ID da proposta a atribuir orientador: ", true);
-                        PoEProposta proposta = fsm.getPropostaById(idProposta);
-                        if(proposta == null) {
-                            System.out.println("[!] Proposta não encontrada!");
-                            Utils.pressToContinue();
-                            return false;
-                        }else if(proposta.getNrAlunoAtribuido() == null){
-                            System.out.println("[!] Proposta não atribuída a um aluno!");
-                            Utils.pressToContinue();
-                            return false;
-                        }
-                        String emailOrientador = PAInput.readString("Email do orientador a atribuir: ", true);
-                        PoEOrientador orientador = fsm.getOrientadorByDocente(fsm.getDocenteByEmail(emailOrientador));
-                        if(orientador == null) {
-                            System.out.println("[!] Orientador não encontrado!");
-                            Utils.pressToContinue();
-                            return false;
-                        }
-                        if(orientador.getPropostas().contains(proposta)) {
-                            System.out.println("[!] Orientador já atribuído à proposta!");
-                            Utils.pressToContinue();
-                            return false;
-                        }
-                        orientador.addProposta(proposta);
-                        proposta.setOrientador(orientador);
-                        System.out.println("[·] Orientador com o email " + orientador.getDocente().getEmail()
-                                + " atribuído à proposta com ID " + proposta.getId());
-                        Utils.pressToContinue();
-                        return false;
+                        break;
                     }
                     case 2 -> {
                         int suboption = PAInput.chooseOption("Procurar Orientador por:", "Todos", "Email", "Nome", "Voltar");
@@ -965,7 +937,37 @@ public class PoEMenu {
                     }
                 }
             }
-            case 3 -> System.out.println("[–] Funcionalidade por implementar...");
+            case 3 -> {
+                String idProposta = PAInput.readString("ID da proposta a atribuir orientador: ", true);
+                PoEProposta proposta = fsm.getPropostaById(idProposta);
+                if(proposta == null) {
+                    System.out.println("[!] Proposta não encontrada!");
+                    Utils.pressToContinue();
+                    return false;
+                }else if(proposta.getNrAlunoAtribuido() == null){
+                    System.out.println("[!] Proposta não atribuída a um aluno!");
+                    Utils.pressToContinue();
+                    return false;
+                }
+                String emailOrientador = PAInput.readString("Email do orientador a atribuir: ", true);
+                PoEOrientador orientador = fsm.getOrientadorByDocente(fsm.getDocenteByEmail(emailOrientador));
+                if(orientador == null) {
+                    System.out.println("[!] Orientador não encontrado!");
+                    Utils.pressToContinue();
+                    return false;
+                }
+                if(orientador.getPropostas().contains(proposta)) {
+                    System.out.println("[!] Orientador já atribuído à proposta!");
+                    Utils.pressToContinue();
+                    return false;
+                }
+                orientador.addProposta(proposta);
+                proposta.setOrientador(orientador);
+                System.out.println("[·] Orientador com o email " + orientador.getDocente().getEmail()
+                        + " atribuído à proposta com ID " + proposta.getId());
+                Utils.pressToContinue();
+                return false;
+            }
             case 4 -> {
                 int chooseSearchParam = PAInput.chooseOption("[ATRIBUIÇÃO - Consultar Dados]\nEscolha o tipo de pesquisa", 
                         "Lista de estudantes com proposta e orientador",
