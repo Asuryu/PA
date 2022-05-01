@@ -857,7 +857,22 @@ public class PoEMenu {
                         "Alterar Orientadores", "Eliminar Orientadores", "Voltar");
                 switch (chooseSearchParam) {
                     case 1 -> {
-                        break;
+                        ArrayList<PoEOrientador> orientadores = fsm.getOrientadores();
+                        ArrayList<PoEAluno> alunos = fsm.getAlunos();
+                        for(PoEAluno aluno : alunos) {
+                            if(aluno.getPropostaAtribuida().getOrientador() == null) {
+                                Collections.shuffle(orientadores);
+                                PoEProposta proposta = aluno.getPropostaAtribuida();
+                                PoEOrientador orientador = orientadores.get(0);
+                                proposta.setOrientador(orientador);
+                                orientador.addProposta(proposta);
+                                System.out.println("[·] Proposta com ID " + proposta.getId()
+                                        + " associada ao orientador com o email " + orientador.getDocente().getEmail());
+                            }
+                        }
+                        System.out.println("[·] Atribuição de orientadores concluída!");
+                        Utils.pressToContinue();
+                        return false;
                     }
                     case 2 -> {
                         int suboption = PAInput.chooseOption("Procurar Orientador por:", "Todos", "Email", "Nome", "Voltar");
