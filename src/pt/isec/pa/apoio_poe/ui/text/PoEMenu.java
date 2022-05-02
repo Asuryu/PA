@@ -857,6 +857,12 @@ public class PoEMenu {
                         "Alterar Orientadores", "Eliminar Orientadores", "Voltar");
                 switch (chooseSearchParam) {
                     case 1 -> {
+                        for(PoEDocente docente : fsm.getDocentes()) {
+                            if(fsm.getOrientadorByDocente(docente) == null) {
+                                PoEOrientador orientador = new PoEOrientador(docente);
+                                fsm.addOrientador(orientador);
+                            }
+                        }
                         ArrayList<PoEOrientador> orientadores = fsm.getOrientadores();
                         ArrayList<PoEAluno> alunos = fsm.getAlunos();
                         for(PoEAluno aluno : alunos) {
@@ -929,7 +935,8 @@ public class PoEMenu {
                         if(orientador == null) {
                             orientador = new PoEOrientador(docente);
                         }
-                        // Isto só permite adicionar uma proposta nova e não remover
+                        proposta.getOrientador().removeProposta(proposta);
+                        proposta.getOrientador().removeProposta(null);
                         orientador.addProposta(proposta);
                         proposta.setOrientador(orientador);
                         System.out.println("[·] Orientador alterado com sucesso!");
