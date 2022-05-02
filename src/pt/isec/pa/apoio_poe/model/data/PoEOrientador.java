@@ -32,6 +32,11 @@ public class PoEOrientador implements Serializable{
         }
     }
 
+    public boolean removeProposta(PoEProposta proposta){
+        return propostas.remove(proposta);
+    }
+
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
@@ -39,7 +44,9 @@ public class PoEOrientador implements Serializable{
         for(PoEProposta proposta : propostas){
             propostasStr.append(proposta.getId()).append(", ");
         }
-        propostasStr = new StringBuilder(propostasStr.substring(0, propostasStr.length() - 2));
+        if(!propostasStr.isEmpty()){
+            propostasStr = new StringBuilder(propostasStr.substring(0, propostasStr.length() - 2));
+        } else propostasStr = new StringBuilder("Nenhuma");
         sb.append("---- Orientador ----\n");
         sb.append("Docente: ").append(docente.getNome()).append("    (").append(docente.getEmail()).append(")\n");
         sb.append("Propostas Atribuídas: ").append(propostasStr).append("\n");
