@@ -13,6 +13,11 @@ public class PoECandidatura implements Serializable {
         this.preferencias = preferencias;
     }
 
+    public PoECandidatura(PoECandidatura c) {
+        this.nrEstudante = c.getNrEstudante();
+        this.preferencias = new ArrayList<>(c.getPreferencias());
+    }
+
     public long getNrEstudante() {
         return nrEstudante;
     }

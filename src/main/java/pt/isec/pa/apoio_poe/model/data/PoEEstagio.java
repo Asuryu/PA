@@ -14,14 +14,18 @@ public class PoEEstagio extends PoEProposta implements Serializable{
         this.entidade = entidade;
     }
 
+    public PoEEstagio(PoEEstagio estagio) {
+        super(estagio.getId(), estagio.getTitulo(), estagio.getNrAlunoAtribuido());
+        this.ramosDestino = estagio.getRamosDestino();
+        this.entidade = estagio.getEntidade();
+    }
+
     @Override
     public ArrayList<String> getRamosDestino() {
         return ramosDestino;
     }
 
-    public void setRamosDestino(ArrayList<String> ramosDestino) {
-        this.ramosDestino = ramosDestino;
-    }
+    public void setRamosDestino(ArrayList<String> ramosDestino) { this.ramosDestino = ramosDestino; }
 
     public String getEntidade() {
         return entidade;

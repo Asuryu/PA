@@ -14,6 +14,11 @@ public class PoEOrientador implements Serializable{
         this.propostas = new ArrayList<>();
     }
 
+    public PoEOrientador(PoEOrientador other) {
+        this.docente = other.docente;
+        this.propostas = new ArrayList<>(other.propostas);
+    }
+
     public PoEDocente getDocente() {
         return docente;
     }

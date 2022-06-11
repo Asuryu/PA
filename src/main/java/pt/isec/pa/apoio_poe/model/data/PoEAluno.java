@@ -1,6 +1,7 @@
 package pt.isec.pa.apoio_poe.model.data;
 
 import java.io.Serializable;
+import java.lang.reflect.Constructor;
 import java.util.Objects;
 
 public class PoEAluno implements Serializable{
@@ -27,6 +28,18 @@ public class PoEAluno implements Serializable{
         this.propostaAtribuida = null;
     }
 
+    public PoEAluno(PoEAluno aluno){
+        this.nome = aluno.nome;
+        this.nrEstudante = aluno.nrEstudante;
+        this.email = aluno.email;
+        this.curso = aluno.curso;
+        this.ramo = aluno.ramo;
+        this.classificacao = aluno.classificacao;
+        this.estagios = aluno.estagios;
+        this.candidatura = aluno.candidatura;
+        this.propostaAtribuida = aluno.propostaAtribuida;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -43,24 +56,30 @@ public class PoEAluno implements Serializable{
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    public void setEmail(String email) { this.email = email; }
 
     public String getCurso() {
         return curso;
     }
 
-    public void setCurso(String curso) {
-        this.curso = curso;
+    public boolean setCurso(String curso) {
+        if(curso.equals("LEI") || curso.equals("LEI-PL")){
+            this.curso = curso;
+            return true;
+        }
+        return false;
     }
 
     public String getRamo() {
         return ramo;
     }
 
-    public void setRamo(String ramo) {
-        this.ramo = ramo;
+    public boolean setRamo(String ramo) {
+        if(ramo.equals("DA") || ramo.equals("RAS") || ramo.equals("SI")){
+            this.ramo = ramo;
+            return true;
+        }
+        return false;
     }
 
     public double getClassificacao() {

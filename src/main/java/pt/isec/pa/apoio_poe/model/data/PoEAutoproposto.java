@@ -10,6 +10,11 @@ public class PoEAutoproposto extends PoEProposta implements Serializable{
         super(id, titulo, aluno.getNrEstudante());
         this.aluno = aluno;
     }
+    
+    public PoEAutoproposto(PoEAutoproposto autoproposto) {
+        super(autoproposto.getId(), autoproposto.getTitulo(), autoproposto.getNrAlunoAtribuido());
+        this.aluno = autoproposto.aluno;
+    }
 
     @Override
     public PoEAluno getAluno() {

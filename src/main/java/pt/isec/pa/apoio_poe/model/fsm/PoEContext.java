@@ -22,6 +22,11 @@ public class PoEContext implements Serializable{
         state = new ConfigState(this, data);
     }
 
+    public PoEContext(PoEContext c){
+        data = new PoEData(c.data);
+        state = c.state;
+    }
+
     void changeState(IPoEState newState){
         state = newState;
     }

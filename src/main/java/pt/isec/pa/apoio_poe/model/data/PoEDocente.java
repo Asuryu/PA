@@ -14,6 +14,11 @@ public class PoEDocente implements Serializable {
         this.email = email;
     }
 
+    public PoEDocente(PoEDocente d) {
+        this.nome = d.getNome();
+        this.email = d.getEmail();
+    }
+
     public String getNome() {
         return nome;
     }

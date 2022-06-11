@@ -14,6 +14,12 @@ public class PoEProjeto extends PoEProposta implements Serializable{
         this.docente = docente;
     }
 
+    public PoEProjeto(PoEProjeto projeto) {
+        super(projeto.getId(), projeto.getTitulo(), projeto.getNrAlunoAtribuido());
+        this.ramosDestino = projeto.getRamosDestino();
+        this.docente = projeto.getDocente();
+    }
+
     public ArrayList<String> getRamosDestino() {
         return ramosDestino;
     }

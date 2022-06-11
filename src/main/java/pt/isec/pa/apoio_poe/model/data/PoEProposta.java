@@ -18,6 +18,14 @@ public class PoEProposta implements Serializable{
         this.candidaturas = new ArrayList<>();
     }
 
+    public PoEProposta(PoEProposta proposta) {
+        this.id = proposta.getId();
+        this.titulo = proposta.getTitulo();
+        this.nrAlunoAtribuido = proposta.getNrAlunoAtribuido();
+        this.candidaturas = new ArrayList<>(proposta.getCandidaturas());
+        this.orientador = proposta.getOrientador();
+    }
+
     public PoEOrientador getOrientador() {
         return orientador;
     }
@@ -60,8 +68,8 @@ public class PoEProposta implements Serializable{
         return candidaturas;
     }
 
-    public void addCandidatura(PoECandidatura candidatura) {
-        this.candidaturas.add(candidatura);
+    public boolean addCandidatura(PoECandidatura candidatura) {
+        return candidaturas.add(candidatura);
     }
 
     @Override
