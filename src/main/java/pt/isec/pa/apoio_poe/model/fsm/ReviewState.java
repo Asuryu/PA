@@ -5,6 +5,9 @@ import java.io.*;
 import pt.isec.pa.apoio_poe.model.data.PoEAluno;
 import pt.isec.pa.apoio_poe.model.data.PoEData;
 
+/**
+ * A classe ReviewState implementa o estado de consulta.
+ */
 class ReviewState extends PoEStateAdapter implements Serializable{
     static final long serialVersionUID = 113L;
     ReviewState(PoEContext context, PoEData data) {

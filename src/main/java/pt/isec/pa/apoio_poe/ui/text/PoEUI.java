@@ -4,20 +4,24 @@ import pt.isec.pa.apoio_poe.model.fsm.PoEContext;
 import pt.isec.pa.apoio_poe.utils.PAInput;
 import pt.isec.pa.apoio_poe.utils.Utils;
 
-// TODO: Fase 3 - Listas de Alunos -> Têm autoproposta associada
-// TODO: Fase 3 - Listas de Propostas -> Autopropostas de alunos
-
-// TODO: Fase 4 - Atribuição manual de orientadores
-// TODO: Fase 4 - Gestão de Orientadore -> Atribuir Orientadores
-
+/**
+ * A classe PoEUI representa a interface de usuário do sistema.
+ */
 public class PoEUI {
     private PoEContext fsm;
     private boolean exit = false;
 
+    /**
+     * Construtor da classe PoEUI.
+     * @param fsm O contexto da máquina de estados.
+     */
     public PoEUI(PoEContext fsm) {
         this.fsm = fsm;
     }
 
+    /**
+     * Método que inicia a execução do sistema.
+     */
     public void start() {
         Utils.mostrarASCII();
         int load = PAInput.chooseOption("Deseja carregar um ficheiro de estado?", "Sim", "Não");

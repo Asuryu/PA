@@ -6,6 +6,10 @@ import javafx.scene.layout.*;
 import pt.isec.pa.apoio_poe.model.ModelManager;
 import pt.isec.pa.apoio_poe.model.fsm.PoEState;
 
+/**
+ * A classe ReviewUI é uma classe que representa a interface gráfica
+ * da fase de consulta
+ */
 public class ReviewUI extends BorderPane {
     final ModelManager model;
     Button btnPrev;
@@ -18,18 +22,27 @@ public class ReviewUI extends BorderPane {
         update();
     }
 
+    /**
+     * Método que cria as vistas da interface gráfica
+     */
     private void createViews() {
         ActionButtons buttons = new ActionButtons(model);
         this.setPadding(new Insets(10, 10, 10, 10));
         this.setBottom(buttons);
     }
 
+    /**
+     * Método que regista os handlers da interface gráfica
+     */
     private void registerHandlers() {
         model.addPropertyChangeListener(ModelManager.PROP_STATE, evt -> {
             update();
         });
     }
 
+    /**
+     * Método que atualiza a interface gráfica
+     */
     private void update() {
         this.setVisible(model != null && model.getState() == PoEState.REVIEW);
     }

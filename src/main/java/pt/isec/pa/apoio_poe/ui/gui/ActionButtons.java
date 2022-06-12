@@ -6,6 +6,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import pt.isec.pa.apoio_poe.model.ModelManager;
 
+/**
+ * A classe ActionButtons é uma classe que representa os botões
+ * de ação da aplicação gráfica (alteração da fase)
+ */
 public class ActionButtons extends HBox {
     final ModelManager model;
     HBox leftBox, rightBox;
@@ -19,6 +23,10 @@ public class ActionButtons extends HBox {
         update();
     }
 
+    /**
+     * Método que cria as vistas dos botões de ação
+     * Cria os botões para avançar, retroceder e fechar a fase
+     */
     private void createViews() {
         leftBox = new HBox();
         leftBox.setAlignment(Pos.CENTER_LEFT);
@@ -71,6 +79,11 @@ public class ActionButtons extends HBox {
 
     }
 
+    /**
+     * Método que regista os handlers dos botões de ação
+     * Regista os handlers dos botões para avançar, retroceder e fechar a fase
+     * Regista os handlers para hover dos botões
+     */
     private void registerHandlers() {
         model.addPropertyChangeListener(ModelManager.PROP_STATE, evt -> {
             update();
@@ -152,6 +165,10 @@ public class ActionButtons extends HBox {
         });
     }
 
+    /**
+     * Método que atualiza o estado da interface
+     * Atualiza o estado dos botões de acordo com o estado do modelo
+     */
     private void update() {
 
         closePhaseBtn.setDisable(model.isClosed());

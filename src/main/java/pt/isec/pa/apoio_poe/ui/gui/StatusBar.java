@@ -5,10 +5,17 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import pt.isec.pa.apoio_poe.model.ModelManager;
 
+/**
+ * A classe StatusBar é uma classe que representa uma barra de estado da aplicação gráfica
+ */
 public class StatusBar extends HBox {
     final ModelManager model;
     Label lbMsg, lbNumber;
 
+    /**
+     * Construtor da classe StatusBar
+     * @param model ModelManager da aplicação
+     */
     public StatusBar(ModelManager model) {
         this.model = model;
 
@@ -17,6 +24,9 @@ public class StatusBar extends HBox {
         update();
     }
 
+    /**
+     * Método que cria as vistas da barra de estado
+     */
     private void createViews() {
         Label lbMsgTitle = new Label("Fase: ");
         lbMsgTitle.setPrefWidth(Integer.MAX_VALUE);
@@ -33,6 +43,9 @@ public class StatusBar extends HBox {
         this.getChildren().addAll(lbMsgTitle, lbMsg, lbNumberTitle, lbNumber);
     }
 
+    /**
+     * Método que regista os handlers da barra de estado
+    */
     private void registerHandlers() {
         model.addPropertyChangeListener(ModelManager.PROP_DATA, evt -> {
             update();
@@ -42,6 +55,9 @@ public class StatusBar extends HBox {
         });
     }
 
+    /**
+     * Método que atualiza a barra de estado
+     */
     private void update() {
         lbMsg.setText(String.valueOf(model.getState()));
         lbNumber.setText(model.isClosed() ? "FECHADA" : "ABERTA");

@@ -5,6 +5,9 @@ import java.util.ArrayList;
 
 import pt.isec.pa.apoio_poe.model.data.*;
 
+/**
+ * A classe PropAttributionState implementa o estado de atribuição de propostas.
+ */
 class PropAttributionState extends PoEStateAdapter implements Serializable{
     static final long serialVersionUID = 112L;
     PropAttributionState(PoEContext context, PoEData data) {

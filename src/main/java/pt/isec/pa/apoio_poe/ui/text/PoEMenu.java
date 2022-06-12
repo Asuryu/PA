@@ -335,6 +335,12 @@ public class PoEMenu {
         return false;
     }
 
+    /**
+     * Menu para o utilizador escolher opções de gestão de candidaturas
+     *
+     * @param fsm Referência para a máquina de estados
+     * @return True se o utilizador quiser voltar para o menu inicial
+     */
     public static boolean menuCandidaturas(PoEContext fsm) {
         int escolhaProposta = PAInput.chooseOption("[OPÇÕES DE CANDIDATURA] - Gerir Candidaturas]\nEscolha uma opção",
                 "Importar candidaturas a partir de um ficheiro CSV", "Exportar candidaturas para um ficheiro CSV",
@@ -425,6 +431,12 @@ public class PoEMenu {
         return false;
     }
 
+    /**
+     * Menu para a opção de gerir a lista de alunos
+     *
+     * @param fsm Referência para a máquina de estados
+     * @return True se o utilizador quiser voltar para o menu inicial
+     */
     public static boolean menuListasAlunos(PoEContext fsm) {
         int escolhaOpcao = PAInput.chooseOption("[OPÇÕES DE CANDIDATURA - Listas de Alunos]\nEscolha uma opção",
                 "Com autoproposta", "Com candidatura já registada", "Sem candidatura", "Voltar");
@@ -465,6 +477,12 @@ public class PoEMenu {
         return false;
     }
 
+    /**
+     * Menu para a opção de gerir a lista de propostas
+     *
+     * @param fsm Referência para a máquina de estados
+     * @return True se o utilizador quiser voltar para o menu inicial
+     */
     public static boolean menuListasPropostas(PoEContext fsm) {
         int escolhaOpcao = PAInput.chooseOption("[OPÇÕES DE CANDIDATURA - Listas de Propostas]\nEscolha uma opção",
                 "Autopropostas de alunos", "Propostas de docentes", "Propostas com candidaturas",
@@ -516,6 +534,12 @@ public class PoEMenu {
         return false;
     }
 
+    /**
+     * Menu para o utilizador escolher opções de atribuição de propostas
+     *
+     * @param fsm Referência para a máquina de estados
+     * @return True se o utilizador quiser voltar para o menu inicial
+     */
     public static boolean menuAtribuicaoPropostas(PoEContext fsm, int option) {
         switch (option) {
             case 1 -> {
@@ -827,6 +851,12 @@ public class PoEMenu {
         return false;
     }
 
+    /**
+     * Menu para o utilizador escolher opções de atribuição de orientadores
+     *
+     * @param fsm Referência para a máquina de estados
+     * @return True se o utilizador quiser voltar para o menu inicial
+     */
     public static boolean menuAtribuicaoOrientador(PoEContext fsm, int option) {
         switch (option) {
             case 1 -> {
@@ -1047,6 +1077,12 @@ public class PoEMenu {
         return true;
     }
 
+    /**
+     * Menu para o utilizador escolher opções de consulta
+     *
+     * @param fsm Referência para a máquina de estados
+     * @return True se o utilizador quiser voltar para o menu inicial
+     */
     public static void menuConsultaDados(PoEContext fsm, int option){
         switch (option) {
             case 1 -> {

@@ -2,9 +2,14 @@ package pt.isec.pa.apoio_poe;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import pt.isec.pa.apoio_poe.model.ModelManager;
 import pt.isec.pa.apoio_poe.ui.gui.RootPane;
+import pt.isec.pa.apoio_poe.ui.gui.resources.ImageManager;
+
+import java.io.File;
+import java.util.Objects;
 
 public class MainJFX extends Application {
 

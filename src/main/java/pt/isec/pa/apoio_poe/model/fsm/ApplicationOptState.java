@@ -8,6 +8,9 @@ import java.util.Scanner;
 
 import pt.isec.pa.apoio_poe.model.data.PoEData;
 
+/**
+ * A classe ApplicationOptState implementa o estado de opções de candidatura.
+ */
 class ApplicationOptState extends PoEStateAdapter implements Serializable{
     static final long serialVersionUID = 107L;
     ApplicationOptState(PoEContext context, PoEData data) {

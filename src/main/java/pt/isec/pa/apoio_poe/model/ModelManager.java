@@ -6,6 +6,7 @@ import pt.isec.pa.apoio_poe.model.fsm.PoEState;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+
 public class ModelManager {
     public static final String PROP_STATE = "state";
     public static final String PROP_DATA  = "data";

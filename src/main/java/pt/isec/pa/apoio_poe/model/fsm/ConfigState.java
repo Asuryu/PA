@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * A classe ConfigState implementa o estado de configuração.
+ */
 class ConfigState extends PoEStateAdapter implements Serializable{
     static final long serialVersionUID = 108L;
     ConfigState(PoEContext context, PoEData data) {

@@ -9,6 +9,9 @@ import javafx.scene.text.Text;
 import pt.isec.pa.apoio_poe.model.ModelManager;
 import pt.isec.pa.apoio_poe.model.fsm.PoEState;
 
+/**
+ * A classe Header é uma classe que representa o cabeçalho da aplicação gráfica
+ */
 public class Header extends VBox {
     final ModelManager model;
     Text title, subtitle;
@@ -21,6 +24,12 @@ public class Header extends VBox {
         update();
     }
 
+    /**
+     * Método que cria as vistas do cabeçalho
+     * Cabeçalho é composto por um título e um subtítulo
+     * O título é um Text com o nome da fase
+     * O subtítulo é um Text com a indicação do número da fase em que se encontra
+     */
     private void createViews() {
 
         VBox topBox = new VBox();
@@ -42,6 +51,9 @@ public class Header extends VBox {
         this.getChildren().addAll(topBox, bottomBox);
     }
 
+    /**
+     * Método que regista os handlers do cabeçalho
+     */
     private void registerHandlers() {
         model.addPropertyChangeListener(ModelManager.PROP_DATA, evt -> {
             update();
@@ -51,6 +63,9 @@ public class Header extends VBox {
         });
     }
 
+    /**
+     * Método que atualiza o cabeçalho de acordo com o estado da aplicação
+     */
     private void update() {
         title.setText(String.valueOf(model.getState()));
         subtitle.setText("Fase " + (model.getState().ordinal() + 1) + "/" + PoEState.values().length);

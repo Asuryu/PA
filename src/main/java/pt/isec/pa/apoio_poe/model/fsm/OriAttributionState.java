@@ -5,6 +5,9 @@ import java.io.*;
 import pt.isec.pa.apoio_poe.model.data.PoEAluno;
 import pt.isec.pa.apoio_poe.model.data.PoEData;
 
+/**
+ * A classe OriAttributionState implementa o estado de atribuição de orientadores.
+ */
 class OriAttributionState extends PoEStateAdapter implements Serializable{
     static final long serialVersionUID = 109L;
     OriAttributionState(PoEContext context, PoEData data) {
