@@ -37,8 +37,8 @@ public class PoEOrientador implements Serializable{
         }
     }
 
-    public boolean removeProposta(PoEProposta proposta){
-        return propostas.remove(proposta);
+    public void removeProposta(PoEProposta proposta){
+        propostas.remove(proposta);
     }
 
 

@@ -3,8 +3,6 @@ package pt.isec.pa.apoio_poe.model.memento;
 import pt.isec.pa.apoio_poe.model.data.PoEAluno;
 import pt.isec.pa.apoio_poe.model.data.PoEProposta;
 
-import java.util.ArrayList;
-
 public class MyOriginator implements IOriginator {
     PoEAluno aluno;
     PoEProposta proposta;
@@ -15,8 +13,8 @@ public class MyOriginator implements IOriginator {
     }
 
     private static class MyMemento implements IMemento {
-        PoEAluno aluno;
-        PoEProposta proposta;
+        final PoEAluno aluno;
+        final PoEProposta proposta;
 
         MyMemento(MyOriginator base) {
             this.aluno = new PoEAluno(base.aluno);

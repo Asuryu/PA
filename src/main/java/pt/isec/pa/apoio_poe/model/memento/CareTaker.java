@@ -4,9 +4,9 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 public class CareTaker {
-    IOriginator originator;
-    Deque<IMemento> history;
-    Deque<IMemento> redoHist;
+    final IOriginator originator;
+    final Deque<IMemento> history;
+    final Deque<IMemento> redoHist;
 
     public CareTaker(IOriginator originator) {
         this.originator = originator;

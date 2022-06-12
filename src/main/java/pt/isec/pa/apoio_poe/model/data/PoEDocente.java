@@ -17,6 +17,7 @@ public class PoEDocente implements Serializable {
     public PoEDocente(PoEDocente d) {
         this.nome = d.getNome();
         this.email = d.getEmail();
+        this.papel = d.papel;
     }
 
     public String getNome() {

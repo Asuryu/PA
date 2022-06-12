@@ -68,8 +68,8 @@ public class PoEProposta implements Serializable{
         return candidaturas;
     }
 
-    public boolean addCandidatura(PoECandidatura candidatura) {
-        return candidaturas.add(candidatura);
+    public void addCandidatura(PoECandidatura candidatura) {
+        candidaturas.add(candidatura);
     }
 
     @Override

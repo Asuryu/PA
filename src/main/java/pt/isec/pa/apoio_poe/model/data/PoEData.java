@@ -1,8 +1,6 @@
 package pt.isec.pa.apoio_poe.model.data;
 
 import pt.isec.pa.apoio_poe.model.fsm.PoEState;
-import pt.isec.pa.apoio_poe.model.memento.CareTaker;
-import pt.isec.pa.apoio_poe.model.memento.MyOriginator;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -88,8 +86,8 @@ public class PoEData implements Serializable{
     public void addAluno(PoEAluno aluno) {
         alunos.add(aluno);
     }
-    public boolean removeAluno(PoEAluno aluno) {
-        return alunos.remove(aluno);
+    public void removeAluno(PoEAluno aluno) {
+        alunos.remove(aluno);
     }
 
     public ArrayList<PoEDocente> getDocentes() {
@@ -118,8 +116,8 @@ public class PoEData implements Serializable{
     public void addDocente(PoEDocente docente) {
         docentes.add(docente);
     }
-    public boolean removeDocente(PoEDocente docente) {
-        return docentes.remove(docente);
+    public void removeDocente(PoEDocente docente) {
+        docentes.remove(docente);
     }
 
     public ArrayList<PoEProposta> getPropostas() {
@@ -170,15 +168,15 @@ public class PoEData implements Serializable{
     public void addProposta(PoEProposta proposta) {
         propostas.add(proposta);
     }
-    public boolean removeProposta(PoEProposta proposta) {
-        return propostas.remove(proposta);
+    public void removeProposta(PoEProposta proposta) {
+        propostas.remove(proposta);
     }
 
     public void addCandidatura(PoECandidatura candidatura) {
         candidaturas.add(candidatura);
     }
-    public boolean removeCandidatura(PoECandidatura candidatura) {
-        return candidaturas.remove(candidatura);
+    public void removeCandidatura(PoECandidatura candidatura) {
+        candidaturas.remove(candidatura);
     }
     public ArrayList<PoECandidatura> getCandidaturas() {
         ArrayList<PoECandidatura> copy = new ArrayList<>();
@@ -248,10 +246,6 @@ public class PoEData implements Serializable{
     }
 
     public ArrayList<PoEState> getClosedPhases() {
-        ArrayList<PoEState> copy = new ArrayList<>();
-        for (PoEState state : closedPhases) {
-            copy.add(state);
-        }
-        return copy;
+        return new ArrayList<>(closedPhases);
     }
 }

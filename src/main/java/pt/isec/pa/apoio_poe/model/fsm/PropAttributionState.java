@@ -4,7 +4,6 @@ import java.io.*;
 import java.util.ArrayList;
 
 import pt.isec.pa.apoio_poe.model.data.*;
-import pt.isec.pa.apoio_poe.utils.Utils;
 
 class PropAttributionState extends PoEStateAdapter implements Serializable{
     static final long serialVersionUID = 112L;
@@ -27,7 +26,7 @@ class PropAttributionState extends PoEStateAdapter implements Serializable{
     @Override
     public boolean closePhase(){
         if(isClosed()){
-            System.out.println("[!] A fase de ATRIBUIÇÃO DE ORIENTADORES já se encontra fechada.");
+            System.out.println("[!] A fase de ATRIBUIÇÃO DE PROPOSTAS já se encontra fechada.");
             return false;
         }
         ArrayList<PoEAluno> alunos = data.getAlunos();
@@ -40,11 +39,11 @@ class PropAttributionState extends PoEStateAdapter implements Serializable{
                 }
             }
         }
-        if(flag){
-            Utils.pressToContinue();
+        if(flag || alunos.size() == 0){
+            // Utils.pressToContinue();
             return false;
         }
-        System.out.println("[!] Fase de ATRIBUIÇÃO DE ORIENTADORES fechada com sucesso!");
+        System.out.println("[!] Fase de ATRIBUIÇÃO DE PROPOSTAS fechada com sucesso!");
         data.closePhase(getState());
         nextPhase();
         return true;

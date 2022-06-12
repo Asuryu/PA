@@ -37,18 +37,18 @@ public class PoEContext implements Serializable{
         return state.getState();
     }
 
-    public boolean closePhase(){
-        return state.closePhase();
+    public void closePhase(){
+        state.closePhase();
     }
 
     public boolean isClosed(){ return state.isClosed(); }
 
-    public boolean nextPhase(){
-        return state.nextPhase();
+    public void nextPhase(){
+        state.nextPhase();
     }
 
-    public boolean previousPhase(){
-        return state.previousPhase();
+    public void previousPhase(){
+        state.previousPhase();
     }
 
     public boolean exitAndSave(String filename){
@@ -74,21 +74,37 @@ public class PoEContext implements Serializable{
         }
     }
 
-    public boolean addAlunosCSV(String filePath){ return state.addAlunosCSV(filePath); }
+    public void addAlunosCSV(String filePath){
+        state.addAlunosCSV(filePath);
+    }
 
-    public boolean saveAlunosCSV(String filePath){ return state.saveAlunosCSV(filePath); }
+    public void saveAlunosCSV(String filePath){
+        state.saveAlunosCSV(filePath);
+    }
 
-    public boolean addDocentesCSV(String filePath){ return state.addDocentesCSV(filePath); }
+    public void addDocentesCSV(String filePath){
+        state.addDocentesCSV(filePath);
+    }
 
-    public boolean saveDocentesCSV(String filePath){ return state.saveDocentesCSV(filePath); }
+    public void saveDocentesCSV(String filePath){
+        state.saveDocentesCSV(filePath);
+    }
 
-    public boolean addPropostasCSV(String filePath){ return state.addPropostasCSV(filePath); }
+    public void addPropostasCSV(String filePath){
+        state.addPropostasCSV(filePath);
+    }
 
-    public boolean savePropostasCSV(String filePath){ return state.savePropostasCSV(filePath); }
+    public void savePropostasCSV(String filePath){
+        state.savePropostasCSV(filePath);
+    }
 
-    public boolean addCandidaturasCSV(String filePath){ return state.addCandidaturasCSV(filePath); }
+    public void addCandidaturasCSV(String filePath){
+        state.addCandidaturasCSV(filePath);
+    }
 
-    public boolean saveCandidaturasCSV(String filePath){ return state.saveCandidaturasCSV(filePath); }
+    public void saveCandidaturasCSV(String filePath){
+        state.saveCandidaturasCSV(filePath);
+    }
 
     public ArrayList<PoEOrientador> getOrientador(){ return data.getOrientadores(); }
 
@@ -108,7 +124,9 @@ public class PoEContext implements Serializable{
         return data.getAlunosByRamo(ramo);
     }
     public PoEAluno getAlunoByEmail(String email){ return data.getAlunoByEmail(email); }
-    public boolean removeAluno(PoEAluno aluno){ return data.removeAluno(aluno); }
+    public void removeAluno(PoEAluno aluno){
+        data.removeAluno(aluno);
+    }
     public ArrayList<PoEDocente> getDocentes() {
         return data.getDocentes();
     }
@@ -118,7 +136,9 @@ public class PoEContext implements Serializable{
     public PoEDocente getDocenteByName(String nome) {
         return data.getDocenteByName(nome);
     }
-    public boolean removeDocente(PoEDocente docente){ return data.removeDocente(docente); }
+    public void removeDocente(PoEDocente docente){
+        data.removeDocente(docente);
+    }
     public ArrayList<PoEProposta> getPropostas(){
         return data.getPropostas();
     }
@@ -131,14 +151,18 @@ public class PoEContext implements Serializable{
     public ArrayList<PoEProposta> getPropostasByType(String tipo){
         return data.getPropostasByType(tipo);
     }
-    public boolean removeProposta(PoEProposta proposta) { return data.removeProposta(proposta); }
+    public void removeProposta(PoEProposta proposta) {
+        data.removeProposta(proposta);
+    }
     public ArrayList<PoECandidatura> getCandidaturas(){
         return data.getCandidaturas();
     }
     public void addCandidatura(PoECandidatura candidatura){
         data.addCandidatura(candidatura);
     }
-    public boolean removeCandidatura(PoECandidatura candidatura) { return data.removeCandidatura(candidatura); }
+    public void removeCandidatura(PoECandidatura candidatura) {
+        data.removeCandidatura(candidatura);
+    }
     public PoECandidatura getCandidaturaByAluno(Long nrAluno){
         PoEAluno aluno = data.getAlunoById(nrAluno);
         if(aluno == null) return null;
