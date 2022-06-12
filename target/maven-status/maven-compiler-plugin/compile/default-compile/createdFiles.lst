@@ -1,5 +1,10 @@
 pt/isec/pa/apoio_poe/model/memento/CareTaker.class
 pt/isec/pa/apoio_poe/model/memento/MyOriginator.class
+pt/isec/pa/apoio_poe/model/ModelManager.class
+pt/isec/pa/apoio_poe/ui/gui/ConfigUI.class
 pt/isec/pa/apoio_poe/model/memento/IOriginator.class
 pt/isec/pa/apoio_poe/model/memento/IMemento.class
+pt/isec/pa/apoio_poe/ui/gui/ApplicationOptUI.class
 pt/isec/pa/apoio_poe/model/memento/MyOriginator$MyMemento.class
+pt/isec/pa/apoio_poe/ui/gui/StatusBar.class
+pt/isec/pa/apoio_poe/ui/gui/RootPane.class
