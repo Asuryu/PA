@@ -5,43 +5,42 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0f162890-d362-487d-9e03-5caf2c0ed9bd" name="Changes" comment="Teste da FSM">
-      <change afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/ModelManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/ActionButtons.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/ApplicationOptUI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/ConfigUI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/Header.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/OriAttributionUI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/PropAttributionUI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/ReviewUI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/RootPane.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/StatusBar.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/resources/CSSManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/resources/FontManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/resources/ImageManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/resources/images/icon.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/MainJFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/MainJFX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/ModelManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/ModelManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/data/PoEAluno.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/data/PoEAluno.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/data/PoEAutoproposto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/data/PoEAutoproposto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/data/PoECandidatura.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/data/PoECandidatura.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/data/PoEData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/data/PoEData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/data/PoEDocente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/data/PoEDocente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/data/PoEEstagio.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/data/PoEEstagio.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/data/PoEOrientador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/data/PoEOrientador.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/data/PoEProjeto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/data/PoEProjeto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/data/PoEProposta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/data/PoEProposta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/fsm/ApplicationOptState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/fsm/ApplicationOptState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/fsm/ConfigState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/fsm/ConfigState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/fsm/IPoEState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/fsm/IPoEState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/fsm/OriAttributionState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/fsm/OriAttributionState.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/fsm/PoEContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/fsm/PoEContext.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/fsm/PoEState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/fsm/PoEState.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/fsm/PropAttributionState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/fsm/PropAttributionState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/memento/CareTaker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/memento/CareTaker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/memento/MyOriginator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/memento/MyOriginator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/PoEGUI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/pt/isec/pa/apoio_poe/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/pt/isec/pa/apoio_poe/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/fsm/ReviewState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/fsm/ReviewState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/ActionButtons.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/ActionButtons.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/ApplicationOptUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/ApplicationOptUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/ConfigUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/ConfigUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/Header.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/Header.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/OriAttributionUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/OriAttributionUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/PropAttributionUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/PropAttributionUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/ReviewUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/ReviewUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/RootPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/RootPane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/StatusBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/StatusBar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/text/PoEMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/text/PoEMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/text/PoEUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/text/PoEUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/pt/isec/pa/apoio_poe/MainJFX.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/pt/isec/pa/apoio_poe/MainJFX.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/pt/isec/pa/apoio_poe/model/data/PoEAluno.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/pt/isec/pa/apoio_poe/model/data/PoEAluno.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/pt/isec/pa/apoio_poe/model/data/PoEData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/pt/isec/pa/apoio_poe/model/data/PoEData.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/pt/isec/pa/apoio_poe/model/data/PoEDocente.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/pt/isec/pa/apoio_poe/model/data/PoEDocente.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/pt/isec/pa/apoio_poe/model/data/PoEOrientador.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/pt/isec/pa/apoio_poe/model/data/PoEOrientador.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/pt/isec/pa/apoio_poe/model/data/PoEProposta.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/pt/isec/pa/apoio_poe/model/data/PoEProposta.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/pt/isec/pa/apoio_poe/model/fsm/ApplicationOptState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/pt/isec/pa/apoio_poe/model/fsm/ApplicationOptState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/pt/isec/pa/apoio_poe/model/fsm/PoEContext.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/pt/isec/pa/apoio_poe/model/fsm/PoEContext.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/pt/isec/pa/apoio_poe/model/memento/CareTaker.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/pt/isec/pa/apoio_poe/model/memento/CareTaker.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/pt/isec/pa/apoio_poe/model/memento/MyOriginator$MyMemento.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/pt/isec/pa/apoio_poe/model/memento/MyOriginator$MyMemento.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/pt/isec/pa/apoio_poe/model/memento/MyOriginator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/pt/isec/pa/apoio_poe/model/memento/MyOriginator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/pt/isec/pa/apoio_poe/ui/gui/PoEGUI.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,6 +104,8 @@
       <recent name="pt.isec.pa.apoio_poe.model.fsm" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/resources/images" />
+      <recent name="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/resources" />
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
