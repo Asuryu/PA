@@ -22,17 +22,21 @@ public class RootPane extends BorderPane {
      * Método que cria as vistas do painel raiz
      */
     private void createViews() {
+        Header header = new Header(model);
+        StatusBar statusBar = new StatusBar(model);
+        MenuUI menu = new MenuUI(model, header, statusBar);
         StackPane stackPane = new StackPane(
-                new ConfigUI(model),
-                new ApplicationOptUI(model),
-                new PropAttributionUI(model),
-                new OriAttributionUI(model),
-                new ReviewUI(model)
+                menu
+                //new ConfigUI(model),
+                //new ApplicationOptUI(model),
+                //new PropAttributionUI(model),
+                //new OriAttributionUI(model),
+                //new ReviewUI(model)
         );
         stackPane.setStyle("-fx-background-color: #9297C4;");
         this.setCenter(stackPane);
-        this.setTop(new Header(model));
-        this.setBottom(new StatusBar(model));
+        this.setTop(header);
+        this.setBottom(statusBar);
     }
 
     /**
