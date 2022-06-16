@@ -17,11 +17,10 @@ class ConfigState extends PoEStateAdapter implements Serializable{
     }
 
     @Override
-    public boolean closePhase() {
+    public ReturnValue closePhase() {
 
         if(isClosed()){
-            System.out.println("[!] A fase de configuração já se encontra fechada!");
-            return false;
+            return ReturnValue.ALREADY_CLOSED;
         }
         int propostasDA = data.getPropostasByRamo("DA").size();
         int propostasSI = data.getPropostasByRamo("SI").size();
@@ -29,18 +28,16 @@ class ConfigState extends PoEStateAdapter implements Serializable{
 
         int alunos = data.getAlunos().size();
         if(alunos == 0){
-            System.out.println("[!] Não existem alunos inscritos!");
-            return false;
+            return ReturnValue.NO_STUDENTS;
         }
         if(propostasDA >= alunos){
             if (propostasSI >= alunos) {
                 if (propostasRAS >= alunos) {
-                    System.out.println("[·] Fase de CONFIGURAÇÃO fechada com sucesso!");
                     data.closePhase(getState());
-                    return true;
-                } else { System.out.println("[!] Não existem propostas suficientes para os alunos do ramo RAS"); return false; }
-            } else { System.out.println("[!] Não existem propostas suficientes para os alunos do ramo SI"); return false; }
-        } else { System.out.println("[!] Não existem propostas suficientes para os alunos do ramo DA"); return false; }
+                    return ReturnValue.CLOSED_SUCESSFULLY;
+                } else { return ReturnValue.INSF_PROPS_RAS_STUDENTS; }
+            } else { return ReturnValue.INSF_PROPS_SI_STUDENTS; }
+        } else { return ReturnValue.INSF_PROPS_DA_STUDENTS; }
     }
 
     @Override

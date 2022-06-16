@@ -9,7 +9,7 @@ public interface IPoEState {
      * Fecha a fase atual
      * @return true caso a operação seja bem sucedida, false caso contrário
      */
-    boolean closePhase();
+    ReturnValue closePhase();
 
     /**
      * Verifica se a fase atual está fechada

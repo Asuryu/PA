@@ -27,10 +27,9 @@ class PropAttributionState extends PoEStateAdapter implements Serializable{
     }
 
     @Override
-    public boolean closePhase(){
+    public ReturnValue closePhase(){
         if(isClosed()){
-            System.out.println("[!] A fase de ATRIBUIÇÃO DE PROPOSTAS já se encontra fechada.");
-            return false;
+            return ReturnValue.ALREADY_CLOSED;
         }
         ArrayList<PoEAluno> alunos = data.getAlunos();
         boolean flag = false;
@@ -38,18 +37,15 @@ class PropAttributionState extends PoEStateAdapter implements Serializable{
             if(aluno.getCandidatura() != null){
                 if(aluno.getPropostaAtribuida() == null){
                     flag = true;
-                    System.out.println("[!] O aluno com o número " + aluno.getNrEstudante() + " ainda não tem proposta atribuída.");
                 }
             }
         }
         if(flag || alunos.size() == 0){
-            // Utils.pressToContinue();
-            return false;
+            return ReturnValue.STUDENT_WITHOUT_PROPS;
         }
-        System.out.println("[!] Fase de ATRIBUIÇÃO DE PROPOSTAS fechada com sucesso!");
         data.closePhase(getState());
         nextPhase();
-        return true;
+        return ReturnValue.CLOSED_SUCESSFULLY;
     }
 
     @Override

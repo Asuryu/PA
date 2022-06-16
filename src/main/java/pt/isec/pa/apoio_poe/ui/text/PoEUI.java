@@ -1,6 +1,7 @@
 package pt.isec.pa.apoio_poe.ui.text;
 
 import pt.isec.pa.apoio_poe.model.fsm.PoEContext;
+import pt.isec.pa.apoio_poe.model.fsm.ReturnValue;
 import pt.isec.pa.apoio_poe.utils.PAInput;
 import pt.isec.pa.apoio_poe.utils.Utils;
 
@@ -62,7 +63,14 @@ public class PoEUI {
                             changeMode = true;
                         }
                         case 5 -> {
-                            fsm.closePhase();
+                            switch(fsm.closePhase()){
+                                case ALREADY_CLOSED -> System.out.println("[!] A fase de configuração já se encontra fechada!");
+                                case NO_STUDENTS -> System.out.println("[!] Não existem alunos inscritos");
+                                case INSF_PROPS_DA_STUDENTS -> System.out.println("[!] Não existem propostas suficientes para os alunos do ramo DA");
+                                case INSF_PROPS_SI_STUDENTS -> System.out.println("[!] Não existem propostas suficientes para os alunos do ramo SI");
+                                case INSF_PROPS_RAS_STUDENTS -> System.out.println("[!] Não existem propostas suficientes para os alunos do ramo RAS");
+                                case CLOSED_SUCESSFULLY -> System.out.println("[·] Fase de CONFIGURAÇÃO fechada com sucesso!");
+                            }
                             Utils.pressToContinue();
                             changeMode = true;
                         }
@@ -87,7 +95,11 @@ public class PoEUI {
                             changeMode = true;
                         }
                         case 6 -> {
-                            fsm.closePhase();
+                            switch(fsm.closePhase()){
+                                case ALREADY_CLOSED -> System.out.println("[!] A fase de OPÇÕES DE CANDIDATURA já se encontra fechada.");
+                                case PREVIOUS_PHASE_NOT_CLOSED -> System.out.println("[!] A fase de CONFIGURAÇÃO ainda não foi fechada.");
+                                case CLOSED_SUCESSFULLY -> System.out.println("[·] Fase de OPÇÕES DE CANDIDATURA fechada com sucesso!");
+                            }
                             Utils.pressToContinue();
                             changeMode = true;
                         }
@@ -113,7 +125,11 @@ public class PoEUI {
                         fsm.nextPhase();
                         changeMode = true;
                     } else if (option == 10) {
-                        fsm.closePhase();
+                        switch(fsm.closePhase()){
+                            case ALREADY_CLOSED -> System.out.println("[!] A fase de ATRIBUIÇÃO DE PROPOSTAS já se encontra fechada.");
+                            case STUDENT_WITHOUT_PROPS -> System.out.println("[!] Existem alunos que ainda não têm proposta atribuída.");
+                            case CLOSED_SUCESSFULLY -> System.out.println("[!] Fase de ATRIBUIÇÃO DE PROPOSTAS fechada com sucesso!");
+                        }
                         Utils.pressToContinue();
                         changeMode = true;
                     } else if (option == 11) {
@@ -138,7 +154,10 @@ public class PoEUI {
                     } else if (option == 7) {
                         System.out.println("[!] Após fechar esta fase não será possível voltar atrás.");
                         if (PAInput.readString("Deseja fechar a fase? (S/N): ", true).equalsIgnoreCase("s")) {
-                            fsm.closePhase();
+                            switch(fsm.closePhase()){
+                                case ALREADY_CLOSED -> System.out.println("[!] A fase de ATRIBUIÇÃO DE ORIENTADORES já se encontra fechada.");
+                                case CLOSED_SUCESSFULLY -> System.out.println("[·] Fase de ATRIBUIÇÃO DE ORIENTADORES fechada com sucesso!");
+                            }
                             Utils.pressToContinue();
                             changeMode = true;
                         }

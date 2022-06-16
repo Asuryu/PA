@@ -30,20 +30,17 @@ class ApplicationOptState extends PoEStateAdapter implements Serializable{
     }
 
     @Override
-    public boolean closePhase(){
+    public ReturnValue closePhase(){
         if(data.isPhaseClosed(PoEState.CONFIG)){
             if(isClosed()){
-                System.out.println("[!] A fase de OPÇÕES DE CANDIDATURA já se encontra fechada.");
-                return false;
+                return ReturnValue.ALREADY_CLOSED;
             }
-            System.out.println("[·] Fase de OPÇÕES DE CANDIDATURA fechada com sucesso!");
             data.closePhase(getState());
             nextPhase();
-            return true;
+            return ReturnValue.CLOSED_SUCESSFULLY;
         }
         else {
-            System.out.println("[!] A fase de CONFIGURAÇÃO ainda não foi fechada.");
-            return false;
+            return ReturnValue.PREVIOUS_PHASE_NOT_CLOSED;
         }
     }
 

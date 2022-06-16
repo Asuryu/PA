@@ -24,9 +24,10 @@ abstract class PoEStateAdapter implements IPoEState, Serializable{
 
     /**
      * Fecha a fase atual
+     * @return
      */
     @Override
-    public boolean closePhase() { return false; }
+    public ReturnValue closePhase() { return ReturnValue.NULL; }
 
     /**
      * Verifica se a fase se encontra fechada

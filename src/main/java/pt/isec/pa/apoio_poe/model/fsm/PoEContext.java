@@ -20,7 +20,7 @@ import java.util.Arrays;
 public class PoEContext implements Serializable{
     static final long serialVersionUID = 110L;
     IPoEState state;
-    PoEData data;
+    public PoEData data;
 
     /**
      * Construtor da classe PoEContext.
@@ -60,8 +60,8 @@ public class PoEContext implements Serializable{
     /**
      * Fecha a fase atual
      */
-    public void closePhase(){
-        state.closePhase();
+    public ReturnValue closePhase(){
+        return state.closePhase();
     }
 
     /**
@@ -94,8 +94,6 @@ public class PoEContext implements Serializable{
             oos.writeObject(this);
             return true;
         }catch(Exception e){
-            System.out.println(Arrays.toString(e.getStackTrace()));
-            System.out.println("[!] Erro ao carregar o ficheiro");
             return false;
         }
     }
@@ -112,7 +110,6 @@ public class PoEContext implements Serializable{
             this.state = context.state;
             return context;
         }catch(Exception e){
-            System.out.println("[!] Erro ao carregar o ficheiro");
             return null;
         }
     }

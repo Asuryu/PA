@@ -21,15 +21,13 @@ class OriAttributionState extends PoEStateAdapter implements Serializable{
     }
 
     @Override
-    public boolean closePhase(){
+    public ReturnValue closePhase(){
         if(isClosed()){
-            System.out.println("[!] A fase de ATRIBUIÇÃO DE ORIENTADORES já se encontra fechada.");
-            return false;
+            return ReturnValue.ALREADY_CLOSED;
         }
         data.closePhase(getState());
         changeState(new ReviewState(context, data));
-        System.out.println("[·] Fase de ATRIBUIÇÃO DE ORIENTADORES fechada com sucesso!");
-        return true;
+        return ReturnValue.CLOSED_SUCESSFULLY;
     }
 
     @Override
