@@ -879,7 +879,7 @@ public class PoEMenu {
                     orientador.addProposta(proposta);
                     proposta.setOrientador(orientador);
                     System.out.println("[·] Proposta com ID " + proposta.getId()
-                            + " associada ao orientador com o email " + orientador.getDocente().getEmail());
+                            + " associada ao orientador com o nome " + orientador.getDocente().getNome());
                 }
             }
             case 2 -> {

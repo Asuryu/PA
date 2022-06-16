@@ -9,7 +9,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import pt.isec.pa.apoio_poe.model.ModelManager;
-import pt.isec.pa.apoio_poe.model.data.PoEAluno;
+import pt.isec.pa.apoio_poe.model.data.*;
 
 import java.util.jar.Attributes;
 
@@ -17,11 +17,11 @@ import java.util.jar.Attributes;
  * A classe ActionButtons é uma classe que representa os botões
  * de ação da aplicação gráfica (alteração da fase)
  */
-public class StudentCard extends VBox {
-    final private PoEAluno aluno;
+public class PropCard extends VBox {
+    final private PoEProposta proposta;
 
-    public StudentCard(PoEAluno aluno) {
-        this.aluno = aluno;
+    public PropCard(PoEProposta proposta) {
+        this.proposta = proposta;
 
         createViews();
         registerHandlers();
@@ -33,15 +33,16 @@ public class StudentCard extends VBox {
      * Cria os botões para avançar, retroceder e fechar a fase
      */
     private void createViews() {
-        Text name = new Text(aluno.getNome());
+        Text name = new Text(proposta.getTitulo());
         name.setFont(javafx.scene.text.Font.font("Arial", javafx.scene.text.FontWeight.BOLD, 20));
         name.setFill(Color.valueOf("#e3e3e3"));
-        Text nrEstudante = new Text(aluno.getNrEstudante().toString());
-        nrEstudante.setFont(javafx.scene.text.Font.font("Arial", javafx.scene.text.FontWeight.BOLD, 15));
-        nrEstudante.setFill(Color.valueOf("#adadad"));
-        Text propAtribuida = new Text(aluno.getPropostaAtribuida().getTitulo());
-        propAtribuida.setFont(javafx.scene.text.Font.font("Arial", javafx.scene.text.FontWeight.BOLD, 12));
-        propAtribuida.setFill(Color.valueOf("#f3dbff"));
+        Text idProp = new Text(proposta.getId());
+        idProp.setFont(javafx.scene.text.Font.font("Arial", javafx.scene.text.FontWeight.BOLD, 15));
+        idProp.setFill(Color.valueOf("#adadad"));
+        System.out.println(proposta.getRamosDestino());
+        Text ramosDestino = new Text(String.join("  ", proposta.getRamosDestino()));
+        ramosDestino.setFont(javafx.scene.text.Font.font("Arial", javafx.scene.text.FontWeight.BOLD, 12));
+        ramosDestino.setFill(Color.valueOf("#f3dbff"));
         this.setStyle("""
                 -fx-background-color: #424242;
                 -fx-border-radius: 10;
@@ -50,7 +51,7 @@ public class StudentCard extends VBox {
         this.setAlignment(Pos.CENTER_LEFT);
         this.setPadding(new Insets(0, 10, 0, 10));
         this.setPrefSize(230, 70);
-        this.getChildren().addAll(name, nrEstudante, propAtribuida);
+        this.getChildren().addAll(name, idProp, ramosDestino);
     }
 
     /**

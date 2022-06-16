@@ -60,7 +60,7 @@ public class PoEProposta implements Serializable{
      * @return Docente responsável pela proposta.
      */
     public PoEDocente getDocente() {
-        return null;
+        return orientador.getDocente();
     }
 
     /**

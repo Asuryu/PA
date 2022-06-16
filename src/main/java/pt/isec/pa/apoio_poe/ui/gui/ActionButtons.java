@@ -1,5 +1,6 @@
 package pt.isec.pa.apoio_poe.ui.gui;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
@@ -87,6 +88,7 @@ public class ActionButtons extends HBox {
         leftBox.getChildren().addAll(btnPrev);
         rightBox.getChildren().addAll(btnStart, closePhaseBtn, btnNext);
         rightBox.setSpacing(5);
+        this.setPadding(new Insets(7, 0, 0, 0));
         this.getChildren().addAll(leftBox, rightBox);
 
     }

@@ -47,7 +47,7 @@ public class Header extends VBox {
 
         topBox.getChildren().add(title);
         bottomBox.getChildren().add(subtitle);
-        this.setStyle("-fx-background-color: #9297C4;");
+        this.setStyle("-fx-background-color: #212121;");
         this.getChildren().addAll(topBox, bottomBox);
     }
 

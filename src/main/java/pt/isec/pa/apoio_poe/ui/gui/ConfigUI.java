@@ -27,8 +27,11 @@ public class ConfigUI extends BorderPane {
      */
     private void createViews() {
         ActionButtons buttons = new ActionButtons(model);
+        Header header = new Header(model);
         this.setPadding(new Insets(10, 10, 10, 10));
-        this.setBottom(buttons);
+        VBox bottomBox = new VBox(buttons);
+        this.setBottom(bottomBox);
+        this.setTop(header);
     }
 
     /**

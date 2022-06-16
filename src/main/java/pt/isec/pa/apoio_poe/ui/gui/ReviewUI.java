@@ -6,6 +6,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import pt.isec.pa.apoio_poe.model.ModelManager;
 import pt.isec.pa.apoio_poe.model.data.PoEAluno;
+import pt.isec.pa.apoio_poe.model.data.PoEProposta;
 import pt.isec.pa.apoio_poe.model.fsm.PoEState;
 
 /**
@@ -50,13 +51,16 @@ public class ReviewUI extends BorderPane {
         VBox vbox = new VBox(listStudensWithProps, listStudensWithoutProps, exportToCSV, availableProps, takenProps, statistics);
         vbox.setSpacing(5);
         content.setSpacing(5);
-        content.setStyle("-fx-background: #9297C4; -fx-border-color: #9297C4;");
+        content.setPadding(new Insets(0, 3, 0, 0));
+        content.setStyle("-fx-background: #212121; -fx-border-color: #212121;");
         scrollPane.setContent(content);
-        scrollPane.setPrefSize(250, 500);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-        // transparent background for scrollpane
-        scrollPane.setStyle("-fx-background: #9297C4; -fx-border-color: #9297C4;");
+        scrollPane.setStyle("-fx-background: #212121; -fx-border-color: #212121;");
+
+        VBox stats = new VBox();
+
+
         this.setLeft(vbox);
         this.setRight(scrollPane);
         this.setPadding(new Insets(10, 10, 10, 10));
@@ -70,11 +74,32 @@ public class ReviewUI extends BorderPane {
         model.addPropertyChangeListener(ModelManager.PROP_STATE, evt -> {
             update();
         });
-        model.addAluno(new PoEAluno("Tomás", 2020145845L, "a2020143845@isec.pt", "LEI", "DA", 0.8, true));
         listStudensWithProps.setOnAction(evt -> {
+            content.getChildren().clear();
             for(PoEAluno aluno : model.getAlunosWithProps()){
                 content.getChildren().add(new StudentCard(aluno));
-                System.out.println(aluno.getNome());
+            }
+        });
+        listStudensWithoutProps.setOnAction(evt -> {
+            content.getChildren().clear();
+            for(PoEAluno aluno : model.getAlunosWithoutProps()){
+                content.getChildren().add(new StudentCard(aluno));
+            }
+        });
+        availableProps.setOnAction(evt -> {
+            content.getChildren().clear();
+            for(PoEProposta proposta : model.getPropostas()){
+                if(proposta.getNrAlunoAtribuido() == null) {
+                    content.getChildren().add(new PropCard(proposta));
+                }
+            }
+        });
+        takenProps.setOnAction(evt -> {
+            content.getChildren().clear();
+            for(PoEProposta proposta : model.getPropostas()){
+                if(proposta.getNrAlunoAtribuido() != null) {
+                    content.getChildren().add(new PropCard(proposta));
+                }
             }
         });
     }

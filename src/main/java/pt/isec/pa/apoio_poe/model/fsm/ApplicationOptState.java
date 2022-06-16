@@ -1,12 +1,12 @@
 package pt.isec.pa.apoio_poe.model.fsm;
 
-import pt.isec.pa.apoio_poe.model.data.PoECandidatura;
+import pt.isec.pa.apoio_poe.model.data.*;
+import pt.isec.pa.apoio_poe.model.data.PoEData;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import pt.isec.pa.apoio_poe.model.data.PoEData;
 
 /**
  * A classe ApplicationOptState implementa o estado de opções de candidatura.

@@ -1,4 +1,4 @@
-package pt.isec.pa.apoio_poe.ui.gui.resources;
+package pt.isec.pa.apoio_poe.ui.gui.resources.css;
 
 import javafx.scene.Parent;
 
@@ -14,9 +14,10 @@ public class CSSManager {
      * @param filename Nome do ficheiro css.
      */
     public static void applyCSS(Parent parent, String filename) {
-        var url = CSSManager.class.getResource("css/"+filename);
-        if (url == null)
+        var url = CSSManager.class.getResource("src/" + filename);
+        if (url == null){
             return;
+        }
         String fileCSS = url.toExternalForm();
         parent.getStylesheets().add(fileCSS);
     }
