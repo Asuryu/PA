@@ -25,13 +25,14 @@ import java.io.File;
  */
 
 public class MenuUI extends BorderPane {
+    private int selected = 2;
     final ToggleGroup group = new ToggleGroup();
     ModelManager model;
-    Button btnStart, btnNext, fcBtn;
-    Text stateText, questionText;
+    Button btnStart, btnNext, fcBtn, btnPrev = new Button("Voltar");
+    Text stateText, questionText, fileText;
     RootPane root;
     StackPane stackPane;
-    VBox menu, load, select;
+    VBox menu, load, select, textBox;
     HBox buttonsBox;
     RadioButton rb, rb2;
     ImageView image;
@@ -56,7 +57,7 @@ public class MenuUI extends BorderPane {
         image.setFitHeight(124);
         image.setPreserveRatio(true);
 
-        VBox textBox = new VBox();
+        textBox = new VBox();
         stateText = new Text("Bem-vindo ao PoEDEIS");
         stateText.setFill(javafx.scene.paint.Color.WHITE);
         stateText.setStyle("""
@@ -106,8 +107,9 @@ public class MenuUI extends BorderPane {
         buttonsBox.getChildren().addAll(rb, rb2); // Radio Buttons
         buttonsBox.setAlignment(Pos.CENTER);
 
-        btnStart = new Button("Start");
+        btnStart = new Button("Iniciar");
         btnStart.setId("btnStart");
+        btnStart.setPrefSize(120, 25);
         btnStart.setStyle("""
                             -fx-font-family: Arial;
                             -fx-text-fill: #FFFFFF;
@@ -117,8 +119,9 @@ public class MenuUI extends BorderPane {
                             """);
         btnStart.setAlignment(Pos.BOTTOM_CENTER);
 
-        btnNext = new Button("Next");
+        btnNext = new Button("Avançar");
         btnNext.setId("btnNext");
+        btnNext.setPrefSize(120, 25);
         btnNext.setStyle("""
                             -fx-font-family: Arial;
                             -fx-text-fill: #FFFFFF;
@@ -129,11 +132,10 @@ public class MenuUI extends BorderPane {
         btnNext.setAlignment(Pos.BOTTOM_CENTER);
 
         menu = new VBox(5); // 5 pixels de espaçamento entre os elementos
-        menu.getChildren().addAll(image, textBox, buttonsBox, btnStart);
+        menu.getChildren().addAll(image, textBox, btnStart);
         menu.setStyle("-fx-background-color: #212121;");
         menu.setAlignment(Pos.CENTER);
         menu.setSpacing(20);
-        menu.getChildren().get(2).setVisible(false);
 
         stackPane = new StackPane(
                 new ConfigUI(model),
@@ -157,48 +159,117 @@ public class MenuUI extends BorderPane {
             update();
         });
 
-        btnStart.setOnAction(evt -> {
-            menu.setVisible(false);
-            VBox textBox = new VBox();
+        group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+            @Override
+            public void changed(ObservableValue<? extends Toggle> observableValue, Toggle toggle, Toggle newValue) {
+                if (group.getSelectedToggle() == rb)
+                    selected = 1;
+            }
+        });
 
-            stateText.setText("Ficheiro de estado:");
-            questionText.setText("Pretende retomar o processo guardado?");
+        btnStart.setOnAction(evt -> {
+            rb2.setSelected(true);
+            selected = 2;
+            menu.getChildren().add(buttonsBox);
+            menu.getChildren().remove(btnStart);
+            menu.getChildren().add(btnNext);
+            questionText.setText("Deseja carregar um ficheiro de estado?");
+        });
+
+        fcBtn.setOnAction(evt -> {
+            selectedFile = fileChooser.showOpenDialog(this.getScene().getWindow());
+            if (selectedFile != null) {
+                fileText.setVisible(true);
+                fileText.setText("Ficheiro selecionado:" + selectedFile.getName());
+            }
+        });
+
+        btnNext.setOnAction(evt -> {
+             if (selected == 1) {
+                menu.setVisible(false);
+                VBox textBox = new VBox();
+
+                stateText.setText("Ficheiro de estado:");
+                questionText.setText("Selecione um ficheiro de estado caso queira retomar um processo anterior");
+
+                textBox.getChildren().addAll(stateText, questionText);
+                textBox.setAlignment(Pos.CENTER);
+                textBox.setSpacing(10);
+                textBox.getChildren().get(0).setId("stateText");
+                textBox.getChildren().get(1).setId("questionText");
+
+                fileText = new Text("");
+                fileText.setFill(javafx.scene.paint.Color.WHITE);
+                fileText.setStyle("""
+                            -fx-font-family: "Arial";
+                            -fx-text-fill: #FFFFFF;
+                            -fx-border-radius: 10px;
+                            -fx-font-size: 15px;
+                            """);
+                fileText.setVisible(false);
+                select = new VBox(fcBtn, fileText);
+                select.setAlignment(Pos.CENTER);
+                select.setSpacing(10);
+
+                btnPrev.setId("btnPrev");
+                btnPrev.setPrefSize(120, 25);
+                btnPrev.setStyle("""
+                            -fx-font-family: Arial;
+                            -fx-text-fill: #FFFFFF;
+                            -fx-background-color: #af2821;
+                            -fx-border-radius: 10px;
+                            -fx-font-size: 15px;
+                            """);
+                btnPrev.setAlignment(Pos.BOTTOM_CENTER);
+
+                HBox buttons = new HBox(10);
+                buttons.getChildren().addAll(btnPrev, btnNext);
+
+                buttons.setAlignment(Pos.CENTER);
+
+                load = new VBox(5); // 5 pixels de espaçamento entre os elementos
+                load.getChildren().addAll(image, textBox, select, buttons);
+                load.setStyle("-fx-background-color: #212121;");
+                load.setAlignment(Pos.CENTER);
+                load.setSpacing(20);
+                this.setCenter(load);
+             }
+             if(selected == 2)
+                root.setCenter(stackPane);
+        });
+
+        btnPrev.setOnAction(evt -> {
+            load.setVisible(false);
+            menu.setVisible(true);
+            stateText.setText("Bem-vindo ao PoEDEIS");
+            stateText.setFill(javafx.scene.paint.Color.WHITE);
+            stateText.setStyle("""
+                            -fx-font-family: "Arial";
+                            -fx-text-fill: #FFFFFF;
+                            -fx-border-radius: 10px;
+                            -fx-font-size: 20px;
+                            -fx-font-weight: bold;
+                            """);
+            questionText.setText("Software de Gestão de projetos e estágios");
+            questionText.setFill(javafx.scene.paint.Color.WHITE);
+            questionText.setStyle("""
+                            -fx-font-family: "Arial";
+                            -fx-text-fill: #FFFFFF;
+                            -fx-border-radius: 10px;
+                            -fx-font-size: 15px;
+                            """);
 
             textBox.getChildren().addAll(stateText, questionText);
             textBox.setAlignment(Pos.CENTER);
             textBox.setSpacing(10);
             textBox.getChildren().get(0).setId("stateText");
             textBox.getChildren().get(1).setId("questionText");
-
-            select = new VBox(fcBtn);
-            select.setAlignment(Pos.CENTER);
-
-            load = new VBox(5); // 5 pixels de espaçamento entre os elementos
-            load.getChildren().addAll(image, textBox, select, buttonsBox, btnNext);
-            load.setStyle("-fx-background-color: #212121;");
-            load.setAlignment(Pos.CENTER);
-            load.setSpacing(20);
-            load.getChildren().get(3).setVisible(true);
-
-            this.setCenter(load);
-        });
-
-        fcBtn.setOnAction(evt -> {
-            selectedFile = fileChooser.showOpenDialog(this.getScene().getWindow());
-            System.out.println(selectedFile.getAbsolutePath());
-        });
-
-        btnNext.setOnAction(evt -> {
-            root.setCenter(stackPane);
-        });
-
-        group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
-            @Override
-            public void changed(ObservableValue<? extends Toggle> observableValue, Toggle old_toggle, Toggle new_toggle) {
-                if (group.getSelectedToggle() == rb){ //Significa que o radio button selecionado é o "Sim"
-                    model.load(selectedFile.getAbsolutePath());
-                }
-            }
+            menu = new VBox(5); // 5 pixels de espaçamento entre os elementos
+            menu.getChildren().addAll(image, textBox, btnStart);
+            menu.setStyle("-fx-background-color: #212121;");
+            menu.setAlignment(Pos.CENTER);
+            menu.setSpacing(20);
+            this.setCenter(menu);
         });
 
     }
