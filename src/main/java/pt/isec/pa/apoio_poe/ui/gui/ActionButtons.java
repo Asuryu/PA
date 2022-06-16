@@ -37,18 +37,6 @@ public class ActionButtons extends HBox {
         rightBox.setAlignment(Pos.CENTER_RIGHT);
         HBox.setHgrow(rightBox, Priority.ALWAYS);
 
-        btnStart = new Button("Iniciar");
-        btnStart.setPrefSize(120, 25);
-        btnStart.setStyle("""
-                        -fx-background-color: #9368B7;
-                        -fx-height: 22px;
-                        -fx-width: 80px;
-                        -fx-text-fill: #FFFFFF;
-                        -fx-font-size: 15px;
-                        -fx-border-radius: 5px;
-                        -fx-cursor: hand;
-                        """);
-
         btnNext = new Button("Próxima Fase");
         btnNext.setPrefSize(120, 25);
         btnNext.setStyle("""
@@ -86,7 +74,7 @@ public class ActionButtons extends HBox {
                         """);
 
         leftBox.getChildren().addAll(btnPrev);
-        rightBox.getChildren().addAll(btnStart, closePhaseBtn, btnNext);
+        rightBox.getChildren().addAll(closePhaseBtn, btnNext);
         rightBox.setSpacing(5);
         this.setPadding(new Insets(7, 0, 0, 0));
         this.getChildren().addAll(leftBox, rightBox);
@@ -178,33 +166,6 @@ public class ActionButtons extends HBox {
                             -fx-cursor: hand;
                             """);
         });
-
-        btnStart.setOnMouseClicked(evt -> {
-            model.next();
-        });
-
-        btnStart.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_ENTERED, event -> {
-            btnNext.setStyle("""
-                            -fx-background-color: #5F4476;
-                            -fx-height: 22px;
-                            -fx-width: 80px;
-                            -fx-text-fill: #FFFFFF;
-                            -fx-font-size: 15px;
-                            -fx-border-radius: 5px;
-                            -fx-cursor: hand;
-                            """);
-        });
-        btnStart.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_EXITED, event -> {
-            btnNext.setStyle("""
-                            -fx-background-color: #9368B7;
-                            -fx-height: 22px;
-                            -fx-width: 80px;
-                            -fx-text-fill: #FFFFFF;
-                            -fx-font-size: 15px;
-                            -fx-border-radius: 5px;
-                            -fx-cursor: hand;
-                            """);
-        });
     }
 
     /**
@@ -217,22 +178,18 @@ public class ActionButtons extends HBox {
 
         switch (model.getState()) {
             case CONFIG -> {
-                btnStart.setVisible(false);
                 btnNext.setDisable(false);
                 btnPrev.setDisable(true);
             }
             case APPLICATION_OPT, PROP_ATTRIBUTION -> {
-                btnStart.setVisible(false);
                 btnNext.setDisable(false);
                 btnPrev.setDisable(false);
             }
             case ORI_ATTRIBUTION -> {
-                btnStart.setVisible(false);
                 btnNext.setDisable(true);
                 btnPrev.setDisable(false);
             }
             case REVIEW -> {
-                btnStart.setVisible(false);
                 btnNext.setDisable(true);
                 btnPrev.setDisable(true);
                 closePhaseBtn.setDisable(true);

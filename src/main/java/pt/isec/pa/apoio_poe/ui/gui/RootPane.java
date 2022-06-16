@@ -2,7 +2,7 @@ package pt.isec.pa.apoio_poe.ui.gui;
 
 import javafx.scene.layout.BorderPane;
 import pt.isec.pa.apoio_poe.model.ModelManager;
-import pt.isec.pa.apoio_poe.ui.gui.resources.css.CSSManager;
+import pt.isec.pa.apoio_poe.ui.gui.resources.CSSManager;
 
 /**
  * A classe RootPane é uma classe que representa o painel raiz da aplicação gráfica
@@ -23,11 +23,8 @@ public class RootPane extends BorderPane {
      */
     private void createViews() {
         CSSManager.applyCSS(this, "style.css");
-        model.load("C:\\Users\\tomas\\Documents\\GitHub\\PA\\sadge.ser");
         MenuUI menu = new MenuUI(model, this);
-        StatusBar statusBar = new StatusBar(model);
         this.setCenter(menu);
-        this.setBottom(statusBar);
     }
 
     /**

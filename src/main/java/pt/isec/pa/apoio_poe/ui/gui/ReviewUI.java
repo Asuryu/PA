@@ -15,21 +15,15 @@ import pt.isec.pa.apoio_poe.model.fsm.PoEState;
  */
 public class ReviewUI extends BorderPane {
     final ModelManager model;
-    Button btnPrev;
-    Button listStudensWithProps;
-    Button listStudensWithoutProps;
-    Button exportToCSV;
-    Button availableProps;
-    Button takenProps;
-    Button statistics;
+    Button btnPrev, listStudentsWithProps, listStudentsWithoutProps, exportToCSV, availableProps, takenProps, statistics;
     ScrollPane scrollPane;
     VBox content;
 
     public ReviewUI(ModelManager model) {
         this.model = model;
 
-        listStudensWithProps = new Button("Alunos com proposta atribuída");
-        listStudensWithoutProps = new Button("Alunos sem proposta atribuída");
+        listStudentsWithProps = new Button("Alunos com proposta atribuída");
+        listStudentsWithoutProps = new Button("Alunos sem proposta atribuída");
         exportToCSV = new Button("Exportar alunos para ficheiro CSV");
         availableProps = new Button("Propostas disponíveis");
         takenProps = new Button("Propostas atribuídas");
@@ -48,7 +42,7 @@ public class ReviewUI extends BorderPane {
     private void createViews() {
         ActionButtons buttons = new ActionButtons(model);
 
-        VBox vbox = new VBox(listStudensWithProps, listStudensWithoutProps, exportToCSV, availableProps, takenProps, statistics);
+        VBox vbox = new VBox(listStudentsWithProps, listStudentsWithoutProps, exportToCSV, availableProps, takenProps, statistics);
         vbox.setSpacing(5);
         content.setSpacing(5);
         content.setPadding(new Insets(0, 3, 0, 0));
@@ -74,13 +68,13 @@ public class ReviewUI extends BorderPane {
         model.addPropertyChangeListener(ModelManager.PROP_STATE, evt -> {
             update();
         });
-        listStudensWithProps.setOnAction(evt -> {
+        listStudentsWithProps.setOnAction(evt -> {
             content.getChildren().clear();
             for(PoEAluno aluno : model.getAlunosWithProps()){
                 content.getChildren().add(new StudentCard(aluno));
             }
         });
-        listStudensWithoutProps.setOnAction(evt -> {
+        listStudentsWithoutProps.setOnAction(evt -> {
             content.getChildren().clear();
             for(PoEAluno aluno : model.getAlunosWithoutProps()){
                 content.getChildren().add(new StudentCard(aluno));

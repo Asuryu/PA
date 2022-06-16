@@ -28,9 +28,12 @@ public class PropAttributionUI extends BorderPane {
     private void createViews() {
         ActionButtons buttons = new ActionButtons(model);
         Header header = new Header(model);
+        StatusBar statusBar = new StatusBar(model);
         this.setPadding(new Insets(10, 10, 10, 10));
-        VBox bottomBox = new VBox(buttons);
-        this.setBottom(buttons);
+        VBox bottomBox = new VBox(buttons, statusBar);
+        bottomBox.setSpacing(10);
+        bottomBox.setPadding(new Insets(10, 10, 0, 10));
+        this.setBottom(bottomBox);
         this.setTop(header);
     }
 

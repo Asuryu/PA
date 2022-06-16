@@ -41,7 +41,7 @@ public class StatusBar extends HBox {
         lbNumber.setPrefWidth(Integer.MAX_VALUE);
         lbNumber.setAlignment(Pos.CENTER_LEFT);
         this.getChildren().addAll(lbMsgTitle, lbMsg, lbNumberTitle, lbNumber);
-        this.setStyle("-fx-background-color: #FFFFFF;");
+        this.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 5px;");
     }
 
     /**
