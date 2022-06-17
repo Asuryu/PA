@@ -86,12 +86,12 @@ public class MenuUI extends BorderPane {
         buttonsBox.setAlignment(Pos.CENTER);
 
         btnStart = new Button("Iniciar");
-        btnStart.setId("btnMenu");
+        btnStart.setId("btnMenuOut");
         btnStart.setPrefSize(120, 25);
         btnStart.setAlignment(Pos.BOTTOM_CENTER);
 
         btnNext = new Button("Avançar");
-        btnNext.setId("btnMenu");
+        btnNext.setId("btnMenuOut");
         btnNext.setPrefSize(120, 25);
         btnNext.setAlignment(Pos.BOTTOM_CENTER);
 
@@ -122,6 +122,30 @@ public class MenuUI extends BorderPane {
     private void registerHandlers() {
         model.addPropertyChangeListener(ModelManager.PROP_STATE, evt -> {
             update();
+        });
+
+        btnStart.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_ENTERED, event -> {
+            btnStart.setId("btnMenuIn");
+        });
+
+        btnStart.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_EXITED, event -> {
+            btnStart.setId("btnMenuOut");
+        });
+
+        btnNext.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_ENTERED, event -> {
+            btnNext.setId("btnMenuIn");
+        });
+
+        btnNext.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_EXITED, event -> {
+            btnNext.setId("btnMenuOut");
+        });
+
+        btnPrev.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_ENTERED, event -> {
+            btnPrev.setId("btnPrevIn");
+        });
+
+        btnPrev.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_EXITED, event -> {
+            btnPrev.setId("btnPrevOut");
         });
 
         group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
@@ -172,9 +196,8 @@ public class MenuUI extends BorderPane {
                 select.setAlignment(Pos.CENTER);
                 select.setSpacing(10);
 
-                btnPrev.setId("btnPrev");
+                btnPrev.setId("btnPrevIn");
                 btnPrev.setPrefSize(120, 25);
-                btnPrev.setId("btnPrev");
                 btnPrev.setAlignment(Pos.BOTTOM_CENTER);
 
                 HBox buttons = new HBox(10);

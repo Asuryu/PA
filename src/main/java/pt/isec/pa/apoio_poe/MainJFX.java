@@ -28,7 +28,7 @@ public class MainJFX extends Application {
     @Override
     public void start(Stage stage) {
         RootPane root = new RootPane(model);
-        Scene scene = new Scene(root,800,450);
+        Scene scene = new Scene(root,800,500);
         stage.setScene(scene);
         stage.setTitle("PoEDEIS - Gestão de projetos e estágios");
         stage.getIcons().add(ImageManager.getImage("icon.png"));
