@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact build-on-make="true" name="unnamed">
-    <output-path>$PROJECT_DIR$/target/classes/pt/isec/pa/apoio_poe/resources/css</output-path>
-    <root id="root">
-      <element id="dir-copy" path="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/resources/css" />
-    </root>
-  </artifact>
-</component>
