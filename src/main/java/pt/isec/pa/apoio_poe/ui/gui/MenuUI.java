@@ -3,7 +3,6 @@ package pt.isec.pa.apoio_poe.ui.gui;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Toggle;
@@ -12,10 +11,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import pt.isec.pa.apoio_poe.model.ModelManager;
-import pt.isec.pa.apoio_poe.ui.gui.resources.CSSManager;
-import pt.isec.pa.apoio_poe.ui.gui.resources.ImageManager;
+import pt.isec.pa.apoio_poe.resources.ImageManager;
 
 import java.io.File;
 
