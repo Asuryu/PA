@@ -12,6 +12,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import pt.isec.pa.apoio_poe.model.ModelManager;
+import pt.isec.pa.apoio_poe.resources.CSSManager;
 import pt.isec.pa.apoio_poe.resources.ImageManager;
 
 import java.io.File;
@@ -148,6 +149,7 @@ public class MenuUI extends BorderPane {
 
         fcBtn = new Button("Selecionar");
 
+        CSSManager.applyCSS(this, "style.css");
         this.setCenter(menu);
     }
 
@@ -275,6 +277,7 @@ public class MenuUI extends BorderPane {
             menu.setStyle("-fx-background-color: #212121;");
             menu.setAlignment(Pos.CENTER);
             menu.setSpacing(20);
+            CSSManager.applyCSS(this, "style.css");
             this.setCenter(menu);
         });
 

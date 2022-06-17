@@ -16,12 +16,12 @@ import pt.isec.pa.apoio_poe.model.data.PoEDocente;
 import pt.isec.pa.apoio_poe.model.data.PoEOrientador;
 import pt.isec.pa.apoio_poe.model.data.PoEProposta;
 import pt.isec.pa.apoio_poe.model.fsm.PoEState;
+import pt.isec.pa.apoio_poe.resources.CSSManager;
 
 import javax.swing.*;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * A classe ReviewUI é uma classe que representa a interface gráfica
@@ -66,6 +66,7 @@ public class ReviewUI extends BorderPane {
      * Método que cria as vistas da interface gráfica
      */
     private void createViews() {
+        CSSManager.applyCSS(this, "style.css");
         ActionButtons buttons = new ActionButtons(model);
         btnBack = new Button("Voltar");
 
@@ -78,31 +79,13 @@ public class ReviewUI extends BorderPane {
                 btnBack
         );
         for (Node btn : submenuStatistics.getChildren()) {
-            btn.setStyle("""
-                            -fx-background-color: #FFFFFF;
-                            -fx-height: 22px;
-                            -fx-pref-width: 220px;
-                            -fx-text-fill: #111111;
-                            -fx-font-size: 12px;
-                            -fx-border-radius: 5px;
-                            -fx-cursor: hand;
-                            -fx-text-align: left;
-                            """);
+            btn.setId("mainMenuBtn");
         }
         submenuStatistics.setSpacing(5);
         mainBtns.setSpacing(5);
 
         for (Node btn : mainBtns.getChildren()) {
-            btn.setStyle("""
-                            -fx-background-color: #FFFFFF;
-                            -fx-height: 22px;
-                            -fx-pref-width: 220px;
-                            -fx-text-fill: #111111;
-                            -fx-font-size: 12px;
-                            -fx-border-radius: 5px;
-                            -fx-cursor: hand;
-                            -fx-text-align: left;
-                            """);
+            btn.setId("mainMenuBtn");
         }
 
         content.setSpacing(5);
@@ -200,9 +183,9 @@ public class ReviewUI extends BorderPane {
         });
         topEmpresasBtn.setOnAction(evt -> {
             content.getChildren().clear();
-            createBarGraphEmpresas();
-            content.getChildren().add(chart);
-            this.setRight(chart);
+            BarChart bc = createBarGraphEmpresas();
+            content.getChildren().add(bc);
+            this.setRight(bc);
         });
         topDocentesBtn.setOnAction(evt -> {
             content.getChildren().clear();
@@ -266,7 +249,27 @@ public class ReviewUI extends BorderPane {
         XYChart.Series series = new XYChart.Series();
         series.setName("Nrº de alunos");
 
-        // Falta fazer o top 5 de empresas
+        // get every empresa
+        List<String> list = new ArrayList<>();
+
+        for(PoEProposta proposta : model.getPropostas()){
+            if(proposta.getEntidade() != null){
+                list.add(proposta.getEntidade());
+            }
+        }
+
+        Set<String> unique = new HashSet<String>(list);
+
+        if(unique.size() <= 5){
+            for(String key : unique){
+                series.getData().add(new XYChart.Data(key, Collections.frequency(list, key)));
+            }
+        } else {
+            for(int i = 0; i < 5; i++){
+                series.getData().add(new XYChart.Data(unique.toArray()[i].toString(), Collections.frequency(list, unique.toArray()[i].toString())));
+            }
+        }
+
 
         bc.setStyle("""
                         -fx-background-color: #212121;
