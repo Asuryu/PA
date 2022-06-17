@@ -293,6 +293,7 @@ public class ConfigUI extends BorderPane {
         // Menu de gestão de alunos
 
         importStudents.setOnAction(e -> {
+            content.getChildren().clear();
             subMenusBox.getChildren().remove(fileText);
             subMenusBox.getChildren().remove(viewStudentsBox);
             FileChooser fileChooser = new FileChooser();
@@ -319,6 +320,7 @@ public class ConfigUI extends BorderPane {
         });
 
         exportStudents.setOnAction(e -> {
+            content.getChildren().clear();
             subMenusBox.getChildren().remove(fileText);
             subMenusBox.getChildren().remove(viewStudentsBox);
             FileChooser fileChooser = new FileChooser();
@@ -338,6 +340,7 @@ public class ConfigUI extends BorderPane {
         });
 
         viewStudents.setOnAction(e -> {
+            content.getChildren().clear();
             viewStudents.setStyle("-fx-background: #af2821; -fx-border-color: #ffffff;");
             subMenusBox.getChildren().remove(fileText);
             if(!subMenusBox.getChildren().contains(viewStudentsBox))
@@ -452,6 +455,7 @@ public class ConfigUI extends BorderPane {
         // Menu de gestão de professores
 
         importTeachers.setOnAction(e -> {
+            content.getChildren().clear();
             subMenusBox.getChildren().remove(fileText);
             subMenusBox.getChildren().remove(viewTeachersBox);
             FileChooser fileChooser = new FileChooser();
@@ -478,6 +482,7 @@ public class ConfigUI extends BorderPane {
         });
 
         exportTeachers.setOnAction(e -> {
+            content.getChildren().clear();
             subMenusBox.getChildren().remove(fileText);
             subMenusBox.getChildren().remove(viewTeachersBox);
             FileChooser fileChooser = new FileChooser();
@@ -497,6 +502,7 @@ public class ConfigUI extends BorderPane {
         });
 
         viewTeachers.setOnAction(e -> {
+            content.getChildren().clear();
             viewTeachers.setStyle("-fx-background: #af2821; -fx-border-color: #ffffff;");
             subMenusBox.getChildren().remove(fileText);
             if(!subMenusBox.getChildren().contains(viewTeachersBox))
@@ -593,6 +599,7 @@ public class ConfigUI extends BorderPane {
         // Menu de gestão de propostas
 
         importProps.setOnAction(e -> {
+            content.getChildren().clear();
             subMenusBox.getChildren().remove(fileText);
             subMenusBox.getChildren().remove(viewPropsBox);
             FileChooser fileChooser = new FileChooser();
@@ -619,6 +626,7 @@ public class ConfigUI extends BorderPane {
         });
 
         exportProps.setOnAction(e -> {
+            content.getChildren().clear();
             subMenusBox.getChildren().remove(fileText);
             subMenusBox.getChildren().remove(viewPropsBox);
             FileChooser fileChooser = new FileChooser();
@@ -638,6 +646,7 @@ public class ConfigUI extends BorderPane {
         });
 
         viewProps.setOnAction(e -> {
+            content.getChildren().clear();
             viewProps.setStyle("-fx-background: #af2821; -fx-border-color: #ffffff;");
             subMenusBox.getChildren().remove(fileText);
             if(!subMenusBox.getChildren().contains(viewPropsBox))
