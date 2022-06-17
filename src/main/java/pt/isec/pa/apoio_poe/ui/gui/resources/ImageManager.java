@@ -1,4 +1,4 @@
-package pt.isec.pa.apoio_poe.resources;
+package pt.isec.pa.apoio_poe.ui.gui.resources;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

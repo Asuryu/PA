@@ -2,7 +2,6 @@ package pt.isec.pa.apoio_poe.ui.gui;
 
 import javafx.scene.layout.BorderPane;
 import pt.isec.pa.apoio_poe.model.ModelManager;
-import pt.isec.pa.apoio_poe.resources.CSSManager;
 
 /**
  * A classe RootPane é uma classe que representa o painel raiz da aplicação gráfica

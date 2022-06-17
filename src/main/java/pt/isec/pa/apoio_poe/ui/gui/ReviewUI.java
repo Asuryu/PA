@@ -12,16 +12,13 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import pt.isec.pa.apoio_poe.model.ModelManager;
 import pt.isec.pa.apoio_poe.model.data.PoEAluno;
-import pt.isec.pa.apoio_poe.model.data.PoEDocente;
 import pt.isec.pa.apoio_poe.model.data.PoEOrientador;
 import pt.isec.pa.apoio_poe.model.data.PoEProposta;
 import pt.isec.pa.apoio_poe.model.fsm.PoEState;
-import pt.isec.pa.apoio_poe.resources.CSSManager;
+import pt.isec.pa.apoio_poe.ui.gui.resources.CSSManager;
 
-import javax.swing.*;
 import java.io.File;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * A classe ReviewUI é uma classe que representa a interface gráfica

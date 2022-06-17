@@ -12,7 +12,7 @@ import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import pt.isec.pa.apoio_poe.model.ModelManager;
-import pt.isec.pa.apoio_poe.resources.ImageManager;
+import pt.isec.pa.apoio_poe.ui.gui.resources.ImageManager;
 import pt.isec.pa.apoio_poe.ui.gui.RootPane;
 
 import java.io.File;
