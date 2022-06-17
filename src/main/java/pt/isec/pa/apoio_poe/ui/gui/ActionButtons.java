@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import pt.isec.pa.apoio_poe.model.ModelManager;
+import pt.isec.pa.apoio_poe.ui.gui.resources.CSSManager;
 
 /**
  * A classe ActionButtons é uma classe que representa os botões
@@ -14,7 +15,7 @@ import pt.isec.pa.apoio_poe.model.ModelManager;
 public class ActionButtons extends HBox {
     final ModelManager model;
     HBox leftBox, rightBox;
-    Button btnNext, btnPrev, closePhaseBtn, btnStart;
+    Button btnNext, btnPrev, closePhaseBtn;
 
     public ActionButtons(ModelManager model) {
         this.model = model;
@@ -29,6 +30,7 @@ public class ActionButtons extends HBox {
      * Cria os botões para avançar, retroceder e fechar a fase
      */
     private void createViews() {
+        CSSManager.applyCSS(this, "style.css");
         leftBox = new HBox();
         leftBox.setAlignment(Pos.CENTER_LEFT);
         HBox.setHgrow(leftBox, Priority.ALWAYS);
@@ -39,39 +41,15 @@ public class ActionButtons extends HBox {
 
         btnNext = new Button("Próxima Fase");
         btnNext.setPrefSize(120, 25);
-        btnNext.setStyle("""
-                        -fx-background-color: #9368B7;
-                        -fx-height: 22px;
-                        -fx-width: 80px;
-                        -fx-text-fill: #FFFFFF;
-                        -fx-font-size: 15px;
-                        -fx-border-radius: 5px;
-                        -fx-cursor: hand;
-                        """);
+        btnNext.setId("btnNextIn");
 
         btnPrev = new Button("Fase Anterior");
         btnPrev.setPrefSize(120, 25);
-        btnPrev.setStyle("""
-                        -fx-background-color: #9368B7;
-                        -fx-height: 22px;
-                        -fx-width: 80px;
-                        -fx-text-fill: #FFFFFF;
-                        -fx-font-size: 15px;
-                        -fx-border-radius: 5px;
-                        -fx-cursor: hand;
-                        """);
+        btnPrev.setId("btnPrevIn");
 
         closePhaseBtn = new Button("Fechar Fase");
         closePhaseBtn.setPrefSize(120, 25);
-        closePhaseBtn.setStyle("""
-                        -fx-background-color: #eb4034;
-                        -fx-height: 22px;
-                        -fx-width: 80px;
-                        -fx-text-fill: #FFFFFF;
-                        -fx-font-size: 15px;
-                        -fx-border-radius: 5px;
-                        -fx-cursor: hand;
-                        """);
+        closePhaseBtn.setId("closePhaseBtnIn");
 
         leftBox.getChildren().addAll(btnPrev);
         rightBox.getChildren().addAll(closePhaseBtn, btnNext);
@@ -95,76 +73,28 @@ public class ActionButtons extends HBox {
             model.next();
         });
         btnNext.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_ENTERED, event -> {
-            btnNext.setStyle("""
-                            -fx-background-color: #5F4476;
-                            -fx-height: 22px;
-                            -fx-width: 80px;
-                            -fx-text-fill: #FFFFFF;
-                            -fx-font-size: 15px;
-                            -fx-border-radius: 5px;
-                            -fx-cursor: hand;
-                            """);
+            btnNext.setId("btnNextIn");
         });
         btnNext.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_EXITED, event -> {
-            btnNext.setStyle("""
-                            -fx-background-color: #9368B7;
-                            -fx-height: 22px;
-                            -fx-width: 80px;
-                            -fx-text-fill: #FFFFFF;
-                            -fx-font-size: 15px;
-                            -fx-border-radius: 5px;
-                            -fx-cursor: hand;
-                            """);
+            btnNext.setId("btnNextOut");
         });
         btnPrev.setOnAction(actionEvent -> {
             model.previous();
         });
         btnPrev.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_ENTERED, event -> {
-            btnPrev.setStyle("""
-                            -fx-background-color: #5F4476;
-                            -fx-height: 22px;
-                            -fx-width: 80px;
-                            -fx-text-fill: #FFFFFF;
-                            -fx-font-size: 15px;
-                            -fx-border-radius: 5px;
-                            -fx-cursor: hand;
-                            """);
+            btnPrev.setId("btnPrevIn");
         });
         btnPrev.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_EXITED, event -> {
-            btnPrev.setStyle("""
-                            -fx-background-color: #9368B7;
-                            -fx-height: 22px;
-                            -fx-width: 80px;
-                            -fx-text-fill: #FFFFFF;
-                            -fx-font-size: 15px;
-                            -fx-border-radius: 5px;
-                            -fx-cursor: hand;
-                            """);
+            btnPrev.setId("btnPrevOut");
         });
         closePhaseBtn.setOnAction(actionEvent -> {
             model.close();
         });
         closePhaseBtn.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_ENTERED, event -> {
-            closePhaseBtn.setStyle("""
-                            -fx-background-color: #a82e25;
-                            -fx-height: 22px;
-                            -fx-width: 80px;
-                            -fx-text-fill: #FFFFFF;
-                            -fx-font-size: 15px;
-                            -fx-border-radius: 5px;
-                            -fx-cursor: hand;
-                            """);
+            closePhaseBtn.setId("closePhaseBtnIn");
         });
         closePhaseBtn.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_EXITED, event -> {
-            closePhaseBtn.setStyle("""
-                            -fx-background-color: #eb4034;
-                            -fx-height: 22px;
-                            -fx-width: 80px;
-                            -fx-text-fill: #FFFFFF;
-                            -fx-font-size: 15px;
-                            -fx-border-radius: 5px;
-                            -fx-cursor: hand;
-                            """);
+            closePhaseBtn.setId("closePhaseBtnOut");
         });
     }
 

@@ -2,6 +2,7 @@ package pt.isec.pa.apoio_poe.ui.gui;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -27,9 +28,9 @@ public class StudentCard extends VBox {
      * Cria os botões para avançar, retroceder e fechar a fase
      */
     private void createViews() {
-        Text name = new Text(aluno.getNome());
+        Label name = new Label(aluno.getNome());
         name.setFont(javafx.scene.text.Font.font("Arial", javafx.scene.text.FontWeight.BOLD, 20));
-        name.setFill(Color.valueOf("#e3e3e3"));
+        name.setStyle("-fx-text-fill: #e3e3e3;");
         Text nrEstudante = new Text(aluno.getNrEstudante().toString());
         nrEstudante.setFont(javafx.scene.text.Font.font("Arial", javafx.scene.text.FontWeight.BOLD, 15));
         nrEstudante.setFill(Color.valueOf("#adadad"));
@@ -48,9 +49,9 @@ public class StudentCard extends VBox {
                 """);
         this.setAlignment(Pos.CENTER_LEFT);
         this.setPadding(new Insets(0, 10, 0, 10));
-        this.setPrefSize(230, 70);
+        this.setPrefSize(200, 70);
         this.setMaxSize(300, 70);
-        this.setMinSize(300, 70);
+        this.setMinSize(200, 70);
         this.getChildren().addAll(name, nrEstudante, propAtribuida);
     }
 

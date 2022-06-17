@@ -1,18 +1,72 @@
-#btnMenu{
-    -fx-background-color: #00b300;
+#btnMenuIn{
+    -fx-background-color: #FFFFFF;
     -fx-font-family: "Arial";
-    -fx-text-fill: #FFFFFF;
+    -fx-text-fill: #af2821;
     -fx-font-weight: bold;
-    -fx-font-size: 16;
+    -fx-border-radius: 10px;
+    -fx-font-size: 12px;
     -fx-cursor: hand;
 }
 
-#btnPrev{
-    -fx-font-family: Arial;
-    -fx-text-fill: #FFFFFF;
-    -fx-background-color: #af2821;
+#btnMenuOut{
+    -fx-background-color: #FFFFFF;
+    -fx-font-family: "Arial";
+    -fx-text-fill: #d31e13;
+    -fx-font-weight: bold;
     -fx-border-radius: 10px;
-    -fx-font-size: 15px;
+    -fx-font-size: 12px;
+    -fx-cursor: hand;
+}
+
+#btnNextIn{
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #af2821;
+    -fx-font-size: 12px;
+    -fx-border-radius: 10px;
+    -fx-cursor: hand;
+}
+
+#btnNextOut{
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #d31e13;
+    -fx-font-size: 12px;
+    -fx-border-radius: 10px;
+    -fx-cursor: hand;
+}
+
+#btnPrevIn{
+    -fx-font-family: Arial;
+    -fx-text-fill: #af2821;
+    -fx-background-color: #ffffff;
+    -fx-font-weight: bold;
+    -fx-border-radius: 10px;
+    -fx-font-size: 12px;
+    -fx-cursor: hand;
+}
+
+#btnPrevOut{
+    -fx-font-family: Arial;
+    -fx-text-fill: #d31e13;
+    -fx-background-color: #ffffff;
+    -fx-font-weight: bold;
+    -fx-border-radius: 10px;
+    -fx-font-size: 12px;
+    -fx-cursor: hand;
+}
+
+#closePhaseBtnIn{
+    -fx-background-color: #a82e25;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 12px;
+    -fx-border-radius: 10px;
+    -fx-cursor: hand;
+}
+
+#closePhaseBtnOut{
+    -fx-background-color: #d31e13;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 12px;
+    -fx-border-radius: 10px;
     -fx-cursor: hand;
 }
 
@@ -48,15 +102,26 @@
 
 #radioButton{
     -fx-font-family: Arial;
+    -fx-background-color: #af2821;
+    -fx-padding: 5px 10px 5px 10px;
+    -fx-background-radius: 5px;
     -fx-text-fill: #FFFFFF;
     -fx-border-radius: 10px;
-    -fx-font-size: 15px;
+    -fx-font-size: 12px;
+    -fx-cursor: hand;
+}
+
+#comboBox{
+    -fx-font-family: Arial;
+    -fx-text-fill: #FFFFFF;
+    -fx-border-radius: 10px;
+    -fx-font-size: 12px;
     -fx-cursor: hand;
 }
 
 #comboBoxButton{
-    -fx-background-color: #5F4476;
-    -fx-text-fill: #111111;
+    -fx-background-color: #af2821;
+    -fx-text-fill: #ffffff;
     -fx-font-size: 12px;
     -fx-border-radius: 5px;
     -fx-cursor: hand;
@@ -67,29 +132,46 @@
     -fx-max-height: 30px;
     -fx-min-width: 200px;
     -fx-min-height: 30px;
-    -fx-autosize: false;
+    -fx-autosize: true;
+}
+
+#MenuButton{
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10px;
+    -fx-text-fill: #af2821;
+    -fx-font-size: 12px;
+    -fx-border-radius: 5px;
+    -fx-cursor: hand;
+    -fx-text-align: left;
+    -fx-pref-width: 350px;
+    -fx-pref-height: 30px;
+    -fx-max-width: 240px;
+    -fx-max-height: 30px;
+    -fx-min-width: 200px;
+    -fx-min-height: 30px;
+    -fx-autosize: true;
 }
 
 #subMenuButton{
-    -fx-background-color: #5F4476;
+    -fx-background-color: #ffffff;
     -fx-background-radius: 10px;
-    -fx-text-fill: #111111;
+    -fx-text-fill: #af2821;
     -fx-font-size: 12px;
     -fx-border-radius: 10px;
     -fx-cursor: hand;
     -fx-text-align: left;
-    -fx-pref-width: 200px;
+    -fx-pref-width: 150px;
     -fx-pref-height: 30px;
-    -fx-max-width: 200px;
+    -fx-max-width: 150px;
     -fx-max-height: 30px;
     -fx-min-width: 200px;
     -fx-min-height: 30px;
-    -fx-autosize: false;
+    -fx-autosize: true;
 }
 
 #textField{
     -fx-background-color: #FFFFFF;
-    -fx-text-fill: #111111;
+    -fx-text-fill: #af2821;
     -fx-font-size: 12px;
     -fx-border-radius: 5px;
     -fx-cursor: hand;
