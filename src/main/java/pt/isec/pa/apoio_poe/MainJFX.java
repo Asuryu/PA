@@ -3,6 +3,7 @@ package pt.isec.pa.apoio_poe;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -64,10 +65,15 @@ public class MainJFX extends Application {
         HBox elements = new HBox(yesBtn, noBtn);
         elements.setSpacing(10);
 
+        ImageView imageView = new ImageView(ImageManager.getImage("icon.png"));
+        imageView.setFitWidth(50);
+        imageView.setFitHeight(50);
+        imageView.setPreserveRatio(true);
+
         Text title = new Text("Deseja guardar o processo atual?");
         title.setFont(Font.font("Arial", FontWeight.BOLD, 25));
         title.setFill(javafx.scene.paint.Color.WHITE);
-        VBox vbox = new VBox(title, elements);
+        VBox vbox = new VBox(imageView, title, elements);
         vbox.setAlignment(javafx.geometry.Pos.CENTER);
         elements.setAlignment(javafx.geometry.Pos.CENTER);
         vbox.setSpacing(10);
