@@ -13,6 +13,7 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import pt.isec.pa.apoio_poe.model.ModelManager;
 import pt.isec.pa.apoio_poe.resources.CSSManager;
+import pt.isec.pa.apoio_poe.ui.gui.resources.*;
 import pt.isec.pa.apoio_poe.resources.ImageManager;
 
 import java.io.File;
@@ -33,14 +34,13 @@ public class MenuUI extends BorderPane {
     VBox menu, load, select, textBox;
     HBox buttonsBox;
     RadioButton rb, rb2;
-    ImageView image;
+    ImageView imageView;
     FileChooser fileChooser = new FileChooser();
     File selectedFile;
 
     public MenuUI(ModelManager model, RootPane root) {
         this.model = model;
         this.root = root;
-        //this.title.setText("Menu");
         createViews();
         registerHandlers();
         update();
@@ -50,30 +50,21 @@ public class MenuUI extends BorderPane {
      * Método que cria as vistas da interface gráfica
      */
     private void createViews() {
-        image = new ImageView(ImageManager.getImage("icon.png"));
-        image.setFitWidth(124);
-        image.setFitHeight(124);
-        image.setPreserveRatio(true);
+        CSSManager.applyCSS(this, "style.css");
+        imageView = new ImageView(ImageManager.getImage("icon.png"));
+        imageView.setFitWidth(124);
+        imageView.setFitHeight(124);
+        imageView.setPreserveRatio(true);
 
-        textBox = new VBox();
         stateText = new Text("Bem-vindo ao PoEDEIS");
+        stateText.setId("stateText");
         stateText.setFill(javafx.scene.paint.Color.WHITE);
-        stateText.setStyle("""
-                            -fx-font-family: "Arial";
-                            -fx-text-fill: #FFFFFF;
-                            -fx-border-radius: 10px;
-                            -fx-font-size: 20px;
-                            -fx-font-weight: bold;
-                            """);
+
         questionText = new Text("Software de Gestão de projetos e estágios");
         questionText.setFill(javafx.scene.paint.Color.WHITE);
-        questionText.setStyle("""
-                            -fx-font-family: "Arial";
-                            -fx-text-fill: #FFFFFF;
-                            -fx-border-radius: 10px;
-                            -fx-font-size: 15px;
-                            """);
+        questionText.setId("questionText");
 
+        textBox = new VBox();
         textBox.getChildren().addAll(stateText, questionText);
         textBox.setAlignment(Pos.CENTER);
         textBox.setSpacing(10);
@@ -84,21 +75,10 @@ public class MenuUI extends BorderPane {
         buttonsBox = new HBox(10);
         rb = new RadioButton();
         rb.setText("Sim");
-        rb.setStyle("""
-                            -fx-font-family: Arial;
-                            -fx-text-fill: #FFFFFF;
-                            -fx-border-radius: 10px;
-                            -fx-font-size: 15px;
-                            -fx-cursor: hand;
-                            """);
+        rb.setId("radioButton");
         rb2 = new RadioButton();
         rb2.setText("Não");
-        rb2.setStyle("""
-                            -fx-font-family: Arial;
-                            -fx-text-fill: #FFFFFF;
-                            -fx-border-radius: 10px;
-                            -fx-font-size: 15px;
-                            """);
+        rb2.setId("radioButton");
         rb.setToggleGroup(group);
         rb2.setToggleGroup(group);
         rb2.setSelected(true);
@@ -107,33 +87,17 @@ public class MenuUI extends BorderPane {
         buttonsBox.setAlignment(Pos.CENTER);
 
         btnStart = new Button("Iniciar");
-        btnStart.setId("btnStart");
+        btnStart.setId("btnMenu");
         btnStart.setPrefSize(120, 25);
-        btnStart.setStyle("""
-                            -fx-font-family: Arial;
-                            -fx-text-fill: #FFFFFF;
-                            -fx-background-color: #79b332;
-                            -fx-border-radius: 10px;
-                            -fx-font-size: 15px;
-                            -fx-cursor: hand;
-                            """);
         btnStart.setAlignment(Pos.BOTTOM_CENTER);
 
         btnNext = new Button("Avançar");
-        btnNext.setId("btnNext");
+        btnNext.setId("btnMenu");
         btnNext.setPrefSize(120, 25);
-        btnNext.setStyle("""
-                            -fx-font-family: Arial;
-                            -fx-text-fill: #FFFFFF;
-                            -fx-background-color: #79b332;
-                            -fx-border-radius: 10px;
-                            -fx-font-size: 15px;
-                            -fx-cursor: hand;
-                            """);
         btnNext.setAlignment(Pos.BOTTOM_CENTER);
 
         menu = new VBox(5); // 5 pixels de espaçamento entre os elementos
-        menu.getChildren().addAll(image, textBox, btnStart);
+        menu.getChildren().addAll(imageView, textBox, btnStart);
         menu.setStyle("-fx-background-color: #212121;");
         menu.setAlignment(Pos.CENTER);
         menu.setSpacing(20);
@@ -203,12 +167,7 @@ public class MenuUI extends BorderPane {
 
                 fileText = new Text("");
                 fileText.setFill(javafx.scene.paint.Color.WHITE);
-                fileText.setStyle("""
-                            -fx-font-family: "Arial";
-                            -fx-text-fill: #FFFFFF;
-                            -fx-border-radius: 10px;
-                            -fx-font-size: 15px;
-                            """);
+                fileText.setId("defaultText");
                 fileText.setVisible(false);
                 select = new VBox(fcBtn, fileText);
                 select.setAlignment(Pos.CENTER);
@@ -216,14 +175,7 @@ public class MenuUI extends BorderPane {
 
                 btnPrev.setId("btnPrev");
                 btnPrev.setPrefSize(120, 25);
-                btnPrev.setStyle("""
-                            -fx-font-family: Arial;
-                            -fx-text-fill: #FFFFFF;
-                            -fx-background-color: #af2821;
-                            -fx-border-radius: 10px;
-                            -fx-font-size: 15px;
-                            -fx-cursor: hand;
-                            """);
+                btnPrev.setId("btnPrev");
                 btnPrev.setAlignment(Pos.BOTTOM_CENTER);
 
                 HBox buttons = new HBox(10);
@@ -232,7 +184,7 @@ public class MenuUI extends BorderPane {
                 buttons.setAlignment(Pos.CENTER);
 
                 load = new VBox(5); // 5 pixels de espaçamento entre os elementos
-                load.getChildren().addAll(image, textBox, select, buttons);
+                load.getChildren().addAll(imageView, textBox, select, buttons);
                 load.setStyle("-fx-background-color: #212121;");
                 load.setAlignment(Pos.CENTER);
                 load.setSpacing(20);
@@ -250,30 +202,14 @@ public class MenuUI extends BorderPane {
             load.setVisible(false);
             menu.setVisible(true);
             stateText.setText("Bem-vindo ao PoEDEIS");
-            stateText.setFill(javafx.scene.paint.Color.WHITE);
-            stateText.setStyle("""
-                            -fx-font-family: "Arial";
-                            -fx-text-fill: #FFFFFF;
-                            -fx-border-radius: 10px;
-                            -fx-font-size: 20px;
-                            -fx-font-weight: bold;
-                            """);
             questionText.setText("Software de Gestão de projetos e estágios");
-            questionText.setFill(javafx.scene.paint.Color.WHITE);
-            questionText.setStyle("""
-                            -fx-font-family: "Arial";
-                            -fx-text-fill: #FFFFFF;
-                            -fx-border-radius: 10px;
-                            -fx-font-size: 15px;
-                            """);
-
             textBox.getChildren().addAll(stateText, questionText);
             textBox.setAlignment(Pos.CENTER);
             textBox.setSpacing(10);
             textBox.getChildren().get(0).setId("stateText");
             textBox.getChildren().get(1).setId("questionText");
             menu = new VBox(5); // 5 pixels de espaçamento entre os elementos
-            menu.getChildren().addAll(image, textBox, btnStart);
+            menu.getChildren().addAll(imageView, textBox, btnStart);
             menu.setStyle("-fx-background-color: #212121;");
             menu.setAlignment(Pos.CENTER);
             menu.setSpacing(20);

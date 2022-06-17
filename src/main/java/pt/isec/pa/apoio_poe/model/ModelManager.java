@@ -95,14 +95,19 @@ public class ModelManager {
         return ctx.getOrientadores();
     }
 
+    public void addAlunosCSV(String fileName){ctx.addAlunosCSV(fileName); }
     public void saveAlunosCSV(String fileName){
         ctx.saveAlunosCSV(fileName);
     }
+    public void addDocentesCSV(String fileName){ctx.addDocentesCSV(fileName); }
+    public void saveDocentesCSV(String fileName){ctx.saveDocentesCSV(fileName); }
+    public void addPropostasCSV(String fileName){ctx.addPropostasCSV(fileName); }
+    public void savePropostasCSV(String fileName){ctx.savePropostasCSV(fileName); }
 
     public ArrayList<PoEProposta> getPropostas(){
         return new ArrayList<>(ctx.getPropostas());
     }
-
+    public ArrayList<PoEAluno> getAlunos(){return new ArrayList<>(ctx.getAlunos()); }
     public void addAluno(PoEAluno aluno){
         ctx.data.addAluno(aluno);
     }
