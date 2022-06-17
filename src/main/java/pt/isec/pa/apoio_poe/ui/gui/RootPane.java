@@ -22,7 +22,6 @@ public class RootPane extends BorderPane {
      * Método que cria as vistas do painel raiz
      */
     private void createViews() {
-        CSSManager.applyCSS(this, "style.css");
         MenuUI menu = new MenuUI(model, this);
         this.setCenter(menu);
     }

@@ -14,7 +14,7 @@ public class CSSManager {
      * @param filename Nome do ficheiro css.
      */
     public static void applyCSS(Parent parent, String filename) {
-        var url = CSSManager.class.getResource("src/" + filename);
+        var url = CSSManager.class.getResource("css/" + filename);
         if (url == null){
             return;
         }

@@ -133,7 +133,7 @@ public class PoEContext implements Serializable{
     }
 
     /**
-     * Adiciona docentes a partir de um ficheiro CSV
+     * Adiciona alunos a partir de um ficheiro CSV
      * @param filePath caminho do ficheiro CSV
      * @return true caso a operação seja bem sucedida, false caso contrário
      */
