@@ -106,7 +106,6 @@ public class ReviewUI extends BorderPane {
 
         this.setTop(header);
         this.setLeft(mainBtns);
-        this.setRight(scrollPane);
         this.setPadding(new Insets(10, 10, 10, 10));
         this.setBottom(bottomBox);
     }
@@ -165,6 +164,7 @@ public class ReviewUI extends BorderPane {
         statistics.setOnAction(evt -> {
             content.getChildren().clear();
             this.setLeft(submenuStatistics);
+            this.setRight(null);
         });
         distRamosBtn.setOnAction(evt -> {
             content.getChildren().clear();
@@ -192,7 +192,7 @@ public class ReviewUI extends BorderPane {
         });
         btnBack.setOnAction(evt -> {
             this.setLeft(mainBtns);
-            this.setRight(scrollPane);
+            this.setRight(null);
         });
     }
 
@@ -215,6 +215,7 @@ public class ReviewUI extends BorderPane {
         chart.setPrefSize(380, 200);
         chart.setMaxSize(380, 200);
         chart.setMinSize(380, 200);
+        chart.setStyle("-fx-background-color: transparent;");
     }
 
     private void createPieGraphRamos(){
@@ -231,6 +232,7 @@ public class ReviewUI extends BorderPane {
         chart.setPrefSize(380, 200);
         chart.setMaxSize(380, 200);
         chart.setMinSize(380, 200);
+        chart.setStyle("-fx-background-color: transparent;");
     }
 
     private BarChart createBarGraphEmpresas(){
@@ -269,7 +271,7 @@ public class ReviewUI extends BorderPane {
 
 
         bc.setStyle("""
-                        -fx-background-color: #212121;
+                        -fx-background-color: transparent;
                         -fx-fill: #FFFFFF;
                     """);
         // set bar title font to white
