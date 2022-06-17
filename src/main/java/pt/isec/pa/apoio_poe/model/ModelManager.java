@@ -81,6 +81,50 @@ public class ModelManager {
         return alunos;
     }
 
+    public ArrayList<PoEAluno> getAlunosByName(String name){
+        return ctx.getAlunosByName(name);
+    }
+
+    public ArrayList<PoEAluno> getAlunoByID(Long id){
+        ArrayList<PoEAluno> aluno = new ArrayList<>();
+        aluno.add(ctx.getAlunoById(id));
+        return aluno;
+    }
+
+    public ArrayList<PoEAluno> getAlunosByRamo(String ramo){
+        return ctx.getAlunosByRamo(ramo);
+    }
+
+    public ArrayList<PoEAluno> getAlunosByCurso(String curso){
+        return ctx.getAlunosByCurso(curso);
+    }
+
+    public ArrayList<PoEDocente> getDocentesByName(String name){
+        ArrayList<PoEDocente> doc = new ArrayList<>();
+        doc.add(ctx.getDocenteByEmail(name));
+        return doc;
+    }
+
+    public ArrayList<PoEDocente> getDocenteByEmail(String email){
+        ArrayList<PoEDocente> doc = new ArrayList<>();
+        doc.add(ctx.getDocenteByEmail(email));
+        return doc;
+    }
+
+    public ArrayList<PoEProposta> getPropostasByTitle(String name){
+        return ctx.getPropostasByTitle(name);
+    }
+
+    public ArrayList<PoEProposta> getPropostasByID(String id){
+        ArrayList<PoEProposta> prop = new ArrayList<>();
+        prop.add(ctx.getPropostaById(id));
+        return prop;
+    }
+
+    public ArrayList<PoEProposta> getPropostasByType(String type){
+        return ctx.getPropostasByType(type);
+    }
+
     public ArrayList<PoEProposta> getPropostasByRamo(String ramo){
         ArrayList<PoEProposta> propostas = new ArrayList<>();
         for(PoEProposta proposta : ctx.getPropostas()){
