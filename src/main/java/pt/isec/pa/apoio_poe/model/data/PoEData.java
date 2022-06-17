@@ -48,11 +48,7 @@ public class PoEData implements Serializable{
      * @return Alunos.
      */
     public ArrayList<PoEAluno> getAlunos() {
-        ArrayList<PoEAluno> copy = new ArrayList<>();
-        for (PoEAluno aluno : alunos) {
-            copy.add(new PoEAluno(aluno));
-        }
-        return copy;
+        return alunos;
     }
 
     /**
@@ -63,7 +59,7 @@ public class PoEData implements Serializable{
     public PoEAluno getAlunoById(long nrEstudante) {
         for (PoEAluno aluno : alunos) {
             if (aluno.getNrEstudante() == nrEstudante) {
-                return new PoEAluno(aluno);
+                return aluno;
             }
         }
         return null;
@@ -78,7 +74,7 @@ public class PoEData implements Serializable{
         ArrayList<PoEAluno> alunosEncontrados = new ArrayList<>();
         for (PoEAluno aluno : alunos) {
             if (aluno.getNome().equalsIgnoreCase(nomeAluno)) {
-                alunosEncontrados.add(new PoEAluno(aluno));
+                alunosEncontrados.add(aluno);
             }
         }
         return alunosEncontrados;
@@ -93,7 +89,7 @@ public class PoEData implements Serializable{
         ArrayList<PoEAluno> alunosEncontrados = new ArrayList<>();
         for (PoEAluno aluno : alunos) {
             if (aluno.getCurso().equalsIgnoreCase(curso)) {
-                alunosEncontrados.add(new PoEAluno(aluno));
+                alunosEncontrados.add(aluno);
             }
         }
         return alunosEncontrados;
@@ -108,7 +104,7 @@ public class PoEData implements Serializable{
         ArrayList<PoEAluno> alunosEncontrados = new ArrayList<>();
         for (PoEAluno aluno : alunos) {
             if (aluno.getRamo().equalsIgnoreCase(ramo)) {
-                alunosEncontrados.add(new PoEAluno(aluno));
+                alunosEncontrados.add(aluno);
             }
         }
         return alunosEncontrados;
@@ -122,7 +118,7 @@ public class PoEData implements Serializable{
     public PoEAluno getAlunoByEmail(String email) {
         for (PoEAluno aluno : alunos) {
             if (aluno.getEmail().equalsIgnoreCase(email)) {
-                return new PoEAluno(aluno);
+                return aluno;
             }
         }
         return null;
@@ -149,11 +145,7 @@ public class PoEData implements Serializable{
      * @return Lista de docentes
      */
     public ArrayList<PoEDocente> getDocentes() {
-        ArrayList<PoEDocente> copy = new ArrayList<>();
-        for (PoEDocente docente : docentes) {
-            copy.add(new PoEDocente(docente));
-        }
-        return copy;
+        return docentes;
     }
 
     /**
@@ -164,7 +156,7 @@ public class PoEData implements Serializable{
     public PoEDocente getDocenteByName(String nome) {
         for (PoEDocente docente : docentes) {
             if (docente.getNome().equals(nome)) {
-                return new PoEDocente(docente);
+                return docente;
             }
         }
         return null;
@@ -178,7 +170,7 @@ public class PoEData implements Serializable{
     public PoEDocente getDocenteByEmail(String email) {
         for (PoEDocente docente : docentes) {
             if (docente.getEmail().equals(email)) {
-                return new PoEDocente(docente);
+                return docente;
             }
         }
         return null;
@@ -205,11 +197,7 @@ public class PoEData implements Serializable{
      * @return Lista de propostas
      */
     public ArrayList<PoEProposta> getPropostas() {
-        ArrayList<PoEProposta> copy = new ArrayList<>();
-        for (PoEProposta proposta : propostas) {
-            copy.add(new PoEProposta(proposta));
-        }
-        return copy;
+        return new ArrayList<>(propostas);
     }
 
     /**
@@ -220,7 +208,7 @@ public class PoEData implements Serializable{
     public PoEProposta getPropostaById(String nrProposta) {
         for (PoEProposta proposta : propostas) {
             if (proposta.getId().equalsIgnoreCase(nrProposta)) {
-                return new PoEProposta(proposta);
+                return proposta;
             }
         }
         return null;
@@ -235,7 +223,7 @@ public class PoEData implements Serializable{
         ArrayList<PoEProposta> propostasEncontradas = new ArrayList<>();
         for (PoEProposta proposta : propostas) {
             if (proposta.getTitulo().equalsIgnoreCase(titulo)) {
-                propostasEncontradas.add(new PoEProposta(proposta));
+                propostasEncontradas.add(proposta);
             }
         }
         return propostasEncontradas;
@@ -250,11 +238,11 @@ public class PoEData implements Serializable{
         ArrayList<PoEProposta> propostasEncontradas = new ArrayList<>();
         for (PoEProposta proposta : propostas) {
             if (tipo.equalsIgnoreCase("T1"))
-                if(proposta instanceof PoEEstagio) propostasEncontradas.add(new PoEProposta(proposta));
+                if(proposta instanceof PoEEstagio) propostasEncontradas.add(proposta);
             if (tipo.equalsIgnoreCase("T2"))
-                if(proposta instanceof PoEProjeto) propostasEncontradas.add(new PoEProposta(proposta));
+                if(proposta instanceof PoEProjeto) propostasEncontradas.add(proposta);
             if (tipo.equalsIgnoreCase("T3"))
-                if (proposta instanceof PoEAutoproposto) propostasEncontradas.add(new PoEProposta(proposta));
+                if (proposta instanceof PoEAutoproposto) propostasEncontradas.add(proposta);
         }
         return propostasEncontradas;
     }
@@ -268,7 +256,7 @@ public class PoEData implements Serializable{
         ArrayList<PoEProposta> propostasEncontradas = new ArrayList<>();
         for(PoEProposta proposta : propostas){
             if(proposta.getRamosDestino().contains(ramo)){
-                propostasEncontradas.add(new PoEProposta(proposta));
+                propostasEncontradas.add(proposta);
             }
         }
         return propostasEncontradas;
@@ -311,11 +299,7 @@ public class PoEData implements Serializable{
      * @return Lista de candidaturas
      */
     public ArrayList<PoECandidatura> getCandidaturas() {
-        ArrayList<PoECandidatura> copy = new ArrayList<>();
-        for (PoECandidatura candidatura : candidaturas) {
-            copy.add(new PoECandidatura(candidatura));
-        }
-        return copy;
+        return new ArrayList<>(candidaturas);
     }
 
     /**
@@ -326,7 +310,7 @@ public class PoEData implements Serializable{
     public PoECandidatura getCandidaturaByAluno(PoEAluno aluno) {
         for (PoECandidatura candidatura : candidaturas) {
             if (candidatura.getNrEstudante() == aluno.getNrEstudante()) {
-                return new PoECandidatura(candidatura);
+                return candidatura;
             }
         }
         return null;
@@ -341,7 +325,7 @@ public class PoEData implements Serializable{
         ArrayList<PoECandidatura> candidaturasEncontradas = new ArrayList<>();
         for (PoECandidatura candidatura : candidaturas) {
             if (candidatura.getPreferencias().contains(proposta.getId())) {
-                candidaturasEncontradas.add(new PoECandidatura(candidatura));
+                candidaturasEncontradas.add(candidatura);
             }
         }
         return candidaturasEncontradas;
@@ -381,11 +365,7 @@ public class PoEData implements Serializable{
      * @return Lista de orientadores
      */
     public ArrayList<PoEOrientador> getOrientadores(){
-        ArrayList<PoEOrientador> copy = new ArrayList<>();
-        for (PoEOrientador orientador : orientadores) {
-            copy.add(new PoEOrientador(orientador));
-        }
-        return copy;
+        return new ArrayList<>(orientadores);
     }
 
     /**
@@ -397,7 +377,7 @@ public class PoEData implements Serializable{
     public PoEOrientador getOrientadorByDocente(PoEDocente docente){
         for(PoEOrientador orientador : orientadores){
             if(orientador.getDocente() == docente)
-                return new PoEOrientador(orientador);
+                return orientador;
         }
         return null;
     }
@@ -411,7 +391,7 @@ public class PoEData implements Serializable{
         ArrayList<PoEOrientador> orientadoresEncontrados = new ArrayList<>();
         for(PoEOrientador orientador : orientadores){
             if(orientador.getPropostas().contains(proposta))
-                orientadoresEncontrados.add(new PoEOrientador(orientador));
+                orientadoresEncontrados.add(orientador);
         }
         return orientadoresEncontrados;
     }

@@ -7,7 +7,7 @@ import java.util.Objects;
 /**
  * Classe que representa um orientador.
  */
-public class PoEOrientador implements Serializable{
+public class PoEOrientador implements Serializable, Comparable {
     static final long serialVersionUID = 114L;
     PoEDocente docente;
     final ArrayList<PoEProposta> propostas;
@@ -100,5 +100,11 @@ public class PoEOrientador implements Serializable{
     @Override
     public int hashCode() {
         return Objects.hash(getDocente(), getPropostas());
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        int compare = ((PoEOrientador) o).propostas.size();
+        return compare - this.propostas.size();
     }
 }

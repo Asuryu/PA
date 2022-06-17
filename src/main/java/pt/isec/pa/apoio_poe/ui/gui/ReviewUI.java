@@ -8,12 +8,20 @@ import javafx.scene.chart.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import pt.isec.pa.apoio_poe.model.ModelManager;
 import pt.isec.pa.apoio_poe.model.data.PoEAluno;
+import pt.isec.pa.apoio_poe.model.data.PoEDocente;
+import pt.isec.pa.apoio_poe.model.data.PoEOrientador;
 import pt.isec.pa.apoio_poe.model.data.PoEProposta;
 import pt.isec.pa.apoio_poe.model.fsm.PoEState;
 
 import javax.swing.*;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 
 /**
  * A classe ReviewUI é uma classe que representa a interface gráfica
@@ -28,7 +36,7 @@ public class ReviewUI extends BorderPane {
     VBox mainBtns;
     GridPane graphsGrid;
     PieChart chart = new PieChart();
-    Button btnBack;
+    Button btnBack, distRamosBtn, propsBtn, topEmpresasBtn, topDocentesBtn;
 
     public ReviewUI(ModelManager model) {
         this.model = model;
@@ -44,6 +52,11 @@ public class ReviewUI extends BorderPane {
         submenuStatistics = new VBox();
         graphsGrid = new GridPane();
 
+        distRamosBtn = new Button("Distribuição por ramos");
+        propsBtn = new Button("Propostas");
+        topEmpresasBtn = new Button("Empresas com mais estágios");
+        topDocentesBtn = new Button("Docentes com mais orientações");
+
         createViews();
         registerHandlers();
         update();
@@ -58,10 +71,10 @@ public class ReviewUI extends BorderPane {
 
         mainBtns = new VBox(listStudentsWithProps, listStudentsWithoutProps, exportToCSV, availableProps, takenProps, statistics);
         submenuStatistics = new VBox(
-                new Button("Distribuição por ramos"),
-                new Button("Propostas"),
-                new Button("Empresas com mais estágios"),
-                new Button("Docentes com mais orientações"),
+                distRamosBtn,
+                propsBtn,
+                topEmpresasBtn,
+                topDocentesBtn,
                 btnBack
         );
         for (Node btn : submenuStatistics.getChildren()) {
@@ -102,11 +115,20 @@ public class ReviewUI extends BorderPane {
 
         VBox stats = new VBox();
 
+        Header header = new Header(model);
+        StatusBar statusBar = new StatusBar(model);
+        mainBtns.setPadding(new Insets(0, 0, 0, 10));
+        submenuStatistics.setPadding(new Insets(0, 0, 0, 10));
 
+        VBox bottomBox = new VBox(buttons, statusBar);
+        bottomBox.setSpacing(10);
+        bottomBox.setPadding(new Insets(10, 10, 0, 10));
+
+        this.setTop(header);
         this.setLeft(mainBtns);
         this.setRight(scrollPane);
         this.setPadding(new Insets(10, 10, 10, 10));
-        this.setBottom(buttons);
+        this.setBottom(bottomBox);
     }
 
     /**
@@ -122,7 +144,6 @@ public class ReviewUI extends BorderPane {
         listStudentsWithProps.setOnAction(evt -> {
             content.getChildren().clear();
             for(PoEAluno aluno : model.getAlunosWithProps()){
-                System.out.println(aluno);
                 content.getChildren().add(new StudentCard(aluno));
             }
             this.setRight(scrollPane);
@@ -133,6 +154,15 @@ public class ReviewUI extends BorderPane {
                 content.getChildren().add(new StudentCard(aluno));
             }
             this.setRight(scrollPane);
+        });
+        exportToCSV.setOnAction(evt -> {
+            FileChooser fileChooser = new FileChooser();
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV (*.csv)", "*.csv");
+            fileChooser.getExtensionFilters().add(extFilter);
+            File file = fileChooser.showSaveDialog(null);
+            if (file != null) {
+                model.saveAlunosCSV(file.getAbsolutePath());
+            }
         });
         availableProps.setOnAction(evt -> {
             content.getChildren().clear();
@@ -153,11 +183,32 @@ public class ReviewUI extends BorderPane {
             this.setRight(scrollPane);
         });
         statistics.setOnAction(evt -> {
-            this.setLeft(submenuStatistics);
             content.getChildren().clear();
+            this.setLeft(submenuStatistics);
+        });
+        distRamosBtn.setOnAction(evt -> {
+            content.getChildren().clear();
+            createPieGraphRamos();
             content.getChildren().add(chart);
             this.setRight(chart);
-            //createBarGraph();
+        });
+        propsBtn.setOnAction(evt -> {
+            content.getChildren().clear();
+            createPieGraphPropostas();
+            content.getChildren().add(chart);
+            this.setRight(chart);
+        });
+        topEmpresasBtn.setOnAction(evt -> {
+            content.getChildren().clear();
+            createBarGraphEmpresas();
+            content.getChildren().add(chart);
+            this.setRight(chart);
+        });
+        topDocentesBtn.setOnAction(evt -> {
+            content.getChildren().clear();
+            BarChart bc = createBarGraphDocentes();
+            content.getChildren().add(bc);
+            this.setRight(bc);
         });
         btnBack.setOnAction(evt -> {
             this.setLeft(mainBtns);
@@ -170,38 +221,96 @@ public class ReviewUI extends BorderPane {
      */
     private void update() {
         this.setVisible(model != null && model.getState() == PoEState.REVIEW);
+    }
+
+    private void createPieGraphPropostas(){
         int nrPropostasAtribuidas = (int) model.getPropostas().stream().filter(p -> p.getNrAlunoAtribuido() != null).count();
-        int nrPropostasNaoAtribuidas = (int) model.getPropostas().stream().filter(p -> p.getNrAlunoAtribuido() != null).count();
+        int nrPropostasNaoAtribuidas = (int) model.getPropostas().stream().filter(p -> p.getNrAlunoAtribuido() == null).count();
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
                 new PieChart.Data("Atribuídas", nrPropostasAtribuidas),
                 new PieChart.Data("Não-Atribuídas", nrPropostasNaoAtribuidas)
         );
         chart = new PieChart(pieChartData);
         chart.setTitle("Propostas");
-        chart.setPrefSize(380, 380);
-        chart.setMaxSize(380, 380);
-        chart.setMinSize(380, 380);
+        chart.setPrefSize(380, 200);
+        chart.setMaxSize(380, 200);
+        chart.setMinSize(380, 200);
     }
 
-    private void createBarGraph(){
+    private void createPieGraphRamos(){
+        int nrPropostasSI = model.getPropostasByRamo("SI").size();
+        int nrPropostasDA = model.getPropostasByRamo("DA").size();
+        int nrPropostasRAS = model.getPropostasByRamo("RAS").size();
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
+                new PieChart.Data("SI", nrPropostasSI),
+                new PieChart.Data("DA", nrPropostasDA),
+                new PieChart.Data("RAS", nrPropostasRAS)
+        );
+        chart = new PieChart(pieChartData);
+        chart.setTitle("Propostas por ramos");
+        chart.setPrefSize(380, 200);
+        chart.setMaxSize(380, 200);
+        chart.setMinSize(380, 200);
+    }
+
+    private BarChart createBarGraphEmpresas(){
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel("Empresas");
+        xAxis.setTickLabelFill(Color.WHITE);
         NumberAxis yAxis = new NumberAxis();
-        yAxis.setLabel("Alunos");
+        yAxis.setLabel("Nrº de alunos");
+        yAxis.setTickLabelFill(Color.WHITE);
         BarChart bc = new BarChart(xAxis,yAxis);
         bc.setTitle("Top 5 - Empresas com mais estágios");
 
-        XYChart.Series series1 = new XYChart.Series();
-        series1.setName("Número de alunos");
-        series1.getData().add(new XYChart.Data("Empresa X", 10));
-        series1.getData().add(new XYChart.Data("Empresa Y", 20));
-        series1.getData().add(new XYChart.Data("Empresa Z", 5));
-        series1.getData().add(new XYChart.Data("Empresa W", 1));
-        series1.getData().add(new XYChart.Data("Empresa K", 12));
+        XYChart.Series series = new XYChart.Series();
+        series.setName("Nrº de alunos");
 
-        bc.getData().add(series1);
+        // Falta fazer o top 5 de empresas
 
-        this.setRight(bc);
+        bc.setStyle("""
+                        -fx-background-color: #212121;
+                        -fx-fill: #FFFFFF;
+                    """);
+        // set bar title font to white
+
+        bc.getData().add(series);
+        return bc;
+
+    }
+
+    private BarChart createBarGraphDocentes(){
+        CategoryAxis xAxis = new CategoryAxis();
+        xAxis.setLabel("Docentes");
+        xAxis.setTickLabelFill(Color.WHITE);
+        NumberAxis yAxis = new NumberAxis();
+        yAxis.setLabel("Alunos");
+        yAxis.setTickLabelFill(Color.WHITE);
+        BarChart bc = new BarChart(xAxis,yAxis);
+        bc.setTitle("Top 5 - Docentes com mais orientações");
+
+        XYChart.Series series = new XYChart.Series();
+        series.setName("Número de orientações");
+        ArrayList<PoEOrientador> orientadores = model.getOrientadores();
+        Collections.sort(orientadores);
+
+        if(orientadores.size() <= 5){
+            for (PoEOrientador orientadore : orientadores) {
+                series.getData().add(new XYChart.Data(orientadore.getDocente().getNome(), orientadore.getPropostas().size()));
+            }
+        } else {
+            for(int i = 0; i < 5; i++){
+                series.getData().add(new XYChart.Data(orientadores.get(i).getDocente().getNome(), orientadores.get(i).getPropostas().size()));
+            }
+        }
+
+        bc.setStyle("""
+                        -fx-background-color: #212121;
+                        -fx-fill: #FFFFFF;
+                    """);
+
+        bc.getData().add(series);
+        return bc;
 
     }
 

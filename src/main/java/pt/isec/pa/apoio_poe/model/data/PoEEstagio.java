@@ -2,11 +2,12 @@ package pt.isec.pa.apoio_poe.model.data;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * Classe que representa uma proposta de estágio.
  */
-public class PoEEstagio extends PoEProposta implements Serializable{
+public class PoEEstagio extends PoEProposta implements Serializable, Comparable {
     static final long serialVersionUID = 104L;
     private ArrayList<String> ramosDestino;
     private String entidade;
@@ -54,6 +55,7 @@ public class PoEEstagio extends PoEProposta implements Serializable{
      * Obtém a entidade da proposta.
      * @return Entidade da proposta.
      */
+    @Override
     public String getEntidade() {
         return entidade;
     }
@@ -96,5 +98,11 @@ public class PoEEstagio extends PoEProposta implements Serializable{
             };
         }
         return ret;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        PoEEstagio estagio = (PoEEstagio) o;
+        return this.getTitulo().compareTo(estagio.getTitulo());
     }
 }

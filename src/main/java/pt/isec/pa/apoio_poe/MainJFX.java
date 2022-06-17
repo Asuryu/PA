@@ -33,7 +33,7 @@ public class MainJFX extends Application {
         Scene scene = new Scene(root,800,450);
         stage.setScene(scene);
         stage.setTitle("PoEDEIS - Gestão de projetos e estágios");
-        stage.getIcons().add(ImageManager.getImage("icon.png"));
+        //stage.getIcons().add(ImageManager.getImage("icon.png"));
         stage.setResizable(false);
         stage.show();
 
@@ -46,7 +46,7 @@ public class MainJFX extends Application {
     @Override
     public void stop(){
         Stage closeDialog = new Stage();
-        closeDialog.getIcons().add(ImageManager.getImage("icon.png"));
+        //closeDialog.getIcons().add(ImageManager.getImage("icon.png"));
         Button yesBtn = new Button("Sim");
         Button noBtn = new Button("Não");
         yesBtn.setStyle("""

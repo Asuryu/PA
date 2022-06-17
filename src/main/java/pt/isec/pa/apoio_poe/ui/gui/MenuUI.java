@@ -91,6 +91,7 @@ public class MenuUI extends BorderPane {
                             -fx-text-fill: #FFFFFF;
                             -fx-border-radius: 10px;
                             -fx-font-size: 15px;
+                            -fx-cursor: hand;
                             """);
         rb2 = new RadioButton();
         rb2.setText("Não");
@@ -116,6 +117,7 @@ public class MenuUI extends BorderPane {
                             -fx-background-color: #79b332;
                             -fx-border-radius: 10px;
                             -fx-font-size: 15px;
+                            -fx-cursor: hand;
                             """);
         btnStart.setAlignment(Pos.BOTTOM_CENTER);
 
@@ -128,6 +130,7 @@ public class MenuUI extends BorderPane {
                             -fx-background-color: #79b332;
                             -fx-border-radius: 10px;
                             -fx-font-size: 15px;
+                            -fx-cursor: hand;
                             """);
         btnNext.setAlignment(Pos.BOTTOM_CENTER);
 
@@ -180,7 +183,7 @@ public class MenuUI extends BorderPane {
             selectedFile = fileChooser.showOpenDialog(this.getScene().getWindow());
             if (selectedFile != null) {
                 fileText.setVisible(true);
-                fileText.setText("Ficheiro selecionado:" + selectedFile.getName());
+                fileText.setText("Ficheiro selecionado: " + selectedFile.getName());
                 selected = 3;
             }
         });
@@ -220,6 +223,7 @@ public class MenuUI extends BorderPane {
                             -fx-background-color: #af2821;
                             -fx-border-radius: 10px;
                             -fx-font-size: 15px;
+                            -fx-cursor: hand;
                             """);
                 btnPrev.setAlignment(Pos.BOTTOM_CENTER);
 

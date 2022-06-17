@@ -80,6 +80,14 @@ public class PoEProposta implements Serializable{
     }
 
     /**
+     * Obtém o nome da empresa da proposta.
+     * @return Nome da empresa da proposta.
+     */
+    public String getEntidade() {
+        return null;
+    }
+
+    /**
      * Atribui um título à proposta.
      * @param titulo Título a ser atribuído.
      */

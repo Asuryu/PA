@@ -200,6 +200,7 @@ class ConfigState extends PoEStateAdapter implements Serializable{
                         nrAlunoAtribuido = Long.parseLong(values[5]);
                     }
                     PoEEstagio estagio = new PoEEstagio(id, titulo, nrAlunoAtribuido, ramos, entidade);
+                    System.out.println(estagio);
                     data.addProposta(estagio);
                     sucessos++;
                 }

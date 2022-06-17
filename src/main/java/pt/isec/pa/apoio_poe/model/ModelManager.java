@@ -1,6 +1,8 @@
 package pt.isec.pa.apoio_poe.model;
 
 import pt.isec.pa.apoio_poe.model.data.PoEAluno;
+import pt.isec.pa.apoio_poe.model.data.PoEDocente;
+import pt.isec.pa.apoio_poe.model.data.PoEOrientador;
 import pt.isec.pa.apoio_poe.model.data.PoEProposta;
 import pt.isec.pa.apoio_poe.model.fsm.PoEContext;
 import pt.isec.pa.apoio_poe.model.fsm.PoEState;
@@ -77,6 +79,24 @@ public class ModelManager {
             }
         }
         return alunos;
+    }
+
+    public ArrayList<PoEProposta> getPropostasByRamo(String ramo){
+        ArrayList<PoEProposta> propostas = new ArrayList<>();
+        for(PoEProposta proposta : ctx.getPropostas()){
+            if(proposta.getRamosDestino().contains(ramo)){
+                propostas.add(proposta);
+            }
+        }
+        return propostas;
+    }
+
+    public ArrayList<PoEOrientador> getOrientadores(){
+        return ctx.getOrientadores();
+    }
+
+    public void saveAlunosCSV(String fileName){
+        ctx.saveAlunosCSV(fileName);
     }
 
     public ArrayList<PoEProposta> getPropostas(){

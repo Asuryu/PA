@@ -6,10 +6,7 @@ import pt.isec.pa.apoio_poe.model.fsm.PoEState;
 import pt.isec.pa.apoio_poe.utils.PAInput;
 import pt.isec.pa.apoio_poe.utils.Utils;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Classe que implementa menus para várias ocasiões
