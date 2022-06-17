@@ -2,16 +2,10 @@ package pt.isec.pa.apoio_poe.ui.gui;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import pt.isec.pa.apoio_poe.model.ModelManager;
 import pt.isec.pa.apoio_poe.model.data.PoEAluno;
-
-import java.util.jar.Attributes;
 
 /**
  * A classe ActionButtons é uma classe que representa os botões
@@ -39,7 +33,12 @@ public class StudentCard extends VBox {
         Text nrEstudante = new Text(aluno.getNrEstudante().toString());
         nrEstudante.setFont(javafx.scene.text.Font.font("Arial", javafx.scene.text.FontWeight.BOLD, 15));
         nrEstudante.setFill(Color.valueOf("#adadad"));
-        Text propAtribuida = new Text(aluno.getPropostaAtribuida().getTitulo());
+        Text propAtribuida = new Text();
+        if(aluno.getPropostaAtribuida() == null) {
+            propAtribuida.setText("Nenhuma proposta atribuída");
+        } else {
+            propAtribuida.setText(aluno.getPropostaAtribuida().getTitulo());
+        }
         propAtribuida.setFont(javafx.scene.text.Font.font("Arial", javafx.scene.text.FontWeight.BOLD, 12));
         propAtribuida.setFill(Color.valueOf("#f3dbff"));
         this.setStyle("""
@@ -50,6 +49,8 @@ public class StudentCard extends VBox {
         this.setAlignment(Pos.CENTER_LEFT);
         this.setPadding(new Insets(0, 10, 0, 10));
         this.setPrefSize(230, 70);
+        this.setMaxSize(300, 70);
+        this.setMinSize(300, 70);
         this.getChildren().addAll(name, nrEstudante, propAtribuida);
     }
 

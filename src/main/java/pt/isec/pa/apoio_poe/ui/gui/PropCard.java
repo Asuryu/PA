@@ -2,16 +2,11 @@ package pt.isec.pa.apoio_poe.ui.gui;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import pt.isec.pa.apoio_poe.model.ModelManager;
 import pt.isec.pa.apoio_poe.model.data.*;
-
-import java.util.jar.Attributes;
 
 /**
  * A classe ActionButtons é uma classe que representa os botões
@@ -33,16 +28,20 @@ public class PropCard extends VBox {
      * Cria os botões para avançar, retroceder e fechar a fase
      */
     private void createViews() {
-        Text name = new Text(proposta.getTitulo());
+        Label name = new Label(proposta.getTitulo());
         name.setFont(javafx.scene.text.Font.font("Arial", javafx.scene.text.FontWeight.BOLD, 20));
-        name.setFill(Color.valueOf("#e3e3e3"));
+        name.setStyle("-fx-text-fill: #ffffff;");
         Text idProp = new Text(proposta.getId());
         idProp.setFont(javafx.scene.text.Font.font("Arial", javafx.scene.text.FontWeight.BOLD, 15));
         idProp.setFill(Color.valueOf("#adadad"));
-        System.out.println(proposta.getRamosDestino());
-        Text ramosDestino = new Text(String.join("  ", proposta.getRamosDestino()));
-        ramosDestino.setFont(javafx.scene.text.Font.font("Arial", javafx.scene.text.FontWeight.BOLD, 12));
-        ramosDestino.setFill(Color.valueOf("#f3dbff"));
+        Text alunoAtribuido = new Text();
+        if(proposta.getNrAlunoAtribuido() == null) {
+            alunoAtribuido.setText("Nenhum aluno atribuído");
+        } else {
+            alunoAtribuido.setText("Atribuído ao aluno nrº " + proposta.getNrAlunoAtribuido().toString());
+        }
+        alunoAtribuido.setFont(javafx.scene.text.Font.font("Arial", javafx.scene.text.FontWeight.BOLD, 12));
+        alunoAtribuido.setFill(Color.valueOf("#f3dbff"));
         this.setStyle("""
                 -fx-background-color: #424242;
                 -fx-border-radius: 10;
@@ -51,7 +50,9 @@ public class PropCard extends VBox {
         this.setAlignment(Pos.CENTER_LEFT);
         this.setPadding(new Insets(0, 10, 0, 10));
         this.setPrefSize(230, 70);
-        this.getChildren().addAll(name, idProp, ramosDestino);
+        this.setMaxSize(300, 70);
+        this.setMinSize(300, 70);
+        this.getChildren().addAll(name, idProp, alunoAtribuido);
     }
 
     /**

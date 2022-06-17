@@ -113,7 +113,7 @@ public class MenuUI extends BorderPane {
         btnStart.setStyle("""
                             -fx-font-family: Arial;
                             -fx-text-fill: #FFFFFF;
-                            -fx-background-color: #af2821;
+                            -fx-background-color: #79b332;
                             -fx-border-radius: 10px;
                             -fx-font-size: 15px;
                             """);
@@ -125,7 +125,7 @@ public class MenuUI extends BorderPane {
         btnNext.setStyle("""
                             -fx-font-family: Arial;
                             -fx-text-fill: #FFFFFF;
-                            -fx-background-color: #af2821;
+                            -fx-background-color: #79b332;
                             -fx-border-radius: 10px;
                             -fx-font-size: 15px;
                             """);
