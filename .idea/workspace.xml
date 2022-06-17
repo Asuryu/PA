@@ -5,31 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0f162890-d362-487d-9e03-5caf2c0ed9bd" name="Changes" comment="Teste da FSM">
-      <change afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/PropCard.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/resources/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_base_18_0_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_base_mac_18_0_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_controls_18_0_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_controls_mac_18_0_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_graphics_18_0_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_graphics_mac_18_0_1.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sadge.ser" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/MainJFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/MainJFX.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/ModelManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/ModelManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/data/PoEProposta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/data/PoEProposta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/fsm/ApplicationOptState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/model/fsm/ApplicationOptState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/ActionButtons.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/ActionButtons.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/ApplicationOptUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/ApplicationOptUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/ConfigUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/ConfigUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/Header.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/Header.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/MenuUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/MenuUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/OriAttributionUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/OriAttributionUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/PropAttributionUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/PropAttributionUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/ReviewUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/ReviewUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/RootPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/RootPane.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/StatusBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/StatusBar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/StudentCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/StudentCard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/resources/CSSManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/gui/resources/css/CSSManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/text/PoEMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pt/isec/pa/apoio_poe/ui/text/PoEMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/pt/isec/pa/apoio_poe/ui/gui/MenuUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/pt/isec/pa/apoio_poe/ui/gui/MenuUI.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +55,7 @@
     <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectId" id="27iN5W3BExHWCn1TtarLVpYPKUA" />
-  <component name="ProjectLevelVcsManager">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -87,7 +72,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.PA">
+  <component name="RunManager" selected="Maven.PA (GUI)">
     <configuration name="PA" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="pt.isec.pa.apoio_poe.Main" />
       <module name="PA" />

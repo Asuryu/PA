@@ -181,6 +181,7 @@ public class MenuUI extends BorderPane {
             if (selectedFile != null) {
                 fileText.setVisible(true);
                 fileText.setText("Ficheiro selecionado:" + selectedFile.getName());
+                selected = 3;
             }
         });
 
@@ -236,6 +237,10 @@ public class MenuUI extends BorderPane {
              }
              if(selected == 2)
                 root.setCenter(stackPane);
+             if(selected == 3) {
+                 model.load(selectedFile.getName());
+                 root.setCenter(stackPane);
+             }
         });
 
         btnPrev.setOnAction(evt -> {
