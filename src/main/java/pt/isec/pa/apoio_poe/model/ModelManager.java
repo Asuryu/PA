@@ -161,6 +161,26 @@ public class ModelManager {
         return ctx.getOrientadores();
     }
 
+    public ArrayList<PoEOrientador> getOrientadoresByName(String name){
+        ArrayList<PoEOrientador> orientadores = new ArrayList<>();
+        for(PoEOrientador orientador : ctx.getOrientadores()){
+            if(orientador.getDocente().getNome().equalsIgnoreCase(name)){
+                orientadores.add(orientador);
+            }
+        }
+        return orientadores;
+    }
+
+    public ArrayList<PoEOrientador> getOrientadoresByEmail(String email){
+        ArrayList<PoEOrientador> orientadores = new ArrayList<>();
+        for(PoEOrientador orientador : ctx.getOrientadores()){
+            if(orientador.getDocente().getEmail().equalsIgnoreCase(email)){
+                orientadores.add(orientador);
+            }
+        }
+        return orientadores;
+    }
+
     public void addAlunosCSV(String fileName){ctx.addAlunosCSV(fileName); }
     public void saveAlunosCSV(String fileName){
         ctx.saveAlunosCSV(fileName);

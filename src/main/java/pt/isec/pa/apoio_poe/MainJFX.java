@@ -48,6 +48,8 @@ public class MainJFX extends Application {
         closeDialog.getIcons().add(ImageManager.getImage("icon.png"));
         Button yesBtn = new Button("Sim");
         Button noBtn = new Button("Não");
+        yesBtn.setPrefSize(100, 30);
+        noBtn.setPrefSize(100, 30);
         yesBtn.setStyle("""
                             -fx-font-family: Arial;
                             -fx-text-fill: #FFFFFF;
@@ -71,7 +73,7 @@ public class MainJFX extends Application {
         imageView.setPreserveRatio(true);
 
         Text title = new Text("Deseja guardar o processo atual?");
-        title.setFont(Font.font("Arial", FontWeight.BOLD, 25));
+        title.setFont(Font.font("Arial", FontWeight.BOLD, 22));
         title.setFill(javafx.scene.paint.Color.WHITE);
         VBox vbox = new VBox(imageView, title, elements);
         vbox.setAlignment(javafx.geometry.Pos.CENTER);

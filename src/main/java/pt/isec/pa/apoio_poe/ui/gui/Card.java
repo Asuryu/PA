@@ -47,7 +47,7 @@ public class Card extends VBox {
                 -fx-background-radius: 10;
                 """);
         this.setAlignment(Pos.CENTER_LEFT);
-        this.setPadding(new Insets(0, 10, 0, 10));
+        this.setPadding(new Insets(0, 0, 0, 10));
         this.setPrefSize(200, 70);
         this.setMaxSize(300, 70);
         this.setMinSize(200, 70);

@@ -86,9 +86,12 @@ public class ReviewUI extends BorderPane {
         }
 
         content.setSpacing(5);
-        content.setPadding(new Insets(0, 3, 0, 0));
+        content.setPadding(new Insets(0, 0, 0, 0));
         content.setStyle("-fx-background: #212121; -fx-border-color: #212121;");
+        content.setPrefWidth(350);
         scrollPane.setContent(content);
+        scrollPane.setPrefWidth(320);
+        scrollPane.setPadding(new Insets(0, 0, 0, 0));
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPane.setStyle("-fx-background: #212121; -fx-border-color: #212121;");
@@ -161,7 +164,7 @@ public class ReviewUI extends BorderPane {
                 if(proposta.getNrAlunoAtribuido() != null) {
                     content.getChildren().add(new Card(proposta.getTitulo(),
                             proposta.getId(),
-                            "Atribuída ao aluno: " + proposta.getAluno().getNome()
+                            "Atribuída ao aluno: " + proposta.getNrAlunoAtribuido()
                     ));
                 }
             }

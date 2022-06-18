@@ -38,7 +38,6 @@
     -fx-font-family: Arial;
     -fx-text-fill: #af2821;
     -fx-background-color: #ffffff;
-    -fx-font-weight: bold;
     -fx-border-radius: 10px;
     -fx-font-size: 12px;
     -fx-cursor: hand;
@@ -48,7 +47,6 @@
     -fx-font-family: Arial;
     -fx-text-fill: #d31e13;
     -fx-background-color: #ffffff;
-    -fx-font-weight: bold;
     -fx-border-radius: 10px;
     -fx-font-size: 12px;
     -fx-cursor: hand;
@@ -174,6 +172,5 @@
     -fx-text-fill: #af2821;
     -fx-font-size: 12px;
     -fx-border-radius: 5px;
-    -fx-cursor: hand;
     -fx-text-align: left;
 }

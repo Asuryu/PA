@@ -120,6 +120,7 @@ public class ConfigUI extends BorderPane {
 
         ComboBox comboBox = new ComboBox(options);
         comboBox.setId("comboBox");
+        comboBox.getSelectionModel().selectFirst();
 
         comboBox.setOnAction(e -> {
             switch (comboBox.getValue().toString()) {
