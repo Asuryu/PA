@@ -33,9 +33,9 @@ public class Card extends VBox {
         headerLabel.setFont(javafx.scene.text.Font.font("Arial", javafx.scene.text.FontWeight.BOLD, 20));
         headerLabel.setStyle("-fx-text-fill: #e3e3e3;");
 
-        Text contentLabel = new Text(content);
+        Label contentLabel = new Label(content);
         contentLabel.setFont(javafx.scene.text.Font.font("Arial", javafx.scene.text.FontWeight.BOLD, 15));
-        contentLabel.setFill(Color.valueOf("#adadad"));
+        contentLabel.setStyle("-fx-text-fill: #adadad;");
 
         Label propAtribuida = new Label(footer);
         propAtribuida.setFont(javafx.scene.text.Font.font("Arial", javafx.scene.text.FontWeight.BOLD, 12));
@@ -50,7 +50,7 @@ public class Card extends VBox {
         this.setPadding(new Insets(0, 0, 0, 10));
         this.setPrefSize(200, 70);
         this.setMaxSize(300, 70);
-        this.setMinSize(200, 70);
+        this.setMinSize(170, 70);
         this.getChildren().addAll(headerLabel, contentLabel, propAtribuida);
     }
 
