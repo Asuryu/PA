@@ -13,6 +13,7 @@ import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import pt.isec.pa.apoio_poe.model.ModelManager;
+import pt.isec.pa.apoio_poe.ui.gui.resources.CSSManager;
 import pt.isec.pa.apoio_poe.ui.gui.resources.ImageManager;
 import pt.isec.pa.apoio_poe.ui.gui.RootPane;
 
@@ -51,19 +52,19 @@ public class MainJFX extends Application {
         yesBtn.setPrefSize(100, 30);
         noBtn.setPrefSize(100, 30);
         yesBtn.setStyle("""
-                            -fx-font-family: Arial;
-                            -fx-text-fill: #FFFFFF;
-                            -fx-background-color: #79b332;
-                            -fx-border-radius: 10px;
-                            -fx-font-size: 15px;
-                            """);
+                    -fx-background-color: #ffffff;
+                    -fx-text-fill: #d31e13;
+                    -fx-font-size: 12px;
+                    -fx-border-radius: 10px;
+                    -fx-cursor: hand;
+                    """);
         noBtn.setStyle("""
-                            -fx-font-family: Arial;
-                            -fx-text-fill: #FFFFFF;
-                            -fx-background-color: #af2821;
-                            -fx-border-radius: 10px;
-                            -fx-font-size: 15px;
-                            """);
+                    -fx-background-color: #d31e13;
+                    -fx-text-fill: #FFFFFF;
+                    -fx-font-size: 12px;
+                    -fx-border-radius: 10px;
+                    -fx-cursor: hand;
+                    """);
         HBox elements = new HBox(yesBtn, noBtn);
         elements.setSpacing(10);
 
