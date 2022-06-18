@@ -568,7 +568,7 @@ public class ConfigUI extends BorderPane {
             fileChooser.getExtensionFilters().add(extFilter);
             File file = fileChooser.showSaveDialog(null);
             if (file != null) {
-                model.saveAlunosCSV(file.getAbsolutePath());
+                model.saveDocentesCSV(file.getAbsolutePath());
                 fileText.setVisible(true);
                 fileText.setText("Ficheiro " + file.getName() + " exportado com sucesso!");
                 fileText.setId("defaultText");
@@ -726,7 +726,7 @@ public class ConfigUI extends BorderPane {
             FileChooser fileChooser = new FileChooser();
             File selectedFile = fileChooser.showOpenDialog(this.getScene().getWindow());
             if (selectedFile != null && selectedFile.getName().endsWith(".csv")) {
-                model.addAlunosCSV("csv/" + selectedFile.getName()); //Not working!! Não foi possível abrir o ficheiro
+                model.addPropostasCSV("csv/" + selectedFile.getName()); //Not working!! Não foi possível abrir o ficheiro
                 fileText.setVisible(true);
                 fileText.setText("Ficheiro " + selectedFile.getName() + " carregado com sucesso!");
                 fileText.setFill(javafx.scene.paint.Color.WHITE);
@@ -755,7 +755,7 @@ public class ConfigUI extends BorderPane {
             fileChooser.getExtensionFilters().add(extFilter);
             File file = fileChooser.showSaveDialog(null);
             if (file != null) {
-                model.saveAlunosCSV(file.getAbsolutePath());
+                model.savePropostasCSV(file.getAbsolutePath());
                 fileText.setVisible(true);
                 fileText.setText("Ficheiro " + file.getName() + " exportado com sucesso!");
                 fileText.setId("defaultText");
