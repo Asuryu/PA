@@ -123,38 +123,6 @@ public class ConfigUI extends BorderPane {
         comboBox.setId("comboBox");
         comboBox.getSelectionModel().selectFirst();
 
-        comboBox.setOnAction(e -> {
-            switch (comboBox.getValue().toString()) {
-                case "Gestão de Alunos":
-                    content.getChildren().clear();
-                    subMenusBox.getChildren().remove(fileText);
-                    subMenusBox.getChildren().remove(viewStudentsBox);
-                    subMenusBox.getChildren().remove(viewTeachersBox);
-                    subMenusBox.getChildren().remove(viewPropsBox);
-                    subMenu.getChildren().clear();
-                    subMenu.getChildren().add(students);
-                    break;
-                case "Gestão de Docentes":
-                    content.getChildren().clear();
-                    subMenusBox.getChildren().remove(fileText);
-                    subMenusBox.getChildren().remove(viewStudentsBox);
-                    subMenusBox.getChildren().remove(viewTeachersBox);
-                    subMenusBox.getChildren().remove(viewPropsBox);
-                    subMenu.getChildren().clear();
-                    subMenu.getChildren().add(teachers);
-                    break;
-                case "Gestão de Propostas":
-                    content.getChildren().clear();
-                    subMenusBox.getChildren().remove(fileText);
-                    subMenusBox.getChildren().remove(viewStudentsBox);
-                    subMenusBox.getChildren().remove(viewTeachersBox);
-                    subMenusBox.getChildren().remove(viewPropsBox);
-                    subMenu.getChildren().clear();
-                    subMenu.getChildren().add(props);
-                    break;
-            }
-        });
-
         Text text = new Text("Selecione uma opção");
         text.setFill(javafx.scene.paint.Color.WHITE);
         text.setId("defaultText");
@@ -276,6 +244,14 @@ public class ConfigUI extends BorderPane {
         bottomBox.setSpacing(10);
         bottomBox.setPadding(new Insets(10, 10, 0, 10));
 
+        content.getChildren().clear();
+        subMenusBox.getChildren().remove(fileText);
+        subMenusBox.getChildren().remove(viewStudentsBox);
+        subMenusBox.getChildren().remove(viewTeachersBox);
+        subMenusBox.getChildren().remove(viewPropsBox);
+        subMenu.getChildren().clear();
+        subMenu.getChildren().add(students);
+
         this.setLeft(leftBox);
         this.setRight(content);
         this.setBottom(bottomBox);
@@ -289,6 +265,38 @@ public class ConfigUI extends BorderPane {
     private void registerHandlers() {
         model.addPropertyChangeListener(ModelManager.PROP_STATE, evt -> {
             update();
+        });
+
+        comboBox.setOnAction(e -> {
+            switch (comboBox.getValue().toString()) {
+                case "Gestão de Alunos":
+                    content.getChildren().clear();
+                    subMenusBox.getChildren().remove(fileText);
+                    subMenusBox.getChildren().remove(viewStudentsBox);
+                    subMenusBox.getChildren().remove(viewTeachersBox);
+                    subMenusBox.getChildren().remove(viewPropsBox);
+                    subMenu.getChildren().clear();
+                    subMenu.getChildren().add(students);
+                    break;
+                case "Gestão de Docentes":
+                    content.getChildren().clear();
+                    subMenusBox.getChildren().remove(fileText);
+                    subMenusBox.getChildren().remove(viewStudentsBox);
+                    subMenusBox.getChildren().remove(viewTeachersBox);
+                    subMenusBox.getChildren().remove(viewPropsBox);
+                    subMenu.getChildren().clear();
+                    subMenu.getChildren().add(teachers);
+                    break;
+                case "Gestão de Propostas":
+                    content.getChildren().clear();
+                    subMenusBox.getChildren().remove(fileText);
+                    subMenusBox.getChildren().remove(viewStudentsBox);
+                    subMenusBox.getChildren().remove(viewTeachersBox);
+                    subMenusBox.getChildren().remove(viewPropsBox);
+                    subMenu.getChildren().clear();
+                    subMenu.getChildren().add(props);
+                    break;
+            }
         });
 
         // Menu de gestão de alunos

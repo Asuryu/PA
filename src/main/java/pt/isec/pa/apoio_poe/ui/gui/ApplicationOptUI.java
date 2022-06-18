@@ -119,26 +119,7 @@ public class ApplicationOptUI extends BorderPane {
         comboBox = new ComboBox();
         comboBox.setItems(options);
         comboBox.setId("comboBox");
-
-        comboBox.setOnAction(e -> {
-            switch (comboBox.getValue().toString()){
-                case "Gestão de Candidaturas":
-                    content.getChildren().clear();
-                    subMenu.getChildren().clear();
-                    subMenu.getChildren().add(applications);
-                    break;
-                case "Lista de Alunos":
-                    content.getChildren().clear();
-                    subMenu.getChildren().clear();
-                    subMenu.getChildren().add(studentList);
-                    break;
-                case "Lista de Propostas":
-                    content.getChildren().clear();
-                    subMenu.getChildren().clear();
-                    subMenu.getChildren().add(propList);
-                    break;
-            }
-        });
+        comboBox.getSelectionModel().selectFirst();
 
         Text text = new Text("Selecione uma opção");
         text.setFill(javafx.scene.paint.Color.WHITE);
@@ -216,6 +197,10 @@ public class ApplicationOptUI extends BorderPane {
         bottomBox.setSpacing(10);
         bottomBox.setPadding(new Insets(10, 10, 0, 10));
 
+        content.getChildren().clear();
+        subMenu.getChildren().clear();
+        subMenu.getChildren().add(applications);
+
         this.setLeft(leftBox);
         this.setRight(content);
         this.setBottom(bottomBox);
@@ -229,6 +214,26 @@ public class ApplicationOptUI extends BorderPane {
     private void registerHandlers() {
         model.addPropertyChangeListener(ModelManager.PROP_STATE, evt -> {
             update();
+        });
+
+        comboBox.setOnAction(e -> {
+            switch (comboBox.getValue().toString()){
+                case "Gestão de Candidaturas":
+                    content.getChildren().clear();
+                    subMenu.getChildren().clear();
+                    subMenu.getChildren().add(applications);
+                    break;
+                case "Lista de Alunos":
+                    content.getChildren().clear();
+                    subMenu.getChildren().clear();
+                    subMenu.getChildren().add(studentList);
+                    break;
+                case "Lista de Propostas":
+                    content.getChildren().clear();
+                    subMenu.getChildren().clear();
+                    subMenu.getChildren().add(propList);
+                    break;
+            }
         });
 
         // Menu de gestão de candidaturas
