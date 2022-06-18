@@ -54,10 +54,11 @@ public class ModelManager {
 
     public void save(String fileName) {
         ctx.exitAndSave(fileName);
+        pcs.firePropertyChange(PROP_STATE, null, ctx.getState());
     }
 
     public void load(String fileName) {
-        this.ctx = ctx.loadSave(fileName);
+        ctx.loadSave(fileName);
         pcs.firePropertyChange(PROP_STATE, null, ctx.getState());
     }
 
