@@ -10,9 +10,16 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.stage.FileChooser;
 import pt.isec.pa.apoio_poe.model.ModelManager;
+import pt.isec.pa.apoio_poe.model.data.PoEAluno;
+import pt.isec.pa.apoio_poe.model.data.PoEProposta;
 import pt.isec.pa.apoio_poe.model.fsm.PoEState;
 import pt.isec.pa.apoio_poe.ui.gui.resources.CSSManager;
+
+import java.io.File;
+import java.util.ArrayList;
 
 /**
  * A classe ApplicationOptUI é uma classe que representa a interface gráfica
@@ -25,7 +32,7 @@ public class ApplicationOptUI extends BorderPane {
     Button studentSelfProposalList, studentRegistedApplicationsList, studentNoApplicationList;
     Button selfPropList, teachersPropList, propWithApplication, propWithoutApplication;
     Button allApplications, studentApplication, propIdApplication;
-    Button applicationsBtn, studentsListBtn, propsListBtn;
+    Button applicationsBtn;
     VBox subMenu, applications, studentList, propList, content, leftBox, viewApplicationsBox;
     HBox subMenusBox;
     ScrollPane scrollPane;
@@ -33,7 +40,7 @@ public class ApplicationOptUI extends BorderPane {
     Text fileText, info;
     TextField applicationsTextField, studentsListTextField, propsListTextField;
     String applicationsText, studentsListText, propsListText;
-
+    int applicationsMethod, studentsMethod, propsMethod;
 
     public ApplicationOptUI(ModelManager model) {
         this.model = model;
@@ -159,10 +166,6 @@ public class ApplicationOptUI extends BorderPane {
 
         applicationsBtn = new Button("Procurar");
         applicationsBtn.setId("subMenuButton");
-        studentsListBtn = new Button("Procurar");
-        studentsListBtn.setId("subMenuButton");
-        propsListBtn = new Button("Procurar");
-        propsListBtn.setId("subMenuButton");
 
         applicationsTextField = new TextField();
         applicationsTextField.setPrefWidth(220);
@@ -239,80 +242,328 @@ public class ApplicationOptUI extends BorderPane {
         // Menu de gestão de candidaturas
 
         importApplications.setOnAction(e -> {
-            //model.importApplications();
+            content.getChildren().clear();
+            subMenusBox.getChildren().remove(fileText);
+            subMenusBox.getChildren().remove(viewApplicationsBox);
+            FileChooser fileChooser = new FileChooser();
+            File selectedFile = fileChooser.showOpenDialog(this.getScene().getWindow());
+            if (selectedFile != null && selectedFile.getName().endsWith(".csv")) {
+                model.addAlunosCSV("csv/" + selectedFile.getName()); //Not working!! Não foi possível abrir o ficheiro
+                fileText.setVisible(true);
+                fileText.setText("Ficheiro " + selectedFile.getName() + " carregado com sucesso!");
+                fileText.setFill(javafx.scene.paint.Color.WHITE);
+                fileText.setId("defaultText");
+                subMenusBox.getChildren().add(fileText);
+                subMenusBox.setAlignment(Pos.CENTER);
+                subMenusBox.setSpacing(30);
+            }else if(selectedFile != null && !selectedFile.getName().endsWith(".csv")){
+                fileText.setVisible(true);
+                fileText.setText("Extensão do ficheiro inválida!\nPor favor, selecione um ficheiro .CSV!");
+                fileText.setId("defaultText");
+                fileText.setFill(javafx.scene.paint.Color.WHITE);
+                fileText.setTextAlignment(TextAlignment.CENTER);
+                subMenusBox.getChildren().add(fileText);
+                subMenusBox.setAlignment(Pos.CENTER);
+                subMenusBox.setSpacing(30);
+            }
         });
 
         exportApplications.setOnAction(e -> {
-            //model.exportApplications();
+            content.getChildren().clear();
+            subMenusBox.getChildren().remove(fileText);
+            subMenusBox.getChildren().remove(viewApplicationsBox);
+            FileChooser fileChooser = new FileChooser();
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV (*.csv)", "*.csv");
+            fileChooser.getExtensionFilters().add(extFilter);
+            File file = fileChooser.showSaveDialog(null);
+            if (file != null) {
+                model.saveAlunosCSV(file.getAbsolutePath());
+                fileText.setVisible(true);
+                fileText.setText("Ficheiro " + file.getName() + " exportado com sucesso!");
+                fileText.setId("defaultText");
+                fileText.setFill(javafx.scene.paint.Color.WHITE);
+                subMenusBox.getChildren().add(fileText);
+                subMenusBox.setAlignment(Pos.CENTER);
+                subMenusBox.setSpacing(30);
+            }
         });
 
         viewApplications.setOnAction(e -> {
-            //content.getChildren().clear();
-            //content.getChildren().add(viewApplicationsBox);
+            content.getChildren().clear();
+            viewApplications.setStyle("-fx-background: #af2821; -fx-border-color: #ffffff;");
+            subMenusBox.getChildren().remove(fileText);
+            if(!subMenusBox.getChildren().contains(viewApplicationsBox))
+                subMenusBox.getChildren().add(viewApplicationsBox);
+            subMenusBox.setAlignment(Pos.CENTER);
+        });
+
+        allApplications.setOnAction(e -> {
+            content.getChildren().clear();
+            info.setText("Não existem propostas registados!");
+            info.setId("defaultText");
+            if(model.getPropostas().size() == 0) {
+                content.getChildren().add(info);
+                content.setAlignment(Pos.CENTER);
+            }else{
+                for(PoEProposta proposta : model.getPropostas()) {
+                    content.getChildren().add(
+                            new Card(proposta.getTitulo(),
+                                    proposta.getId(),
+                                    proposta.getEntidade() + " | " + proposta.getDocente() // TODO: Rever esta apresentação
+                            )
+                    );
+                }
+                this.setRight(scrollPane);
+            }
+        });
+
+        studentApplication.setOnAction(e -> {
+            applicationsMethod = 1;
+            content.getChildren().clear();
+            applicationsTextField.clear();
+            applicationsTextField.setPromptText("Nome do aluno:");
+            content.getChildren().addAll(applicationsTextField, applicationsBtn);
+        });
+
+        propIdApplication.setOnAction(e -> {
+            applicationsMethod = 2;
+            content.getChildren().clear();
+            applicationsTextField.clear();
+            applicationsTextField.setPromptText("ID da proposta:");
+            content.getChildren().addAll(applicationsTextField, applicationsBtn);
         });
 
         editApplications.setOnAction(e -> {
-            //content.getChildren().clear();
-            //content.getChildren().add(editApplicationsBox);
+            subMenusBox.getChildren().remove(viewApplicationsBox);
+            applicationsMethod = 3;
+            editApplications.setStyle("-fx-background: #af2821; -fx-border-color: #ffffff;");
+            applicationsTextField.clear();
+            applicationsTextField.setPromptText("Nome do aluno:");
+            content.getChildren().clear();
+            content.getChildren().addAll(applicationsTextField, applicationsBtn);
+            content.setAlignment(Pos.CENTER);
         });
 
         removeApplications.setOnAction(e -> {
-            //content.getChildren().clear();
-            //content.getChildren().add(removeApplicationsBox);
+            subMenusBox.getChildren().remove(viewApplicationsBox);
+            applicationsMethod = 4;
+            removeApplications.setStyle("-fx-background: #af2821; -fx-border-color: #ffffff;");
+            applicationsTextField.clear();
+            applicationsTextField.setPromptText("Nome do aluno:");
+            content.getChildren().clear();
+            content.getChildren().addAll(applicationsTextField, applicationsBtn);
+            content.setAlignment(Pos.CENTER);
         });
 
         applicationsBtn.setOnAction(e -> {
-            //content.getChildren().clear();
-            //content.getChildren().add(applicationsBox);
+            ArrayList<PoEProposta> propostas;
+            switch (applicationsMethod) {
+                case 1:
+                    content.getChildren().clear();
+                    propostas = model.getPropostasByTitle(applicationsTextField.getText());
+                    if(propostas.size() == 0) {
+                        content.getChildren().add(info);
+                        info.setText("Não foram encontrados alunos com esse nome");
+                        content.setAlignment(Pos.CENTER);
+                    }else{
+                        for(PoEProposta proposta : model.getPropostas()) { //TODO: Este ciclo não é susposto existir I guess
+                            content.getChildren().add(
+                                    new Card(proposta.getTitulo(),
+                                            proposta.getId(),
+                                            proposta.getEntidade() + " | " + proposta.getDocente() // TODO: Rever esta apresentação
+                                    )
+                            );
+                        }
+                    }
+                    break;
+                case 2:
+                    content.getChildren().clear();
+                    propostas = model.getPropostasByID(applicationsTextField.getText()); // TODO: Será que esta string irá funcionar?
+                    if(propostas.size() == 0) {
+                        content.getChildren().add(info);
+                        info.setText("Não foi encontrado nenhum aluno com esse ID");
+                        content.setAlignment(Pos.CENTER);
+                    }else{
+                        for(PoEProposta proposta : model.getPropostas()) { //TODO: Este ciclo não é susposto existir I guess
+                            content.getChildren().add(
+                                    new Card(proposta.getTitulo(),
+                                            proposta.getId(),
+                                            proposta.getEntidade() + " | " + proposta.getDocente() // TODO: Rever esta apresentação
+                                    )
+                            );
+                        }
+                    }
+                    break;
+                case 3:
+                    break; // TODO: Editar candidatura
+                case 4:
+                    Long nrAluno = Long.parseLong(applicationsTextField.getText());
+                    if(true) { // TODO: Qual o método a chamar para eliminar a proposta com base no nrAluno?
+                        content.getChildren().clear();
+                        content.getChildren().add(info);
+                        info.setText("Aluno removido com sucesso");
+                        content.setAlignment(Pos.CENTER);
+                    } else {
+                        content.getChildren().clear();
+                        content.getChildren().add(info);
+                        info.setText("Não foi possível remover o aluno");
+                        content.setAlignment(Pos.CENTER);
+                    }
+                    break;
+                default:
+                    info.setText("Proposta não encontrado!");
+                    if(!content.getChildren().contains(info))
+                        content.getChildren().add(info);
+                    content.setAlignment(Pos.CENTER);
+                    break;
+            }
         });
 
         // Menu de lista de alunos
 
         studentSelfProposalList.setOnAction(e -> {
-            //content.getChildren().clear();
-            //content.getChildren().add(studentSelfProposalList);
+            ArrayList<PoEAluno> alunos;
+            content.getChildren().clear();
+            alunos = model.getAlunos(); // TODO: Método para apresentar a lista de alunos autopropostos
+            if(alunos.size() == 0) {
+                content.getChildren().add(info);
+                info.setText("Alunos com autoproposta (" + model.getPropostas().size() + ")");
+                content.setAlignment(Pos.CENTER);
+            }else{
+                for(PoEProposta proposta : model.getPropostas()) {
+                    content.getChildren().add(
+                            new Card(proposta.getTitulo(),
+                                    proposta.getId(),
+                                    proposta.getEntidade() + " | " + proposta.getDocente() // TODO: Rever esta apresentação
+                            )
+                    );
+                }
+                this.setRight(scrollPane);
+            }
         });
 
         studentRegistedApplicationsList.setOnAction(e -> {
-            //content.getChildren().clear();
-            //content.getChildren().add(studentRegistedApplicationsList);
+            ArrayList<PoEAluno> alunos;
+            content.getChildren().clear();
+            alunos = model.getAlunos(); // TODO: Método para apresentar a lista de alunos autopropostos
+            if(alunos.size() == 0) {
+                content.getChildren().add(info);
+                info.setText("Alunos com autoproposta (" + model.getPropostas().size() + ")");
+                content.setAlignment(Pos.CENTER);
+            }else{
+                for(PoEProposta proposta : model.getPropostas()) {
+                    content.getChildren().add(
+                            new Card(proposta.getTitulo(),
+                                    proposta.getId(),
+                                    proposta.getEntidade() + " | " + proposta.getDocente() // TODO: Rever esta apresentação
+                            )
+                    );
+                }
+                this.setRight(scrollPane);
+            }
         });
 
         studentNoApplicationList.setOnAction(e -> {
-            //content.getChildren().clear();
-            //content.getChildren().add(studentUnregistedApplicationsList);
-        });
-
-        studentsListBtn.setOnAction(e -> {
-            //content.getChildren().clear();
-            //content.getChildren().add(studentsListBox);
+            ArrayList<PoEAluno> alunos;
+            content.getChildren().clear();
+            alunos = model.getAlunos(); // TODO: Método para apresentar a lista de alunos autopropostos
+            if(alunos.size() == 0) {
+                content.getChildren().add(info);
+                info.setText("Alunos com autoproposta (" + model.getPropostas().size() + ")");
+                content.setAlignment(Pos.CENTER);
+            }else{
+                for(PoEProposta proposta : model.getPropostas()) {
+                    content.getChildren().add(
+                            new Card(proposta.getTitulo(),
+                                    proposta.getId(),
+                                    proposta.getEntidade() + " | " + proposta.getDocente() // TODO: Rever esta apresentação
+                            )
+                    );
+                }
+                this.setRight(scrollPane);
+            }
         });
 
         // Menu de lista de propostas
 
         selfPropList.setOnAction(e -> {
-            //content.getChildren().clear();
-            //content.getChildren().add(selfPropList);
+            ArrayList<PoEProposta> propostas;
+            content.getChildren().clear();
+            propostas = model.getPropostasByTitle(applicationsTextField.getText());
+            if(propostas.size() == 0) {
+                content.getChildren().add(info);
+                info.setText("Não foram encontrados alunos com esse nome");
+                content.setAlignment(Pos.CENTER);
+            }else{
+                for(PoEProposta proposta : model.getPropostas()) { //TODO: Este ciclo não é susposto existir I guess
+                    content.getChildren().add(
+                            new Card(proposta.getTitulo(),
+                                    proposta.getId(),
+                                    proposta.getEntidade() + " | " + proposta.getDocente() // TODO: Rever esta apresentação
+                            )
+                    );
+                }
+            }
         });
 
         teachersPropList.setOnAction(e -> {
-            //content.getChildren().clear();
-            //content.getChildren().add(teachersPropList);
+            ArrayList<PoEProposta> propostas;
+            content.getChildren().clear();
+            propostas = model.getPropostasByTitle(applicationsTextField.getText());
+            if(propostas.size() == 0) {
+                content.getChildren().add(info);
+                info.setText("Não foram encontrados alunos com esse nome");
+                content.setAlignment(Pos.CENTER);
+            }else{
+                for(PoEProposta proposta : model.getPropostas()) { //TODO: Este ciclo não é susposto existir I guess
+                    content.getChildren().add(
+                            new Card(proposta.getTitulo(),
+                                    proposta.getId(),
+                                    proposta.getEntidade() + " | " + proposta.getDocente() // TODO: Rever esta apresentação
+                            )
+                    );
+                }
+            }
         });
 
         propWithApplication.setOnAction(e -> {
-            //content.getChildren().clear();
-            //content.getChildren().add(propWithApplicationList);
+            ArrayList<PoEProposta> propostas;
+            content.getChildren().clear();
+            propostas = model.getPropostasByTitle(applicationsTextField.getText());
+            if(propostas.size() == 0) {
+                content.getChildren().add(info);
+                info.setText("Não foram encontrados alunos com esse nome");
+                content.setAlignment(Pos.CENTER);
+            }else{
+                for(PoEProposta proposta : model.getPropostas()) { //TODO: Este ciclo não é susposto existir I guess
+                    content.getChildren().add(
+                            new Card(proposta.getTitulo(),
+                                    proposta.getId(),
+                                    proposta.getEntidade() + " | " + proposta.getDocente() // TODO: Rever esta apresentação
+                            )
+                    );
+                }
+            }
         });
 
         propWithoutApplication.setOnAction(e -> {
-            //content.getChildren().clear();
-            //content.getChildren().add(propWithoutApplicationList);
-        });
-
-        propsListBtn.setOnAction(e -> {
-            //content.getChildren().clear();
-            //content.getChildren().add(propsListBox);
+            ArrayList<PoEProposta> propostas;
+            content.getChildren().clear();
+            propostas = model.getPropostasByTitle(applicationsTextField.getText());
+            if(propostas.size() == 0) {
+                content.getChildren().add(info);
+                info.setText("Não foram encontrados alunos com esse nome");
+                content.setAlignment(Pos.CENTER);
+            }else{
+                for(PoEProposta proposta : model.getPropostas()) { //TODO: Este ciclo não é susposto existir I guess
+                    content.getChildren().add(
+                            new Card(proposta.getTitulo(),
+                                    proposta.getId(),
+                                    proposta.getEntidade() + " | " + proposta.getDocente() // TODO: Rever esta apresentação
+                            )
+                    );
+                }
+            }
         });
     }
 

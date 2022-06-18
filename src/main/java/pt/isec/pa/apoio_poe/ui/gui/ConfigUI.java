@@ -40,7 +40,6 @@ public class ConfigUI extends BorderPane {
     TextField studentTextField, teacherTextField, propTextField;
     String studentText, teacherText, propText;
     Text fileText, info;
-
     int studentMethod = 0, teacherMethod = 0, propMethod = 0;
 
     public ConfigUI(ModelManager model) {
