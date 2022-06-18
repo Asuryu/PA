@@ -424,7 +424,7 @@ public class ApplicationOptUI extends BorderPane {
                     ArrayList<PoECandidatura> candidatura = model.getCandidaturaByAluno(nrAluno);
                     if(candidatura.size() == 0) {
                         content.getChildren().add(info);
-                        info.setText("Não foi encontrada nenhuma candidatura para esse aluno");
+                        info.setText("Não foi encontrada nenhuma\n candidatura para esse aluno");
                         content.setAlignment(Pos.CENTER);
                     } else {
                         if(model.removeCandidatura(candidatura.get(0))) {
