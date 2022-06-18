@@ -113,16 +113,16 @@ public class OriAttributionUI extends BorderPane {
         searchOriSubmenu.setSpacing(5);
 
         for (Node btn : mainBtns.getChildren()) {
-            btn.setId("mainMenuBtn");
+            btn.setId("MenuButton");
         }
         for (Node btn : oriManagementSubmenu.getChildren()) {
-            btn.setId("mainMenuBtn");
+            btn.setId("MenuButton");
         }
         for (Node btn : listDataSubmenu.getChildren()) {
-            btn.setId("mainMenuBtn");
+            btn.setId("MenuButton");
         }
         for (Node btn : searchOriSubmenu.getChildren()) {
-            btn.setId("mainMenuBtn");
+            btn.setId("MenuButton");
         }
 
         content.setSpacing(5);

@@ -76,13 +76,13 @@ public class ReviewUI extends BorderPane {
                 btnBack
         );
         for (Node btn : submenuStatistics.getChildren()) {
-            btn.setId("mainMenuBtn");
+            btn.setId("MenuButton");
         }
         submenuStatistics.setSpacing(5);
         mainBtns.setSpacing(5);
 
         for (Node btn : mainBtns.getChildren()) {
-            btn.setId("mainMenuBtn");
+            btn.setId("MenuButton");
         }
 
         content.setSpacing(5);
