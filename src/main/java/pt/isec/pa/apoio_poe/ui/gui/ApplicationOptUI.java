@@ -14,11 +14,13 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 import pt.isec.pa.apoio_poe.model.ModelManager;
 import pt.isec.pa.apoio_poe.model.data.PoEAluno;
+import pt.isec.pa.apoio_poe.model.data.PoECandidatura;
 import pt.isec.pa.apoio_poe.model.data.PoEProposta;
 import pt.isec.pa.apoio_poe.model.fsm.PoEState;
 import pt.isec.pa.apoio_poe.ui.gui.resources.CSSManager;
 
 import java.io.File;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -220,6 +222,7 @@ public class ApplicationOptUI extends BorderPane {
         });
 
         comboBox.setOnAction(e -> {
+            subMenusBox.getChildren().remove(viewApplicationsBox);
             switch (comboBox.getValue().toString()){
                 case "Gestão de Candidaturas":
                     content.getChildren().clear();
@@ -248,7 +251,7 @@ public class ApplicationOptUI extends BorderPane {
             FileChooser fileChooser = new FileChooser();
             File selectedFile = fileChooser.showOpenDialog(this.getScene().getWindow());
             if (selectedFile != null && selectedFile.getName().endsWith(".csv")) {
-                model.addAlunosCSV("csv/" + selectedFile.getName()); //Not working!! Não foi possível abrir o ficheiro
+                model.addCandidaturasCSV("csv/" + selectedFile.getName()); //Not working!! Não foi possível abrir o ficheiro
                 fileText.setVisible(true);
                 fileText.setText("Ficheiro " + selectedFile.getName() + " carregado com sucesso!");
                 fileText.setFill(javafx.scene.paint.Color.WHITE);
@@ -299,17 +302,23 @@ public class ApplicationOptUI extends BorderPane {
 
         allApplications.setOnAction(e -> {
             content.getChildren().clear();
-            info.setText("Não existem propostas registados!");
+            info.setText("Não existem candidaturas registadas!");
             info.setId("defaultText");
-            if(model.getPropostas().size() == 0) {
+            if(model.getCandidaturas().size() == 0) {
                 content.getChildren().add(info);
                 content.setAlignment(Pos.CENTER);
             }else{
-                for(PoEProposta proposta : model.getPropostas()) {
+                for(PoECandidatura candidatura : model.getCandidaturas()) {
+                    String text;
+                    if(model.getAlunoByID(candidatura.getNrEstudante()) != null){
+                        text = model.getAlunoByID(candidatura.getNrEstudante()).get(0).getNome();
+                    } else {
+                        text = "Aluno nrº " + candidatura.getNrEstudante();
+                    }
                     content.getChildren().add(
-                            new Card(proposta.getTitulo(),
-                                    proposta.getId(),
-                                    proposta.getEntidade() + " | " + proposta.getDocente() // TODO: Rever esta apresentação
+                            new Card("Candidatura",
+                                    text,
+                                    candidatura.getPreferencias().toString()
                             )
                     );
                 }
@@ -349,66 +358,88 @@ public class ApplicationOptUI extends BorderPane {
             applicationsMethod = 4;
             removeApplications.setStyle("-fx-background: #af2821; -fx-border-color: #ffffff;");
             applicationsTextField.clear();
-            applicationsTextField.setPromptText("Nome do aluno:");
+            applicationsTextField.setPromptText("ID do aluno:");
             content.getChildren().clear();
             content.getChildren().addAll(applicationsTextField, applicationsBtn);
             content.setAlignment(Pos.CENTER);
         });
 
         applicationsBtn.setOnAction(e -> {
-            ArrayList<PoEProposta> propostas;
+            ArrayList<PoECandidatura> candidaturas;
             switch (applicationsMethod) {
                 case 1:
                     content.getChildren().clear();
-                    propostas = model.getPropostasByTitle(applicationsTextField.getText());
-                    if(propostas.size() == 0) {
+                    candidaturas = model.getCandidaturaByAluno(Long.valueOf(applicationsTextField.getText()));
+                    if(candidaturas.size() == 0) {
                         content.getChildren().add(info);
-                        info.setText("Não foram encontrados alunos com esse nome");
+                        info.setText("Não foram encontrados alunos com esse ID");
                         content.setAlignment(Pos.CENTER);
                     }else{
-                        for(PoEProposta proposta : model.getPropostas()) { //TODO: Este ciclo não é susposto existir I guess
+                        for(PoECandidatura candidatura : candidaturas) {
+                            String text;
+                            if(model.getAlunoByID(candidatura.getNrEstudante()) != null){
+                                text = model.getAlunoByID(candidatura.getNrEstudante()).get(0).getNome();
+                            } else {
+                                text = "Aluno nrº " + candidatura.getNrEstudante();
+                            }
                             content.getChildren().add(
-                                    new Card(proposta.getTitulo(),
-                                            proposta.getId(),
-                                            proposta.getEntidade() + " | " + proposta.getDocente() // TODO: Rever esta apresentação
+                                    new Card("Candidatura",
+                                            text,
+                                            candidatura.getPreferencias().toString()
                                     )
                             );
                         }
                     }
+                    this.setRight(scrollPane);
                     break;
                 case 2:
                     content.getChildren().clear();
-                    propostas = model.getPropostasByID(applicationsTextField.getText()); // TODO: Será que esta string irá funcionar?
-                    if(propostas.size() == 0) {
+                    candidaturas = model.getCandidaturasByProposta(applicationsTextField.getText());
+                    if(candidaturas.size() == 0) {
                         content.getChildren().add(info);
                         info.setText("Não foi encontrado nenhum aluno com esse ID");
                         content.setAlignment(Pos.CENTER);
                     }else{
-                        for(PoEProposta proposta : model.getPropostas()) { //TODO: Este ciclo não é susposto existir I guess
+                        for(PoECandidatura candidatura : candidaturas) {
+                            String text;
+                            if(model.getAlunoByID(candidatura.getNrEstudante()) != null){
+                                text = model.getAlunoByID(candidatura.getNrEstudante()).get(0).getNome();
+                            } else {
+                                text = "Aluno nrº " + candidatura.getNrEstudante();
+                            }
                             content.getChildren().add(
-                                    new Card(proposta.getTitulo(),
-                                            proposta.getId(),
-                                            proposta.getEntidade() + " | " + proposta.getDocente() // TODO: Rever esta apresentação
+                                    new Card("Candidatura",
+                                            text,
+                                            candidatura.getPreferencias().toString()
                                     )
                             );
                         }
                     }
+                    this.setRight(scrollPane);
                     break;
                 case 3:
-                    break; // TODO: Editar candidatura
+                    break;
                 case 4:
                     Long nrAluno = Long.parseLong(applicationsTextField.getText());
-                    if(true) { // TODO: Qual o método a chamar para eliminar a proposta com base no nrAluno?
-                        content.getChildren().clear();
+                    ArrayList<PoECandidatura> candidatura = model.getCandidaturaByAluno(nrAluno);
+                    if(candidatura.size() == 0) {
                         content.getChildren().add(info);
-                        info.setText("Aluno removido com sucesso");
+                        info.setText("Não foi encontrada nenhuma candidatura para esse aluno");
                         content.setAlignment(Pos.CENTER);
                     } else {
-                        content.getChildren().clear();
-                        content.getChildren().add(info);
-                        info.setText("Não foi possível remover o aluno");
-                        content.setAlignment(Pos.CENTER);
+                        if(model.removeCandidatura(candidatura.get(0))) {
+                            content.getChildren().clear();
+                            content.getChildren().add(info);
+                            info.setText("Aluno removido com sucesso");
+                            content.setAlignment(Pos.CENTER);
+                        } else {
+                            content.getChildren().clear();
+                            content.getChildren().add(info);
+                            info.setText("Não foi possível remover o aluno");
+                            content.setAlignment(Pos.CENTER);
+                        }
                     }
+                    this.setRight(scrollPane);
                     break;
                 default:
                     info.setText("Proposta não encontrado!");
@@ -422,19 +453,19 @@ public class ApplicationOptUI extends BorderPane {
         // Menu de lista de alunos
 
         studentSelfProposalList.setOnAction(e -> {
-            ArrayList<PoEAluno> alunos;
             content.getChildren().clear();
-            alunos = model.getAlunos(); // TODO: Método para apresentar a lista de alunos autopropostos
-            if(alunos.size() == 0) {
+            ArrayList<PoEProposta> propostas = model.getPropostasByType("T3");
+            if(propostas.size() == 0) {
                 content.getChildren().add(info);
                 info.setText("Alunos com autoproposta (" + model.getPropostas().size() + ")");
                 content.setAlignment(Pos.CENTER);
             }else{
                 for(PoEProposta proposta : model.getPropostas()) {
+                    PoEAluno aluno = model.getAlunoByID(propostas.get(0).getNrAlunoAtribuido()).get(0);
                     content.getChildren().add(
-                            new Card(proposta.getTitulo(),
-                                    proposta.getId(),
-                                    proposta.getEntidade() + " | " + proposta.getDocente() // TODO: Rever esta apresentação
+                            new Card(aluno.getNome(),
+                                    aluno.getNrEstudante() + "",
+                                    proposta.getId()
                             )
                     );
                 }
@@ -443,19 +474,19 @@ public class ApplicationOptUI extends BorderPane {
         });
 
         studentRegistedApplicationsList.setOnAction(e -> {
-            ArrayList<PoEAluno> alunos;
             content.getChildren().clear();
-            alunos = model.getAlunos(); // TODO: Método para apresentar a lista de alunos autopropostos
-            if(alunos.size() == 0) {
+            ArrayList<PoECandidatura> candidaturas = model.getCandidaturas();
+            if(candidaturas.size() == 0) {
                 content.getChildren().add(info);
-                info.setText("Alunos com autoproposta (" + model.getPropostas().size() + ")");
+                info.setText("Alunos com candidatura registada (" + model.getPropostas().size() + ")");
                 content.setAlignment(Pos.CENTER);
             }else{
-                for(PoEProposta proposta : model.getPropostas()) {
+                for(PoECandidatura candidatura : candidaturas) {
+                    PoEAluno aluno = model.getAlunoByID(candidatura.getNrEstudante()).get(0);
                     content.getChildren().add(
-                            new Card(proposta.getTitulo(),
-                                    proposta.getId(),
-                                    proposta.getEntidade() + " | " + proposta.getDocente() // TODO: Rever esta apresentação
+                            new Card(aluno.getNome(),
+                                    aluno.getNrEstudante() + "",
+                                    aluno.getCandidatura().getPreferencias().toString()
                             )
                     );
                 }
@@ -464,19 +495,24 @@ public class ApplicationOptUI extends BorderPane {
         });
 
         studentNoApplicationList.setOnAction(e -> {
-            ArrayList<PoEAluno> alunos;
             content.getChildren().clear();
-            alunos = model.getAlunos(); // TODO: Método para apresentar a lista de alunos autopropostos
+            ArrayList<PoEAluno> alunos = model.getAlunos();
+            ArrayList<PoEAluno> alunosSemCandidatura = new ArrayList<>();
             if(alunos.size() == 0) {
                 content.getChildren().add(info);
-                info.setText("Alunos com autoproposta (" + model.getPropostas().size() + ")");
+                info.setText("Alunos sem autoproposta (" + model.getPropostas().size() + ")");
                 content.setAlignment(Pos.CENTER);
             }else{
-                for(PoEProposta proposta : model.getPropostas()) {
+                for(PoEAluno aluno : alunos){
+                    if(aluno.getCandidatura() == null) {
+                        alunosSemCandidatura.add(aluno);
+                    }
+                }
+                for(PoEAluno aluno : alunosSemCandidatura) {
                     content.getChildren().add(
-                            new Card(proposta.getTitulo(),
-                                    proposta.getId(),
-                                    proposta.getEntidade() + " | " + proposta.getDocente() // TODO: Rever esta apresentação
+                            new Card(aluno.getNome(),
+                                    aluno.getNrEstudante() + "",
+                                    "Sem candidatura registada"
                             )
                     );
                 }
@@ -489,17 +525,17 @@ public class ApplicationOptUI extends BorderPane {
         selfPropList.setOnAction(e -> {
             ArrayList<PoEProposta> propostas;
             content.getChildren().clear();
-            propostas = model.getPropostasByTitle(applicationsTextField.getText());
+            propostas = model.getPropostasByType("T3");
             if(propostas.size() == 0) {
                 content.getChildren().add(info);
-                info.setText("Não foram encontrados alunos com esse nome");
+                info.setText("Não foram encontradas autopropostas");
                 content.setAlignment(Pos.CENTER);
             }else{
-                for(PoEProposta proposta : model.getPropostas()) { //TODO: Este ciclo não é susposto existir I guess
+                for(PoEProposta proposta : propostas) {
                     content.getChildren().add(
-                            new Card(proposta.getTitulo(),
-                                    proposta.getId(),
-                                    proposta.getEntidade() + " | " + proposta.getDocente() // TODO: Rever esta apresentação
+                            new Card("Autoproposta",
+                                    proposta.getTitulo(),
+                                    proposta.getId()
                             )
                     );
                 }
@@ -509,17 +545,17 @@ public class ApplicationOptUI extends BorderPane {
         teachersPropList.setOnAction(e -> {
             ArrayList<PoEProposta> propostas;
             content.getChildren().clear();
-            propostas = model.getPropostasByTitle(applicationsTextField.getText());
+            propostas = model.getPropostasByType("T2");
             if(propostas.size() == 0) {
                 content.getChildren().add(info);
-                info.setText("Não foram encontrados alunos com esse nome");
+                info.setText("Não foram encontradas propostas de docentes");
                 content.setAlignment(Pos.CENTER);
             }else{
-                for(PoEProposta proposta : model.getPropostas()) { //TODO: Este ciclo não é susposto existir I guess
+                for(PoEProposta proposta : propostas) {
                     content.getChildren().add(
-                            new Card(proposta.getTitulo(),
-                                    proposta.getId(),
-                                    proposta.getEntidade() + " | " + proposta.getDocente() // TODO: Rever esta apresentação
+                            new Card("Proposta de docente",
+                                    proposta.getTitulo(),
+                                    proposta.getId()
                             )
                     );
                 }
@@ -527,19 +563,24 @@ public class ApplicationOptUI extends BorderPane {
         });
 
         propWithApplication.setOnAction(e -> {
-            ArrayList<PoEProposta> propostas;
             content.getChildren().clear();
-            propostas = model.getPropostasByTitle(applicationsTextField.getText());
+            ArrayList<PoEProposta> propostas = model.getPropostas();
+            ArrayList<PoEProposta> propostasComCandidatura = new ArrayList<>();
+            for(PoEProposta proposta : propostas) {
+                if(proposta.getCandidaturas().size() > 0) {
+                    propostasComCandidatura.add(proposta);
+                }
+            }
             if(propostas.size() == 0) {
                 content.getChildren().add(info);
-                info.setText("Não foram encontrados alunos com esse nome");
+                info.setText("Não foram encontradas propostas");
                 content.setAlignment(Pos.CENTER);
             }else{
-                for(PoEProposta proposta : model.getPropostas()) { //TODO: Este ciclo não é susposto existir I guess
+                for(PoEProposta proposta : propostasComCandidatura) {
                     content.getChildren().add(
-                            new Card(proposta.getTitulo(),
-                                    proposta.getId(),
-                                    proposta.getEntidade() + " | " + proposta.getDocente() // TODO: Rever esta apresentação
+                            new Card("Proposta",
+                                    proposta.getTitulo(),
+                                    proposta.getId()
                             )
                     );
                 }
@@ -547,19 +588,24 @@ public class ApplicationOptUI extends BorderPane {
         });
 
         propWithoutApplication.setOnAction(e -> {
-            ArrayList<PoEProposta> propostas;
             content.getChildren().clear();
-            propostas = model.getPropostasByTitle(applicationsTextField.getText());
+            ArrayList<PoEProposta> propostas = model.getPropostas();
+            ArrayList<PoEProposta> propostasSemCandidatura = new ArrayList<>();
+            for(PoEProposta proposta : propostas) {
+                if(proposta.getCandidaturas().size() == 0) {
+                    propostasSemCandidatura.add(proposta);
+                }
+            }
             if(propostas.size() == 0) {
                 content.getChildren().add(info);
-                info.setText("Não foram encontrados alunos com esse nome");
+                info.setText("Não foram encontradas propostas");
                 content.setAlignment(Pos.CENTER);
             }else{
-                for(PoEProposta proposta : model.getPropostas()) { //TODO: Este ciclo não é susposto existir I guess
+                for(PoEProposta proposta : propostasSemCandidatura) {
                     content.getChildren().add(
-                            new Card(proposta.getTitulo(),
-                                    proposta.getId(),
-                                    proposta.getEntidade() + " | " + proposta.getDocente() // TODO: Rever esta apresentação
+                            new Card("Proposta",
+                                    proposta.getTitulo(),
+                                    proposta.getId()
                             )
                     );
                 }
