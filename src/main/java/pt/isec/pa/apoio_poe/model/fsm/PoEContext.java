@@ -342,8 +342,8 @@ public class PoEContext implements Serializable{
      * Remove a candidatura da lista de candidaturas
      * @param candidatura Candidatura a remover
      */
-    public void removeCandidatura(PoECandidatura candidatura) {
-        data.removeCandidatura(candidatura);
+    public boolean removeCandidatura(PoECandidatura candidatura) {
+        return data.removeCandidatura(candidatura);
     }
 
     /**

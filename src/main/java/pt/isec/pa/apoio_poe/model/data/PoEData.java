@@ -290,8 +290,8 @@ public class PoEData implements Serializable{
      * Remove a candidatura da lista de candidaturas
      * @param candidatura Candidatura a remover
      */
-    public void removeCandidatura(PoECandidatura candidatura) {
-        candidaturas.remove(candidatura);
+    public boolean removeCandidatura(PoECandidatura candidatura) {
+        return candidaturas.remove(candidatura);
     }
 
     /**
