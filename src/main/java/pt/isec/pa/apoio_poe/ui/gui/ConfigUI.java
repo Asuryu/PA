@@ -1,10 +1,10 @@
 package pt.isec.pa.apoio_poe.ui.gui;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
@@ -14,13 +14,12 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 import pt.isec.pa.apoio_poe.model.ModelManager;
-import pt.isec.pa.apoio_poe.model.data.PoEAluno;
-import pt.isec.pa.apoio_poe.model.data.PoEDocente;
-import pt.isec.pa.apoio_poe.model.data.PoEProposta;
+import pt.isec.pa.apoio_poe.model.data.*;
 import pt.isec.pa.apoio_poe.model.fsm.PoEState;
 import pt.isec.pa.apoio_poe.ui.gui.resources.CSSManager;
 
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  * A classe ConfigUI é uma classe que representa a interface gráfica
@@ -101,23 +100,23 @@ public class ConfigUI extends BorderPane {
         ObservableList<String> options = FXCollections.observableArrayList(
                 "Gestão de Alunos",
                 "Gestão de Docentes",
-                "Gestão de Propostas de Estágio ou Projeto"
+                "Gestão de Propostas"
         );
 
         students = new VBox();
         students.getChildren().addAll(importStudents, exportStudents, viewStudents, editStudent, removeStudent);
         students.setSpacing(5);
-        students.setPadding(new Insets(5, 5, 5, 5));
+        students.setPadding(new Insets(5, 5, 5, 0));
 
         teachers = new VBox();
         teachers.getChildren().addAll(importTeachers, exportTeachers, viewTeachers, editTeacher, removeTeacher);
         teachers.setSpacing(5);
-        teachers.setPadding(new Insets(5, 5, 5, 5));
+        teachers.setPadding(new Insets(5, 5, 5, 0));
 
         props = new VBox();
         props.getChildren().addAll(importProps, exportProps, viewProps, editProp, removeProp);
         props.setSpacing(5);
-        props.setPadding(new Insets(5, 5, 5, 5));
+        props.setPadding(new Insets(5, 5, 5, 0));
 
         ComboBox comboBox = new ComboBox(options);
         comboBox.setId("comboBox");
@@ -142,7 +141,7 @@ public class ConfigUI extends BorderPane {
                     subMenu.getChildren().clear();
                     subMenu.getChildren().add(teachers);
                     break;
-                case "Gestão de Propostas de Estágio ou Projeto":
+                case "Gestão de Propostas":
                     content.getChildren().clear();
                     subMenusBox.getChildren().remove(fileText);
                     subMenusBox.getChildren().remove(viewStudentsBox);
@@ -162,18 +161,24 @@ public class ConfigUI extends BorderPane {
         content.setSpacing(5);
         content.setPadding(new Insets(10, 10, 10, 10));
         content.setStyle("-fx-background: #212121; -fx-border-color: #212121;");
-        content.autosize();
+        content.setPrefWidth(300);
+        content.setMaxWidth(300);
+        content.setMinWidth(300);
+        //content.autosize();
 
         scrollPane.setContent(content);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPane.setStyle("-fx-background: #212121; -fx-border-color: #212121;");
-        scrollPane.autosize();
+        scrollPane.setPrefWidth(310);
+        scrollPane.setMaxWidth(310);
+        scrollPane.setMinWidth(310);
+        //scrollPane.autosize();
 
 
         subMenusBox = new HBox(subMenu);
         subMenusBox.setSpacing(10);
-        subMenusBox.setPadding(new Insets(10, 10, 10, 10));
+        subMenusBox.setPadding(new Insets(10, 10, 10, 0));
         subMenusBox.setStyle("-fx-background: #212121; -fx-border-color: #212121;");
 
         leftBox = new VBox(text, comboBox, subMenusBox);
@@ -354,7 +359,12 @@ public class ConfigUI extends BorderPane {
                 content.setAlignment(Pos.CENTER);
             }else{
                 for(PoEAluno aluno : model.getAlunos()) {
-                    content.getChildren().add(new StudentCard(aluno));
+                    content.getChildren().add(
+                            new Card(aluno.getNome(),
+                                     aluno.getNrEstudante().toString(),
+                                     aluno.getCurso() + " | " + aluno.getRamo()
+                                    )
+                    );
                 }
                 this.setRight(scrollPane);
             }
@@ -414,16 +424,97 @@ public class ConfigUI extends BorderPane {
             content.setAlignment(Pos.CENTER);
         });
 
-        // TODO: Implementar each case of the switch statement. 1. Procurar aluno por nome, 2. Procurar aluno por número, 3. Procurar aluno por curso, 4. Procurar aluno por ramo, 5. Editar aluno, 6. Remover aluno
-
         studentBtn.setOnAction(e -> {
+            ArrayList<PoEAluno> alunos;
             switch(studentMethod) {
                 case 1:
+                    content.getChildren().clear();
+                    alunos = model.getAlunosByName(studentTextField.getText());
+                    if(alunos.size() == 0) {
+                        content.getChildren().add(info);
+                        info.setText("Não foram encontrados alunos com esse nome");
+                        content.setAlignment(Pos.CENTER);
+                    }else{
+                        for(PoEAluno aluno : alunos) {
+                            content.getChildren().add(
+                                    new Card(aluno.getNome(),
+                                            aluno.getNrEstudante().toString(),
+                                            aluno.getCurso() + " | " + aluno.getRamo()
+                                    )
+                            );
+                        }
+                    }
+                    break;
                 case 2:
+                    content.getChildren().clear();
+                    alunos = model.getAlunoByID(Long.parseLong(studentTextField.getText()));
+                    if(alunos.size() == 0) {
+                        content.getChildren().add(info);
+                        info.setText("Não foi encontrado nenhum aluno com esse ID");
+                        content.setAlignment(Pos.CENTER);
+                    }else{
+                        for(PoEAluno aluno : alunos) {
+                            content.getChildren().add(
+                                    new Card(aluno.getNome(),
+                                            aluno.getNrEstudante().toString(),
+                                            aluno.getCurso() + " | " + aluno.getRamo()
+                                    )
+                            );
+                        }
+                    }
+                    break;
                 case 3:
+                    content.getChildren().clear();
+                    alunos = model.getAlunosByCurso(studentTextField.getText());
+                    if(alunos.size() == 0) {
+                        content.getChildren().add(info);
+                        info.setText("Não foram encontrados alunos com esse curso");
+                        content.setAlignment(Pos.CENTER);
+                    }else{
+                        for(PoEAluno aluno : alunos) {
+                            content.getChildren().add(
+                                    new Card(aluno.getNome(),
+                                            aluno.getNrEstudante().toString(),
+                                            aluno.getCurso() + " | " + aluno.getRamo()
+                                    )
+                            );
+                        }
+                    }
+                    break;
                 case 4:
+                    content.getChildren().clear();
+                    alunos = model.getAlunosByRamo(studentTextField.getText());
+                    if(alunos.size() == 0) {
+                        content.getChildren().add(info);
+                        info.setText("Não foram encontrados alunos com esse ramo");
+                        content.setAlignment(Pos.CENTER);
+                    }else{
+                        for(PoEAluno aluno : alunos) {
+                            content.getChildren().add(
+                                    new Card(aluno.getNome(),
+                                            aluno.getNrEstudante().toString(),
+                                            aluno.getCurso() + " | " + aluno.getRamo()
+                                    )
+                            );
+                        }
+                    }
+                    break;
                 case 5:
+                    break; //TODO
                 case 6:
+                    Long nrAluno = Long.parseLong(studentTextField.getText());
+                    if(model.removeAluno(nrAluno)){
+                        content.getChildren().clear();
+                        content.getChildren().add(info);
+                        info.setText("Aluno removido com sucesso");
+                        content.setAlignment(Pos.CENTER);
+                    } else {
+                        content.getChildren().clear();
+                        content.getChildren().add(info);
+                        info.setText("Não foi possível remover o aluno");
+                        content.setAlignment(Pos.CENTER);
+                    }
+                    break;
                 default:
                     info.setText("Aluno não encontrado!");
                     if(!content.getChildren().contains(info))
@@ -431,18 +522,6 @@ public class ConfigUI extends BorderPane {
                     content.setAlignment(Pos.CENTER);
                     break;
             }
-
-            // Could be necessary
-            /*if(model.getAlunos().contains(studentTextField.getText())) {
-                for(PoEAluno aluno : model.getAlunos()) {
-                    content.getChildren().add(new StudentCard(aluno));
-                }
-                this.setRight(scrollPane);
-            }else{
-                info.setText("Aluno não encontrado!");
-                content.getChildren().add(info);
-                content.setAlignment(Pos.CENTER);
-            }*/
         });
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -512,10 +591,14 @@ public class ConfigUI extends BorderPane {
                 content.getChildren().add(info);
                 content.setAlignment(Pos.CENTER);
             }else{
-                System.out.println("Por implementar model.getDocentes()");
-                /*for(PoEAluno aluno : model.getDocentes()) {
-                    content.getChildren().add(new StudentCard(aluno));
-                }*/
+                for(PoEDocente docente : model.getDocentes()) {
+                    content.getChildren().add(
+                            new Card(docente.getNome(),
+                                    docente.getEmail(),
+                                    ""
+                            )
+                    );
+                }
                 this.setRight(scrollPane);
             }
         });
@@ -558,14 +641,68 @@ public class ConfigUI extends BorderPane {
             content.setAlignment(Pos.CENTER);
         });
 
-        // TODO: Implementar each case of the switch statement. 1. Procurar docente por nome, 2. Procurar docente por email, 3. Editar docente, 4. Remover docente
-
         teacherBtn.setOnAction(e -> {
+            ArrayList<PoEDocente> docentes;
             switch(teacherMethod) {
                 case 1:
+                    content.getChildren().clear();
+                    docentes = model.getDocentesByName(teacherTextField.getText());
+                    if(docentes.size() == 0) {
+                        content.getChildren().add(info);
+                        info.setText("Não foram encontrados docentes com esse nome");
+                        content.setAlignment(Pos.CENTER);
+                    }else{
+                        for(PoEDocente docente : docentes) {
+                            content.getChildren().add(
+                                    new Card(docente.getNome(),
+                                            docente.getEmail(),
+                                            ""
+                                    )
+                            );
+                        }
+                    }
+                    break;
                 case 2:
+                    content.getChildren().clear();
+                    docentes = model.getDocenteByEmail(teacherTextField.getText());
+                    if(docentes.size() == 0) {
+                        content.getChildren().add(info);
+                        info.setText("Não foram encontrados docentes com esse email");
+                        content.setAlignment(Pos.CENTER);
+                    }else{
+                        for(PoEDocente docente : docentes) {
+                            content.getChildren().add(
+                                    new Card(docente.getNome(),
+                                            docente.getEmail(),
+                                            ""
+                                    )
+                            );
+                        }
+                    }
+                    break;
                 case 3:
+                    break; //TODO
                 case 4:
+                    String email = teacherTextField.getText();
+                    ArrayList<PoEDocente> docente = model.getDocenteByEmail(email);
+                    if(docente.size() == 0) {
+                        content.getChildren().add(info);
+                        info.setText("Não foi encontrado nenhum \ndocente com esse email");
+                        content.setAlignment(Pos.CENTER);
+                    }else{
+                        if(model.removeDocente(docente.get(0))) {
+                            content.getChildren().clear();
+                            content.getChildren().add(info);
+                            info.setText("Docente " + docente.get(0).getNome() + "\nremovido com sucesso!");
+                            content.setAlignment(Pos.CENTER);
+                        }else{
+                            content.getChildren().clear();
+                            content.getChildren().add(info);
+                            info.setText("Não foi possível remover o docente \ncom o email" + email);
+                            content.setAlignment(Pos.CENTER);
+                        }
+                    }
+                    break;
                 default:
                     info.setText("Docente não encontrado!");
                     if(!content.getChildren().contains(info))
@@ -573,17 +710,6 @@ public class ConfigUI extends BorderPane {
                     content.setAlignment(Pos.CENTER);
                     break;
             }
-            /*if(model.getAlunos().contains(teacherTextField.getText())) {
-                System.out.println("Por implementar");
-                for(PoEDocente docente : model.getDocentes()) {
-                    content.getChildren().add(new TeacherCard(docente));
-                }
-                this.setRight(scrollPane);
-            }else{
-                info.setText("Docente não encontrado!");
-                content.getChildren().add(info);
-                content.setAlignment(Pos.CENTER);
-            }*/
         });
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -654,13 +780,21 @@ public class ConfigUI extends BorderPane {
                 content.setAlignment(Pos.CENTER);
             }else{
                 for(PoEProposta proposta : model.getPropostas()) {
-                    content.getChildren().add(new PropCard(proposta));
+                    String text = "Proposta não atribuída";
+                    if(proposta.getNrAlunoAtribuido() != null){
+                        text = "Atribuída ao aluno: " + proposta.getNrAlunoAtribuido();
+                    }
+                    content.getChildren().add(new Card(proposta.getTitulo(),
+                            proposta.getId(),
+                            text
+                    ));
                 }
                 this.setRight(scrollPane);
             }
         });
 
         propID.setOnAction(e -> {
+            propMethod = 1;
             content.getChildren().clear();
             propTextField.clear();
             propTextField.setPromptText("ID de proposta:");
@@ -668,6 +802,7 @@ public class ConfigUI extends BorderPane {
         });
 
         propTitle.setOnAction(e -> {
+            propMethod = 2;
             content.getChildren().clear();
             propTextField.clear();
             propTextField.setPromptText("Título de proposta:");
@@ -675,6 +810,7 @@ public class ConfigUI extends BorderPane {
         });
 
         propType.setOnAction(e -> {
+            propMethod = 3;
             content.getChildren().clear();
             // Adicionar 3 opções Estágio / Projeto / Estágio±Projeto Autoproposto || Listing para cada um deles
             propTextField.clear();
@@ -682,6 +818,7 @@ public class ConfigUI extends BorderPane {
         });
 
         editProp.setOnAction(e -> {
+            propMethod = 4;
             subMenusBox.getChildren().remove(viewPropsBox);
             editProp.setStyle("-fx-background: #af2821; -fx-border-color: #ffffff;");
             propTextField.clear();
@@ -692,6 +829,7 @@ public class ConfigUI extends BorderPane {
         });
 
         removeProp.setOnAction(e -> {
+            propMethod = 5;
             subMenusBox.getChildren().remove(viewPropsBox);
             removeProp.setStyle("-fx-background: #af2821; -fx-border-color: #ffffff;");
             propTextField.clear();
@@ -701,13 +839,126 @@ public class ConfigUI extends BorderPane {
             content.setAlignment(Pos.CENTER);
         });
 
-        // TODO: Implementar each case of the switch statement. 1. Procurar por proposta por ID 2. Procurar por proposta por título 3. Procurar por proposta por tipo
-
         propBtn.setOnAction(e -> {
+            ArrayList<PoEProposta> propostas;
             switch(propMethod) {
                 case 1:
+                    content.getChildren().clear();
+                    propostas = model.getPropostasByID(propTextField.getText());
+                    if(propostas.size() == 0) {
+                        content.getChildren().add(info);
+                        content.setAlignment(Pos.CENTER);
+                    }else{
+                        for(PoEProposta proposta : propostas) {
+                            if(proposta instanceof PoEProjeto) {
+                                content.getChildren().add(new Card(proposta.getTitulo(),
+                                        proposta.getId(),
+                                        "Projeto"
+                                ));
+                            }else if(proposta instanceof PoEEstagio) {
+                                content.getChildren().add(new Card(proposta.getTitulo(),
+                                        proposta.getId(),
+                                        "Estágio"
+                                ));
+                            } else if(proposta instanceof PoEAutoproposto) {
+                                content.getChildren().add(new Card(proposta.getTitulo(),
+                                        proposta.getId(),
+                                        "Autoproposta estágio/projeto"
+                                ));
+                            } else {
+                                content.getChildren().add(new Card(proposta.getTitulo(),
+                                        proposta.getId(),
+                                        ""
+                                ));
+                            }
+                        }
+                        this.setRight(scrollPane);
+                    }
+                    break;
                 case 2:
+                    content.getChildren().clear();
+                    propostas = model.getPropostasByTitle(propTextField.getText());
+                    if(propostas.size() == 0) {
+                        content.getChildren().add(info);
+                        content.setAlignment(Pos.CENTER);
+                    }else{
+                        for(PoEProposta proposta : propostas) {
+                            if(proposta instanceof PoEProjeto) {
+                                content.getChildren().add(new Card(proposta.getTitulo(),
+                                        proposta.getId(),
+                                        "Projeto"
+                                ));
+                            }else if(proposta instanceof PoEEstagio) {
+                                content.getChildren().add(new Card(proposta.getTitulo(),
+                                        proposta.getId(),
+                                        "Estágio"
+                                ));
+                            } else if(proposta instanceof PoEAutoproposto) {
+                                content.getChildren().add(new Card(proposta.getTitulo(),
+                                        proposta.getId(),
+                                        "Autoproposta estágio/projeto"
+                                ));
+                            } else {
+                                content.getChildren().add(new Card(proposta.getTitulo(),
+                                        proposta.getId(),
+                                        ""
+                                ));
+                            }
+                        }
+                        this.setRight(scrollPane);
+                    }
+                    break;
                 case 3:
+                    content.getChildren().clear();
+                    String type = propTextField.getText();
+                    if(type.equalsIgnoreCase("projetos")) {
+                        type = "T1";
+                    }else if(type.equalsIgnoreCase("estágios")) {
+                        type = "T2";
+                    } else if(type.equalsIgnoreCase("autopropostas")) {
+                        type = "T3";
+                    }
+                    System.out.println(type);
+
+                    propostas = model.getPropostasByType(type);
+                    if(propostas.size() == 0) {
+                        content.getChildren().add(info);
+                        content.setAlignment(Pos.CENTER);
+                    }else{
+                        for(PoEProposta proposta : propostas) {
+                            if(propTextField.getText().equalsIgnoreCase("projeto")) {
+                                content.getChildren().add(new Card(proposta.getTitulo(),
+                                        proposta.getId(),
+                                        "Projeto"
+                                ));
+                            }
+                        }
+                        this.setRight(scrollPane);
+                    }
+                    break;
+                case 4:
+                    break; //TODO
+                case 5:
+                    String id = propTextField.getText();
+                    ArrayList<PoEProposta> props = model.getPropostasByID(id);
+                    if(props.size() == 0) {
+                        content.getChildren().add(info);
+                        info.setText("Não foi encontrado nenhuma\n proposta com esse ID");
+                        content.setAlignment(Pos.CENTER);
+                    }else{
+                        if(model.removeProposta(props.get(0))) {
+                            content.getChildren().clear();
+                            content.getChildren().add(info);
+                            info.setText("Proposta " + props.get(0).getId() + "\nremovida com sucesso!");
+                            content.setAlignment(Pos.CENTER);
+                        }else{
+                            content.getChildren().clear();
+                            content.getChildren().add(info);
+                            info.setText("Não foi possível removera proposta\n com o ID " + id);
+                            content.setAlignment(Pos.CENTER);
+                        }
+                    }
+                    break;
                 default:
                     info.setText("Proposta não encontrada!");
                     if(!content.getChildren().contains(info))
@@ -716,17 +967,6 @@ public class ConfigUI extends BorderPane {
                     break;
             }
 
-            /*if(model.getPropostas().contains(propTextField.getText())) {
-                for(PoEProposta proposta : model.getPropostas()) {
-                    content.getChildren().add(new PropCard(proposta));
-                }
-                this.setRight(scrollPane);
-            }else{
-                info.setText("Aluno não encontrado!");
-                content.getChildren().add(info);
-                content.setSpacing(30);
-                content.setAlignment(Pos.CENTER);
-            }*/
         });
 
     }
