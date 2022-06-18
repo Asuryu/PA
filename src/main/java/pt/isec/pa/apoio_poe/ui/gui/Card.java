@@ -6,18 +6,19 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import pt.isec.pa.apoio_poe.model.data.*;
+import pt.isec.pa.apoio_poe.model.data.PoEAluno;
 
 /**
  * A classe ActionButtons é uma classe que representa os botões
  * de ação da aplicação gráfica (alteração da fase)
  */
-public class PropCard extends VBox {
-    final private PoEProposta proposta;
+public class Card extends VBox {
+    String header, content, footer;
 
-    public PropCard(PoEProposta proposta) {
-        this.proposta = proposta;
-
+    public Card(String header, String content, String footer){
+        this.header = header;
+        this.content = content;
+        this.footer = footer;
         createViews();
         registerHandlers();
         update();
@@ -28,20 +29,18 @@ public class PropCard extends VBox {
      * Cria os botões para avançar, retroceder e fechar a fase
      */
     private void createViews() {
-        Label name = new Label(proposta.getTitulo());
-        name.setFont(javafx.scene.text.Font.font("Arial", javafx.scene.text.FontWeight.BOLD, 20));
-        name.setStyle("-fx-text-fill: #ffffff;");
-        Text idProp = new Text(proposta.getId());
-        idProp.setFont(javafx.scene.text.Font.font("Arial", javafx.scene.text.FontWeight.BOLD, 15));
-        idProp.setFill(Color.valueOf("#adadad"));
-        Text alunoAtribuido = new Text();
-        if(proposta.getNrAlunoAtribuido() == null) {
-            alunoAtribuido.setText("Nenhum aluno atribuído");
-        } else {
-            alunoAtribuido.setText("Atribuído ao aluno nrº " + proposta.getNrAlunoAtribuido().toString());
-        }
-        alunoAtribuido.setFont(javafx.scene.text.Font.font("Arial", javafx.scene.text.FontWeight.BOLD, 12));
-        alunoAtribuido.setFill(Color.valueOf("#f3dbff"));
+        Label headerLabel = new Label(header);
+        headerLabel.setFont(javafx.scene.text.Font.font("Arial", javafx.scene.text.FontWeight.BOLD, 20));
+        headerLabel.setStyle("-fx-text-fill: #e3e3e3;");
+
+        Text contentLabel = new Text(content);
+        contentLabel.setFont(javafx.scene.text.Font.font("Arial", javafx.scene.text.FontWeight.BOLD, 15));
+        contentLabel.setFill(Color.valueOf("#adadad"));
+
+        Label propAtribuida = new Label(footer);
+        propAtribuida.setFont(javafx.scene.text.Font.font("Arial", javafx.scene.text.FontWeight.BOLD, 12));
+        propAtribuida.setStyle("-fx-text-fill: #f3dbff;");
+
         this.setStyle("""
                 -fx-background-color: #424242;
                 -fx-border-radius: 10;
@@ -49,10 +48,10 @@ public class PropCard extends VBox {
                 """);
         this.setAlignment(Pos.CENTER_LEFT);
         this.setPadding(new Insets(0, 10, 0, 10));
-        this.setPrefSize(230, 70);
+        this.setPrefSize(200, 70);
         this.setMaxSize(300, 70);
-        this.setMinSize(300, 70);
-        this.getChildren().addAll(name, idProp, alunoAtribuido);
+        this.setMinSize(200, 70);
+        this.getChildren().addAll(headerLabel, contentLabel, propAtribuida);
     }
 
     /**
