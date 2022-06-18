@@ -1,9 +1,6 @@
 package pt.isec.pa.apoio_poe.model;
 
-import pt.isec.pa.apoio_poe.model.data.PoEAluno;
-import pt.isec.pa.apoio_poe.model.data.PoEDocente;
-import pt.isec.pa.apoio_poe.model.data.PoEOrientador;
-import pt.isec.pa.apoio_poe.model.data.PoEProposta;
+import pt.isec.pa.apoio_poe.model.data.*;
 import pt.isec.pa.apoio_poe.model.fsm.PoEContext;
 import pt.isec.pa.apoio_poe.model.fsm.PoEState;
 
@@ -58,7 +55,7 @@ public class ModelManager {
     }
 
     public void load(String fileName) {
-        ctx.loadSave(fileName);
+        this.ctx = ctx.loadSave(fileName);
         pcs.firePropertyChange(PROP_STATE, null, ctx.getState());
     }
 
@@ -182,14 +179,36 @@ public class ModelManager {
         return orientadores;
     }
 
+    public ArrayList<PoECandidatura> getCandidaturas() {
+        return ctx.getCandidaturas();
+    }
+
+    public ArrayList<PoECandidatura> getCandidaturaByAluno(Long nrAluno){
+        ArrayList<PoECandidatura> candidatura = new ArrayList<>();
+        if(ctx.getCandidaturaByAluno(nrAluno) != null){
+            candidatura.add(ctx.getCandidaturaByAluno(nrAluno));
+        }
+        return candidatura;
+    }
+
+    public ArrayList<PoECandidatura> getCandidaturasByProposta(String nrProposta){
+        return ctx.getCandidaturasByProposta(nrProposta);
+    }
+
+    public boolean removeCandidatura(PoECandidatura candidatura){
+        return ctx.removeCandidatura(candidatura);
+    }
+
     public void addAlunosCSV(String fileName){ctx.addAlunosCSV(fileName); }
     public void saveAlunosCSV(String fileName){
         ctx.saveAlunosCSV(fileName);
     }
     public void addDocentesCSV(String fileName){ctx.addDocentesCSV(fileName); }
+    public void addCandidaturasCSV(String fileName){ctx.addCandidaturasCSV(fileName); }
     public void saveDocentesCSV(String fileName){ctx.saveDocentesCSV(fileName); }
     public void addPropostasCSV(String fileName){ctx.addPropostasCSV(fileName); }
     public void savePropostasCSV(String fileName){ctx.savePropostasCSV(fileName); }
+    public void saveCandidaturasCSV(String fileName){ctx.saveCandidaturasCSV(fileName); }
 
     public ArrayList<PoEProposta> getPropostas(){
         return new ArrayList<>(ctx.getPropostas());
