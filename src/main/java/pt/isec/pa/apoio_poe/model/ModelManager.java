@@ -133,12 +133,8 @@ public class ModelManager {
         return ctx.getPropostasByTitle(name);
     }
 
-    public ArrayList<PoEProposta> getPropostasByID(String id){
-        ArrayList<PoEProposta> prop = new ArrayList<>();
-        if(ctx.getPropostaById(id) != null){
-            prop.add(ctx.getPropostaById(id));
-        }
-        return prop;
+    public PoEProposta getPropostasByID(String id){
+        return ctx.getPropostaById(id);
     }
 
     public ArrayList<PoEProposta> getPropostasByType(String type){
@@ -169,14 +165,25 @@ public class ModelManager {
         return orientadores;
     }
 
-    public ArrayList<PoEOrientador> getOrientadoresByEmail(String email){
-        ArrayList<PoEOrientador> orientadores = new ArrayList<>();
+    public PoEOrientador getOrientadoresByEmail(String email){
         for(PoEOrientador orientador : ctx.getOrientadores()){
             if(orientador.getDocente().getEmail().equalsIgnoreCase(email)){
-                orientadores.add(orientador);
+                return orientador;
             }
         }
-        return orientadores;
+        return null;
+    }
+
+    public PoEOrientador getOrientadorByDocente(PoEDocente docente){
+        return ctx.getOrientadorByDocente(docente);
+    }
+
+    public void addOrientador(PoEOrientador orientador){
+        ctx.addOrientador(orientador);
+    }
+
+    public boolean removeOrientador(PoEOrientador orientador){
+        return ctx.removeOrientador(orientador);
     }
 
     public ArrayList<PoECandidatura> getCandidaturas() {
