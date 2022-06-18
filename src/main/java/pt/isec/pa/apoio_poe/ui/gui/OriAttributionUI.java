@@ -1,7 +1,6 @@
 package pt.isec.pa.apoio_poe.ui.gui;
 
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -12,13 +11,17 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import pt.isec.pa.apoio_poe.model.ModelManager;
 import pt.isec.pa.apoio_poe.model.data.PoEAluno;
+import pt.isec.pa.apoio_poe.model.data.PoEDocente;
 import pt.isec.pa.apoio_poe.model.data.PoEOrientador;
 import pt.isec.pa.apoio_poe.model.data.PoEProposta;
+import pt.isec.pa.apoio_poe.model.fsm.PoEContext;
 import pt.isec.pa.apoio_poe.model.fsm.PoEState;
 import pt.isec.pa.apoio_poe.ui.gui.resources.CSSManager;
 
 import java.io.File;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * A classe OriAttributionUI é uma classe que representa a interface gráfica
@@ -35,9 +38,9 @@ public class OriAttributionUI extends BorderPane {
     Button btnBackListData, studentsWithOri, studentsWithoutOri, oriStatistics;
     Button btnBackSearchOri, searchAll, searchByName, searchByEmail;
     Text fileText;
-    TextField textfield;
+    TextField textfield, textfield2;
     Button submitBtn;
-    int selectedSearchType = 0;
+    int selectedType = 0;
 
     public OriAttributionUI(ModelManager model) {
         this.model = model;
@@ -53,8 +56,8 @@ public class OriAttributionUI extends BorderPane {
         listDataSubmenu = new VBox();
         searchOriSubmenu = new VBox();
 
-        attrOriBtn = new Button("Atribuir orientadores");
         listOriBtn = new Button("Consultar orientadores");
+        attrOriBtn = new Button("Atribuir orientadores");
         changeOriBtn = new Button("Alterar orientadores");
         removeOriBtn = new Button("Eliminar orientadores");
         btnBackOriMgmt = new Button("Voltar");
@@ -72,6 +75,7 @@ public class OriAttributionUI extends BorderPane {
         fileText = new Text();
 
         textfield = new TextField();
+        textfield2 = new TextField();
         submitBtn = new Button();
 
         createViews();
@@ -89,8 +93,8 @@ public class OriAttributionUI extends BorderPane {
 
         mainBtns = new VBox(autoOriAttribution, oriManagement, manualOriAttribution, listData, exportToCSV);
         oriManagementSubmenu = new VBox(
-                attrOriBtn,
                 listOriBtn,
+                attrOriBtn,
                 changeOriBtn,
                 removeOriBtn,
                 btnBackOriMgmt
@@ -147,15 +151,22 @@ public class OriAttributionUI extends BorderPane {
         bottomBox.setSpacing(10);
         bottomBox.setPadding(new Insets(10, 10, 0, 10));
 
-        //textfield.setId("textField");
-        textfield.setPrefSize(320, 25);
-        textfield.setMinSize(320, 25);
-        textfield.setMaxSize(320, 25);
-        textfield.setPadding(new Insets(0, 20, 0, 0));
-        //submitBtn.setId("subMenuButton");
-        submitBtn.setPrefSize(320, 25);
-        submitBtn.setMinSize(320, 25);
-        submitBtn.setMaxSize(320, 25);
+        textfield.setId("textField");
+        textfield.setPrefSize(310, 35);
+        textfield.setMinSize(310, 35);
+        textfield.setMaxSize(310, 35);
+        textfield.setPadding(new Insets(0, 0, 0, 10));
+
+        textfield2.setId("textField");
+        textfield2.setPrefSize(310, 35);
+        textfield2.setMinSize(310, 35);
+        textfield2.setMaxSize(310, 35);
+        textfield2.setPadding(new Insets(0, 0, 0, 10));
+
+        submitBtn.setId("subMenuButton");
+        submitBtn.setPrefSize(310, 25);
+        submitBtn.setMinSize(310, 25);
+        submitBtn.setMaxSize(310, 25);
         submitBtn.setPadding(new Insets(0, 20, 0, 0));
 
         this.setTop(header);
@@ -197,6 +208,74 @@ public class OriAttributionUI extends BorderPane {
             this.setLeft(mainBtns);
             this.setRight(null);
         });
+        autoOriAttribution.setOnAction(evt -> {
+            content.getChildren().clear();
+            ArrayList<PoEProposta> propostasT2 = model.getPropostasByType("T2");
+            for(PoEProposta proposta : propostasT2){
+                PoEOrientador orientador = model.getOrientadorByDocente(proposta.getDocente());
+                if(orientador == null){
+                    orientador = new PoEOrientador(proposta.getDocente());
+                    model.addOrientador(orientador);
+                }
+                if(orientador.getPropostas().contains(proposta)){
+                    continue;
+                }
+                orientador.addProposta(proposta);
+                proposta.setOrientador(orientador);
+                content.getChildren().add(new Card(
+                        "Proposta #" + proposta.getId(),
+                        "Atribuída ao orientador",
+                        orientador.getDocente().getNome()
+                ));
+            }
+            this.setRight(scrollPane);
+        });
+        manualOriAttribution.setOnAction(evt -> {
+            content.getChildren().clear();
+            textfield.clear();
+            textfield2.clear();
+            textfield.setPromptText("ID da proposta");
+            textfield2.setPromptText("Email do orientador");
+            submitBtn.setText("Atribuir");
+            selectedType = 4;
+            content.getChildren().addAll(textfield, textfield2, submitBtn);
+            this.setRight(scrollPane);
+        });
+        attrOriBtn.setOnAction(evt -> {
+            content.getChildren().clear();
+            for(PoEDocente docente : model.getDocentes()) {
+                if (model.getOrientadorByDocente(docente) == null) {
+                    PoEOrientador orientador = new PoEOrientador(docente);
+                    model.addOrientador(orientador);
+                }
+            }
+            ArrayList<PoEOrientador> orientadores = model.getOrientadores();
+            ArrayList<PoEAluno> alunos = model.getAlunos();
+            for(PoEAluno aluno : alunos){
+                if(aluno.getPropostaAtribuida().getOrientador() == null){
+                    Collections.shuffle(orientadores);
+                    PoEProposta proposta = aluno.getPropostaAtribuida();
+                    PoEOrientador orientador = orientadores.get(0);
+                    proposta.setOrientador(orientador);
+                    orientador.addProposta(proposta);
+                    content.getChildren().add(new Card(
+                            "Proposta #" + proposta.getId(),
+                            "Atribuída ao orientador",
+                                    orientador.getDocente().getNome()
+                        ));
+                }
+            }
+            this.setRight(scrollPane);
+        });
+        removeOriBtn.setOnAction(evt -> {
+            content.getChildren().clear();
+            textfield.clear();
+            textfield.setPromptText("Email do orientador:");
+            submitBtn.setText("Remover");
+            selectedType = 3;
+            content.getChildren().addAll(textfield, submitBtn);
+            this.setRight(scrollPane);
+        });
         searchAll.setOnAction(evt -> {
             content.getChildren().clear();
             for(PoEOrientador ori : model.getOrientadores()) {
@@ -213,7 +292,7 @@ public class OriAttributionUI extends BorderPane {
             textfield.clear();
             textfield.setPromptText("Nome do orientador:");
             submitBtn.setText("Procurar");
-            selectedSearchType = 1;
+            selectedType = 1;
             content.getChildren().addAll(textfield, submitBtn);
             this.setRight(scrollPane);
         });
@@ -222,12 +301,12 @@ public class OriAttributionUI extends BorderPane {
             textfield.clear();
             textfield.setPromptText("Email do orientador:");
             submitBtn.setText("Procurar");
-            selectedSearchType = 2;
+            selectedType = 2;
             content.getChildren().addAll(textfield, submitBtn);
             this.setRight(scrollPane);
         });
         submitBtn.setOnAction(evt -> {
-            if(selectedSearchType == 1){
+            if(selectedType == 1){
                 content.getChildren().clear();
                 ArrayList<PoEOrientador> orientadores = model.getOrientadoresByName(textfield.getText());
                 if(orientadores.size() != 0){
@@ -240,18 +319,44 @@ public class OriAttributionUI extends BorderPane {
                     }
                 }
             }
-            else if(selectedSearchType == 2){
+            else if(selectedType == 2){
                 content.getChildren().clear();
-                ArrayList<PoEOrientador> orientadores = model.getOrientadoresByEmail(textfield.getText());
-                if(orientadores.size() != 0){
-                    for(PoEOrientador ori : orientadores) {
+                PoEOrientador orientadores = model.getOrientadoresByEmail(textfield.getText());
+                if(orientadores != null){
+                    content.getChildren().add(new Card(
+                            orientadores.getDocente().getNome(),
+                            orientadores.getDocente().getEmail(),
+                            orientadores.getPropostas().size() + " orientações"
+                    ));
+                }
+            } else if(selectedType == 3){
+                content.getChildren().clear();
+                PoEOrientador orientadores = model.getOrientadoresByEmail(textfield.getText());
+                if(orientadores != null){
+                    model.removeOrientador(orientadores);
+                }
+            } else if(selectedType == 4) {
+                content.getChildren().clear();
+                String propostaId = textfield.getText();
+                String emailOrientador = textfield2.getText();
+                PoEProposta proposta = model.getPropostasByID(propostaId);
+                System.out.println(propostaId);
+                System.out.println(emailOrientador);
+                System.out.println(proposta);
+                if (proposta != null) {
+                    PoEOrientador orientador = model.getOrientadoresByEmail(emailOrientador);
+                    if (orientador != null && !(orientador.getPropostas().contains(proposta))) {
+                        orientador.addProposta(proposta);
+                        proposta.getOrientador().getPropostas().remove(proposta);
+                        proposta.setOrientador(orientador);
                         content.getChildren().add(new Card(
-                                ori.getDocente().getNome(),
-                                ori.getDocente().getEmail(),
-                                ori.getPropostas().size() + " orientações"
+                                "Orientador " + orientador.getDocente().getNome(),
+                                "Atribuído à proposta",
+                                proposta.getId()
                         ));
                     }
                 }
+                this.setRight(scrollPane);
             }
         });
         btnBackSearchOri.setOnAction(evt -> {
