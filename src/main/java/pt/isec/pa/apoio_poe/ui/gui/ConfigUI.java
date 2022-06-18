@@ -703,7 +703,7 @@ public class ConfigUI extends BorderPane {
                         }else{
                             content.getChildren().clear();
                             content.getChildren().add(info);
-                            info.setText("Não foi possível remover o docente \ncom o email" + email);
+                            info.setText("Não foi possível remover o docente \ncom o email " + email);
                             content.setAlignment(Pos.CENTER);
                         }
                     }
@@ -844,67 +844,66 @@ public class ConfigUI extends BorderPane {
         });
 
         propBtn.setOnAction(e -> {
-            ArrayList<PoEProposta> propostas;
             switch(propMethod) {
                 case 1:
                     content.getChildren().clear();
-                    propostas = model.getPropostasByID(propTextField.getText());
-                    if(propostas.size() == 0) {
+                    PoEProposta proposta;
+                    proposta = model.getPropostasByID(propTextField.getText());
+                    if(proposta == null) {
                         content.getChildren().add(info);
                         content.setAlignment(Pos.CENTER);
                     }else{
-                        for(PoEProposta proposta : propostas) {
-                            if(proposta instanceof PoEProjeto) {
-                                content.getChildren().add(new Card(proposta.getTitulo(),
-                                        proposta.getId(),
-                                        "Projeto"
-                                ));
-                            }else if(proposta instanceof PoEEstagio) {
-                                content.getChildren().add(new Card(proposta.getTitulo(),
-                                        proposta.getId(),
-                                        "Estágio"
-                                ));
-                            } else if(proposta instanceof PoEAutoproposto) {
-                                content.getChildren().add(new Card(proposta.getTitulo(),
-                                        proposta.getId(),
-                                        "Autoproposta estágio/projeto"
-                                ));
-                            } else {
-                                content.getChildren().add(new Card(proposta.getTitulo(),
-                                        proposta.getId(),
-                                        ""
-                                ));
-                            }
+                        if(proposta instanceof PoEProjeto) {
+                            content.getChildren().add(new Card(proposta.getTitulo(),
+                                    proposta.getId(),
+                                    "Projeto"
+                            ));
+                        }else if(proposta instanceof PoEEstagio) {
+                            content.getChildren().add(new Card(proposta.getTitulo(),
+                                    proposta.getId(),
+                                    "Estágio"
+                            ));
+                        } else if(proposta instanceof PoEAutoproposto) {
+                            content.getChildren().add(new Card(proposta.getTitulo(),
+                                    proposta.getId(),
+                                    "Autoproposta estágio/projeto"
+                            ));
+                        } else {
+                            content.getChildren().add(new Card(proposta.getTitulo(),
+                                    proposta.getId(),
+                                    ""
+                            ));
                         }
                         this.setRight(scrollPane);
                     }
                     break;
                 case 2:
+                    ArrayList<PoEProposta> propostas;
                     content.getChildren().clear();
                     propostas = model.getPropostasByTitle(propTextField.getText());
                     if(propostas.size() == 0) {
                         content.getChildren().add(info);
                         content.setAlignment(Pos.CENTER);
                     }else{
-                        for(PoEProposta proposta : propostas) {
-                            if(proposta instanceof PoEProjeto) {
-                                content.getChildren().add(new Card(proposta.getTitulo(),
-                                        proposta.getId(),
+                        for(PoEProposta pr : propostas) {
+                            if(pr instanceof PoEProjeto) {
+                                content.getChildren().add(new Card(pr.getTitulo(),
+                                        pr.getId(),
                                         "Projeto"
                                 ));
-                            }else if(proposta instanceof PoEEstagio) {
-                                content.getChildren().add(new Card(proposta.getTitulo(),
-                                        proposta.getId(),
+                            }else if(pr instanceof PoEEstagio) {
+                                content.getChildren().add(new Card(pr.getTitulo(),
+                                        pr.getId(),
                                         "Estágio"
                                 ));
-                            } else if(proposta instanceof PoEAutoproposto) {
-                                content.getChildren().add(new Card(proposta.getTitulo(),
-                                        proposta.getId(),
+                            } else if(pr instanceof PoEAutoproposto) {
+                                content.getChildren().add(new Card(pr.getTitulo(),
+                                        pr.getId(),
                                         "Autoproposta estágio/projeto"
                                 ));
                             } else {
-                                content.getChildren().add(new Card(proposta.getTitulo(),
-                                        proposta.getId(),
+                                content.getChildren().add(new Card(pr.getTitulo(),
+                                        pr.getId(),
                                         ""
                                 ));
                             }
@@ -929,10 +928,10 @@ public class ConfigUI extends BorderPane {
                         content.getChildren().add(info);
                         content.setAlignment(Pos.CENTER);
                     }else{
-                        for(PoEProposta proposta : propostas) {
+                        for(PoEProposta p : propostas) {
                             if(propTextField.getText().equalsIgnoreCase("projeto")) {
-                                content.getChildren().add(new Card(proposta.getTitulo(),
-                                        proposta.getId(),
+                                content.getChildren().add(new Card(p.getTitulo(),
+                                        p.getId(),
                                         "Projeto"
                                 ));
                             }
@@ -944,16 +943,16 @@ public class ConfigUI extends BorderPane {
                     break; //TODO
                 case 5:
                     String id = propTextField.getText();
-                    ArrayList<PoEProposta> props = model.getPropostasByID(id);
-                    if(props.size() == 0) {
+                   PoEProposta props = model.getPropostasByID(id);
+                    if(props == null) {
                         content.getChildren().add(info);
                         info.setText("Não foi encontrado nenhuma\n proposta com esse ID");
                         content.setAlignment(Pos.CENTER);
                     }else{
-                        if(model.removeProposta(props.get(0))) {
+                        if(model.removeProposta(props)) {
                             content.getChildren().clear();
                             content.getChildren().add(info);
-                            info.setText("Proposta " + props.get(0).getId() + "\nremovida com sucesso!");
+                            info.setText("Proposta " + props.getId() + "\nremovida com sucesso!");
                             content.setAlignment(Pos.CENTER);
                         }else{
                             content.getChildren().clear();
