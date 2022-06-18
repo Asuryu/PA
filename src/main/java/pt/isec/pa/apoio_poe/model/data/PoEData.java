@@ -136,8 +136,8 @@ public class PoEData implements Serializable{
      * Remove aluno da lista de alunos
      * @param aluno Aluno a remover
      */
-    public void removeAluno(PoEAluno aluno) {
-        alunos.remove(aluno);
+    public boolean removeAluno(PoEAluno aluno) {
+        return alunos.remove(aluno);
     }
 
     /**
@@ -188,8 +188,8 @@ public class PoEData implements Serializable{
      * Remove o docente da lista de docentes
      * @param docente Docente a remover
      */
-    public void removeDocente(PoEDocente docente) {
-        docentes.remove(docente);
+    public boolean removeDocente(PoEDocente docente) {
+        return docentes.remove(docente);
     }
 
     /**
@@ -274,8 +274,8 @@ public class PoEData implements Serializable{
      * Remove a proposta da lista de propostas
      * @param proposta Proposta a remover.
      */
-    public void removeProposta(PoEProposta proposta) {
-        propostas.remove(proposta);
+    public boolean removeProposta(PoEProposta proposta) {
+        return propostas.remove(proposta);
     }
 
     /**

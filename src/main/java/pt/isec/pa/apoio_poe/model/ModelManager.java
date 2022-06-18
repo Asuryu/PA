@@ -87,7 +87,9 @@ public class ModelManager {
 
     public ArrayList<PoEAluno> getAlunoByID(Long id){
         ArrayList<PoEAluno> aluno = new ArrayList<>();
-        aluno.add(ctx.getAlunoById(id));
+        if(ctx.getAlunoById(id) != null){
+            aluno.add(ctx.getAlunoById(id));
+        }
         return aluno;
     }
 
@@ -99,9 +101,27 @@ public class ModelManager {
         return ctx.getAlunosByCurso(curso);
     }
 
+    public boolean removeAluno(Long id){
+        return ctx.removeAluno(ctx.getAlunoById(id));
+    }
+
+    public boolean removeDocente(PoEDocente docente){
+        return ctx.removeDocente(docente);
+    }
+
+    public boolean removeProposta(PoEProposta proposta){
+        return ctx.removeProposta(proposta);
+    }
+
+    public ArrayList<PoEDocente> getDocentes(){
+        return ctx.getDocentes();
+    }
+
     public ArrayList<PoEDocente> getDocentesByName(String name){
         ArrayList<PoEDocente> doc = new ArrayList<>();
-        doc.add(ctx.getDocenteByEmail(name));
+        if(ctx.getDocenteByName(name) != null){
+            doc.add(ctx.getDocenteByName(name));
+        }
         return doc;
     }
 
@@ -117,7 +137,9 @@ public class ModelManager {
 
     public ArrayList<PoEProposta> getPropostasByID(String id){
         ArrayList<PoEProposta> prop = new ArrayList<>();
-        prop.add(ctx.getPropostaById(id));
+        if(ctx.getPropostaById(id) != null){
+            prop.add(ctx.getPropostaById(id));
+        }
         return prop;
     }
 

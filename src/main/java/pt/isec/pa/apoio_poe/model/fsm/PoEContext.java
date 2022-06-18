@@ -241,8 +241,8 @@ public class PoEContext implements Serializable{
      * Remove aluno da lista de alunos
      * @param aluno Aluno a remover
      */
-    public void removeAluno(PoEAluno aluno){
-        data.removeAluno(aluno);
+    public boolean removeAluno(PoEAluno aluno){
+        return data.removeAluno(aluno);
     }
 
     /**
@@ -275,8 +275,8 @@ public class PoEContext implements Serializable{
      * Remove o docente da lista de docentes
      * @param docente Docente a remover
      */
-    public void removeDocente(PoEDocente docente){
-        data.removeDocente(docente);
+    public boolean removeDocente(PoEDocente docente){
+        return data.removeDocente(docente);
     }
 
     /**
@@ -318,8 +318,8 @@ public class PoEContext implements Serializable{
      * Remove a proposta da lista de propostas
      * @param proposta Proposta a remover.
      */
-    public void removeProposta(PoEProposta proposta) {
-        data.removeProposta(proposta);
+    public boolean removeProposta(PoEProposta proposta) {
+        return data.removeProposta(proposta);
     }
 
     /**
