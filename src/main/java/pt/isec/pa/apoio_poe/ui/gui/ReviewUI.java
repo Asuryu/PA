@@ -123,14 +123,14 @@ public class ReviewUI extends BorderPane {
         listStudentsWithProps.setOnAction(evt -> {
             content.getChildren().clear();
             for(PoEAluno aluno : model.getAlunosWithProps()){
-                content.getChildren().add(new StudentCard(aluno));
+                content.getChildren().add(new Card(aluno.getNome(), aluno.getNrEstudante().toString(), aluno.getPropostaAtribuida().getTitulo()));
             }
             this.setRight(scrollPane);
         });
         listStudentsWithoutProps.setOnAction(evt -> {
             content.getChildren().clear();
             for(PoEAluno aluno : model.getAlunosWithoutProps()){
-                content.getChildren().add(new StudentCard(aluno));
+                content.getChildren().add(new Card(aluno.getNome(), aluno.getNrEstudante().toString(), "Sem proposta atribuída"));
             }
             this.setRight(scrollPane);
         });
@@ -147,7 +147,10 @@ public class ReviewUI extends BorderPane {
             content.getChildren().clear();
             for(PoEProposta proposta : model.getPropostas()){
                 if(proposta.getNrAlunoAtribuido() == null) {
-                    content.getChildren().add(new PropCard(proposta));
+                    content.getChildren().add(new Card(proposta.getTitulo(),
+                            proposta.getId(),
+                            "Disponível"
+                    ));
                 }
             }
             this.setRight(scrollPane);
@@ -156,7 +159,10 @@ public class ReviewUI extends BorderPane {
             content.getChildren().clear();
             for(PoEProposta proposta : model.getPropostas()){
                 if(proposta.getNrAlunoAtribuido() != null) {
-                    content.getChildren().add(new PropCard(proposta));
+                    content.getChildren().add(new Card(proposta.getTitulo(),
+                            proposta.getId(),
+                            "Atribuída ao aluno: " + proposta.getAluno().getNome()
+                    ));
                 }
             }
             this.setRight(scrollPane);
