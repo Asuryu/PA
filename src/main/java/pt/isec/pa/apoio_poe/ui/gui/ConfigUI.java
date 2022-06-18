@@ -1,6 +1,5 @@
 package pt.isec.pa.apoio_poe.ui.gui;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -22,7 +21,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 /**
- * A classe ConfigUI é uma classe que representa a interface gráfica
+ * A classe ConfigUI é uma classe que representa a "interface" gráfica
  * da fase de configuração
  */
 public class ConfigUI extends BorderPane {
@@ -37,6 +36,7 @@ public class ConfigUI extends BorderPane {
     ScrollPane scrollPane;
     VBox content, subMenu, students, teachers, props, leftBox, viewStudentsBox, viewTeachersBox, viewPropsBox;
     HBox subMenusBox;
+    ComboBox comboBox;
     TextField studentTextField, teacherTextField, propTextField;
     String studentText, teacherText, propText;
     Text fileText, info;
@@ -118,7 +118,8 @@ public class ConfigUI extends BorderPane {
         props.setSpacing(5);
         props.setPadding(new Insets(5, 5, 5, 0));
 
-        ComboBox comboBox = new ComboBox(options);
+        comboBox = new ComboBox();
+        comboBox.setItems(options);
         comboBox.setId("comboBox");
 
         comboBox.setOnAction(e -> {
@@ -164,7 +165,6 @@ public class ConfigUI extends BorderPane {
         content.setPrefWidth(300);
         content.setMaxWidth(300);
         content.setMinWidth(300);
-        //content.autosize();
 
         scrollPane.setContent(content);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -173,7 +173,6 @@ public class ConfigUI extends BorderPane {
         scrollPane.setPrefWidth(310);
         scrollPane.setMaxWidth(310);
         scrollPane.setMinWidth(310);
-        //scrollPane.autosize();
 
 
         subMenusBox = new HBox(subMenu);
@@ -278,9 +277,9 @@ public class ConfigUI extends BorderPane {
 
         this.setLeft(leftBox);
         this.setRight(content);
-        this.setPadding(new Insets(10, 20, 10, 10));
         this.setBottom(bottomBox);
         this.setTop(header);
+        this.setPadding(new Insets(10, 20, 10, 10));
     }
 
     /**
@@ -290,10 +289,6 @@ public class ConfigUI extends BorderPane {
         model.addPropertyChangeListener(ModelManager.PROP_STATE, evt -> {
             update();
         });
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // Menu de gestão de alunos
 
@@ -527,10 +522,6 @@ public class ConfigUI extends BorderPane {
             }
         });
 
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
         // Menu de gestão de professores
 
         importTeachers.setOnAction(e -> {
@@ -717,10 +708,6 @@ public class ConfigUI extends BorderPane {
                     break;
             }
         });
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // Menu de gestão de propostas
 
