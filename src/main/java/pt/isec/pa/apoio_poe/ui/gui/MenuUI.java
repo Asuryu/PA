@@ -28,7 +28,6 @@ public class MenuUI extends BorderPane {
     ModelManager model;
     Button btnStart, btnNext, fcBtn, btnPrev = new Button("Voltar");
     Text stateText, questionText, fileText;
-    RootPane root;
     StackPane stackPane;
     VBox menu, load, select, textBox;
     HBox buttonsBox;
@@ -37,9 +36,8 @@ public class MenuUI extends BorderPane {
     FileChooser fileChooser = new FileChooser();
     File selectedFile;
 
-    public MenuUI(ModelManager model, RootPane root) {
+    public MenuUI(ModelManager model) {
         this.model = model;
-        this.root = root;
         createViews();
         registerHandlers();
         update();
@@ -213,10 +211,10 @@ public class MenuUI extends BorderPane {
                 this.setCenter(load);
              }
              if(selected == 2)
-                root.setCenter(stackPane);
+                this.setCenter(stackPane);
              if(selected == 3) {
                  model.load(selectedFile.getName());
-                 root.setCenter(stackPane);
+                 this.setCenter(stackPane);
              }
         });
 
