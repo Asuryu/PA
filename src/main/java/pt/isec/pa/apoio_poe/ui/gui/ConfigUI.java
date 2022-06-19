@@ -36,7 +36,7 @@ public class ConfigUI extends BorderPane {
     ScrollPane scrollPane;
     VBox content, subMenu, students, teachers, props, leftBox, viewStudentsBox, viewTeachersBox, viewPropsBox;
     HBox subMenusBox;
-    ComboBox comboBox;
+    ComboBox comboBox, comboBoxPropType;
     TextField studentTextField, teacherTextField, propTextField;
     String studentText, teacherText, propText;
     Text fileText, info;
@@ -102,6 +102,12 @@ public class ConfigUI extends BorderPane {
                 "Gestão de Propostas"
         );
 
+        ObservableList<String> optionsPropType = FXCollections.observableArrayList(
+                "Estágio",
+                "Projeto",
+                "Estágio/projeto autoproposto"
+        );
+
         students = new VBox();
         students.getChildren().addAll(importStudents, exportStudents, viewStudents, editStudent, removeStudent);
         students.setSpacing(5);
@@ -121,6 +127,11 @@ public class ConfigUI extends BorderPane {
         comboBox.setItems(options);
         comboBox.setId("comboBox");
         comboBox.getSelectionModel().selectFirst();
+
+        comboBoxPropType = new ComboBox();
+        comboBoxPropType.setItems(optionsPropType);
+        comboBoxPropType.setId("comboBox");
+        comboBoxPropType.getSelectionModel().selectFirst();
 
         Text text = new Text("Selecione uma opção");
         text.setFill(javafx.scene.paint.Color.WHITE);
@@ -310,6 +321,7 @@ public class ConfigUI extends BorderPane {
                 model.addAlunosCSV("csv/" + selectedFile.getName()); //Not working!! Não foi possível abrir o ficheiro
                 fileText.setVisible(true);
                 fileText.setText("Ficheiro " + selectedFile.getName() + "\n carregado com sucesso!");
+                fileText.setTextAlignment(TextAlignment.CENTER);
                 fileText.setFill(javafx.scene.paint.Color.WHITE);
                 fileText.setId("defaultText");
                 subMenusBox.getChildren().add(fileText);
@@ -318,6 +330,7 @@ public class ConfigUI extends BorderPane {
             }else if(selectedFile != null && !selectedFile.getName().endsWith(".csv")){
                 fileText.setVisible(true);
                 fileText.setText("Extensão do ficheiro inválida!\nPor favor, selecione um ficheiro .CSV!");
+                fileText.setTextAlignment(TextAlignment.CENTER);
                 fileText.setId("defaultText");
                 fileText.setFill(javafx.scene.paint.Color.WHITE);
                 fileText.setTextAlignment(TextAlignment.CENTER);
@@ -338,7 +351,8 @@ public class ConfigUI extends BorderPane {
             if (file != null) {
                 model.saveAlunosCSV(file.getAbsolutePath());
                 fileText.setVisible(true);
-                fileText.setText("Ficheiro " + file.getName() + "   n exportado com sucesso!");
+                fileText.setText("Ficheiro " + file.getName() + "\n exportado com sucesso!");
+                fileText.setTextAlignment(TextAlignment.CENTER);
                 fileText.setId("defaultText");
                 fileText.setFill(javafx.scene.paint.Color.WHITE);
                 subMenusBox.getChildren().add(fileText);
@@ -506,7 +520,7 @@ public class ConfigUI extends BorderPane {
                     }
                     break;
                 case 5:
-                    break; //TODO
+                    break;
                 case 6:
                     Long nrAluno = Long.parseLong(studentTextField.getText());
                     if(model.removeAluno(nrAluno)){
@@ -542,6 +556,7 @@ public class ConfigUI extends BorderPane {
                 model.addDocentesCSV("csv/" + selectedFile.getName()); //Not working!! Não foi possível abrir o ficheiro
                 fileText.setVisible(true);
                 fileText.setText("Ficheiro " + selectedFile.getName() + "\n carregado com sucesso!");
+                fileText.setTextAlignment(TextAlignment.CENTER);
                 fileText.setFill(javafx.scene.paint.Color.WHITE);
                 fileText.setId("defaultText");
                 subMenusBox.getChildren().add(fileText);
@@ -550,6 +565,7 @@ public class ConfigUI extends BorderPane {
             }else if(selectedFile != null && !selectedFile.getName().endsWith(".csv")){
                 fileText.setVisible(true);
                 fileText.setText("Extensão do ficheiro inválida!\nPor favor, selecione um ficheiro .CSV!");
+                fileText.setTextAlignment(TextAlignment.CENTER);
                 fileText.setId("defaultText");
                 fileText.setFill(javafx.scene.paint.Color.WHITE);
                 fileText.setTextAlignment(TextAlignment.CENTER);
@@ -570,7 +586,8 @@ public class ConfigUI extends BorderPane {
             if (file != null) {
                 model.saveDocentesCSV(file.getAbsolutePath());
                 fileText.setVisible(true);
-                fileText.setText("Ficheiro " + file.getName() + "   n exportado com sucesso!");
+                fileText.setText("Ficheiro " + file.getName() + "\n exportado com sucesso!");
+                fileText.setTextAlignment(TextAlignment.CENTER);
                 fileText.setId("defaultText");
                 fileText.setFill(javafx.scene.paint.Color.WHITE);
                 subMenusBox.getChildren().add(fileText);
@@ -686,24 +703,27 @@ public class ConfigUI extends BorderPane {
                     }
                     break;
                 case 3:
-                    break; //TODO
+                    break;
                 case 4:
                     String email = teacherTextField.getText();
                     ArrayList<PoEDocente> docente = model.getDocenteByEmail(email);
                     if(docente.size() == 0) {
                         content.getChildren().add(info);
                         info.setText("Não foi encontrado nenhum \ndocente com esse email");
+                        info.setTextAlignment(TextAlignment.CENTER);
                         content.setAlignment(Pos.CENTER);
                     }else{
                         if(model.removeDocente(docente.get(0))) {
                             content.getChildren().clear();
                             content.getChildren().add(info);
                             info.setText("Docente " + docente.get(0).getNome() + "\nremovido com sucesso!");
+                            info.setTextAlignment(TextAlignment.CENTER);
                             content.setAlignment(Pos.CENTER);
                         }else{
                             content.getChildren().clear();
                             content.getChildren().add(info);
                             info.setText("Não foi possível remover o docente \ncom o email " + email);
+                            info.setTextAlignment(TextAlignment.CENTER);
                             content.setAlignment(Pos.CENTER);
                         }
                     }
@@ -729,6 +749,7 @@ public class ConfigUI extends BorderPane {
                 model.addPropostasCSV("csv/" + selectedFile.getName()); //Not working!! Não foi possível abrir o ficheiro
                 fileText.setVisible(true);
                 fileText.setText("Ficheiro " + selectedFile.getName() + "\n carregado com sucesso!");
+                fileText.setTextAlignment(TextAlignment.CENTER);
                 fileText.setFill(javafx.scene.paint.Color.WHITE);
                 fileText.setId("defaultText");
                 subMenusBox.getChildren().add(fileText);
@@ -737,6 +758,7 @@ public class ConfigUI extends BorderPane {
             }else if(selectedFile != null && !selectedFile.getName().endsWith(".csv")){
                 fileText.setVisible(true);
                 fileText.setText("Extensão do ficheiro inválida!\nPor favor, selecione um ficheiro .CSV!");
+                fileText.setTextAlignment(TextAlignment.CENTER);
                 fileText.setId("defaultText");
                 fileText.setFill(javafx.scene.paint.Color.WHITE);
                 fileText.setTextAlignment(TextAlignment.CENTER);
@@ -758,6 +780,7 @@ public class ConfigUI extends BorderPane {
                 model.savePropostasCSV(file.getAbsolutePath());
                 fileText.setVisible(true);
                 fileText.setText("Ficheiro " + file.getName() + "\n exportado com sucesso!");
+                fileText.setTextAlignment(TextAlignment.CENTER);
                 fileText.setId("defaultText");
                 fileText.setFill(javafx.scene.paint.Color.WHITE);
                 subMenusBox.getChildren().add(fileText);
@@ -814,15 +837,74 @@ public class ConfigUI extends BorderPane {
         });
 
         propType.setOnAction(e -> {
-            propMethod = 3;
             content.getChildren().clear();
-            //TODO: Adicionar 3 opções Estágio / Projeto / Estágio±Projeto Autoproposto || Listing para cada um deles
-            propTextField.clear();
-            content.getChildren().addAll(propTextField, propBtn);
+            content.getChildren().add(comboBoxPropType);
+            content.setAlignment(Pos.TOP_CENTER);
+        });
+
+        //TODO: Verificar!!
+        comboBoxPropType.setOnAction(e -> {
+            ArrayList<PoEProposta> propostas;
+            switch (comboBoxPropType.getValue().toString()) {
+                case "Estágio":
+                    content.setAlignment(Pos.TOP_CENTER);
+                    propostas = model.getPropostasByType("T1");
+                    if(propostas.size() == 0) {
+                        content.getChildren().add(info);
+                        content.setAlignment(Pos.CENTER);
+                    }else{
+                        for(PoEProposta p : propostas) {
+                            if(propTextField.getText().equalsIgnoreCase("projeto")) {
+                                content.getChildren().add(new Card(p.getTitulo(),
+                                        p.getId(),
+                                        "Projeto"
+                                ));
+                            }
+                        }
+                        this.setRight(scrollPane);
+                    }
+                    break;
+                case "Projeto":
+                    content.setAlignment(Pos.TOP_CENTER);
+                    propostas = model.getPropostasByType("T2");
+                    if(propostas.size() == 0) {
+                        content.getChildren().add(info);
+                        content.setAlignment(Pos.CENTER);
+                    }else{
+                        for(PoEProposta p : propostas) {
+                            if(propTextField.getText().equalsIgnoreCase("projeto")) {
+                                content.getChildren().add(new Card(p.getTitulo(),
+                                        p.getId(),
+                                        "Projeto"
+                                ));
+                            }
+                        }
+                        this.setRight(scrollPane);
+                    }
+                    break;
+                case "Estágio/projeto autoproposto":
+                    content.setAlignment(Pos.TOP_CENTER);
+                    propostas = model.getPropostasByType("T3");
+                    if(propostas.size() == 0) {
+                        content.getChildren().add(info);
+                        content.setAlignment(Pos.CENTER);
+                    }else{
+                        for(PoEProposta p : propostas) {
+                            if(propTextField.getText().equalsIgnoreCase("projeto")) {
+                                content.getChildren().add(new Card(p.getTitulo(),
+                                        p.getId(),
+                                        "Projeto"
+                                ));
+                            }
+                        }
+                        this.setRight(scrollPane);
+                    }
+                    break;
+            }
         });
 
         editProp.setOnAction(e -> {
-            propMethod = 4;
+            propMethod = 3;
             subMenusBox.getChildren().remove(viewPropsBox);
             editProp.setStyle("-fx-background: #af2821; -fx-border-color: #ffffff;");
             propTextField.clear();
@@ -833,7 +915,7 @@ public class ConfigUI extends BorderPane {
         });
 
         removeProp.setOnAction(e -> {
-            propMethod = 5;
+            propMethod = 4;
             subMenusBox.getChildren().remove(viewPropsBox);
             removeProp.setStyle("-fx-background: #af2821; -fx-border-color: #ffffff;");
             propTextField.clear();
@@ -912,36 +994,8 @@ public class ConfigUI extends BorderPane {
                     }
                     break;
                 case 3:
-                    content.getChildren().clear();
-                    String type = propTextField.getText();
-                    if(type.equalsIgnoreCase("projetos")) {
-                        type = "T1";
-                    }else if(type.equalsIgnoreCase("estágios")) {
-                        type = "T2";
-                    } else if(type.equalsIgnoreCase("autopropostas")) {
-                        type = "T3";
-                    }
-                    System.out.println(type);
-
-                    propostas = model.getPropostasByType(type);
-                    if(propostas.size() == 0) {
-                        content.getChildren().add(info);
-                        content.setAlignment(Pos.CENTER);
-                    }else{
-                        for(PoEProposta p : propostas) {
-                            if(propTextField.getText().equalsIgnoreCase("projeto")) {
-                                content.getChildren().add(new Card(p.getTitulo(),
-                                        p.getId(),
-                                        "Projeto"
-                                ));
-                            }
-                        }
-                        this.setRight(scrollPane);
-                    }
                     break;
                 case 4:
-                    break; //TODO
-                case 5:
                     String id = propTextField.getText();
                    PoEProposta props = model.getPropostasByID(id);
                     if(props == null) {
@@ -953,11 +1007,13 @@ public class ConfigUI extends BorderPane {
                             content.getChildren().clear();
                             content.getChildren().add(info);
                             info.setText("Proposta " + props.getId() + "\nremovida com sucesso!");
+                            info.setTextAlignment(TextAlignment.CENTER);
                             content.setAlignment(Pos.CENTER);
                         }else{
                             content.getChildren().clear();
                             content.getChildren().add(info);
                             info.setText("Não foi possível removera proposta\n com o ID " + id);
+                            info.setTextAlignment(TextAlignment.CENTER);
                             content.setAlignment(Pos.CENTER);
                         }
                     }
@@ -983,9 +1039,6 @@ public class ConfigUI extends BorderPane {
             importStudents.setDisable(true);
             importTeachers.setDisable(true);
             importProps.setDisable(true);
-            exportStudents.setDisable(true);
-            exportTeachers.setDisable(true);
-            exportProps.setDisable(true);
             editStudent.setDisable(true);
             editTeacher.setDisable(true);
             editProp.setDisable(true);
