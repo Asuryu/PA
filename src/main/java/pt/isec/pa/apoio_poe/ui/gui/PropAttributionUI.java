@@ -12,12 +12,16 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 import pt.isec.pa.apoio_poe.model.ModelManager;
 import pt.isec.pa.apoio_poe.model.data.PoEAluno;
+import pt.isec.pa.apoio_poe.model.data.PoEProposta;
 import pt.isec.pa.apoio_poe.model.fsm.PoEState;
 import pt.isec.pa.apoio_poe.ui.gui.resources.CSSManager;
+import pt.isec.pa.apoio_poe.utils.Utils;
 
 import java.io.File;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
 
 /**
  * A classe PropAttributionUI é uma classe que representa a interface gráfica
@@ -32,7 +36,7 @@ public class PropAttributionUI extends BorderPane {
     Button studentsAutoProps, teachersProps, availableProps, givenProps, btnBackListProps;
     VBox listStudentsSubmenu, listPropsSubmenu, manualRemovalSubmenu;
     VBox mainBtns;
-    Text fileText;
+    Text fileText, info;
     ScrollPane scrollPane;
     VBox content;
 
@@ -72,6 +76,9 @@ public class PropAttributionUI extends BorderPane {
         btnBackListProps = new Button("Voltar");
 
         fileText = new Text();
+        info = new Text(); //Texto de informação
+        info.setFill(javafx.scene.paint.Color.WHITE);
+        info.setId("defaultText");
 
         createViews();
         registerHandlers();
@@ -148,6 +155,46 @@ public class PropAttributionUI extends BorderPane {
         });
         manualPropAttribution.setOnAction(evt -> {
             content.getChildren().clear();
+
+            ArrayList<PoEAluno> alunosSemProposta = new ArrayList<>();
+            for (PoEAluno aluno : model.getAlunos()) {
+                if (aluno.getPropostaAtribuida() == null)
+                    alunosSemProposta.add(aluno);
+            }
+            Collections.shuffle(alunosSemProposta);
+            for (PoEAluno aluno : alunosSemProposta) {
+                ArrayList<PoEProposta> propostasDisponiveis = new ArrayList<>();
+                for (PoEProposta proposta : model.getPropostas()) {
+                    if (proposta.getNrAlunoAtribuido() == null)
+                        propostasDisponiveis.add(proposta);
+                }
+                info.setText("Propostas disponíveis (" + propostasDisponiveis.size() + ")");
+                StringBuilder idsPropostasDisponiveis = new StringBuilder();
+                for (PoEProposta prop : propostasDisponiveis) {
+                    idsPropostasDisponiveis.append(prop.getId()).append(" ");
+                }
+                idsPropostasDisponiveis.append("\n");
+                System.out.println(idsPropostasDisponiveis);
+                System.out.println(aluno);
+                Scanner sc = new Scanner(System.in);
+                System.out.print("[?] Selecione a proposta que pretende atribuir a este aluno: ");
+                String input = sc.nextLine().toUpperCase();
+                if (input.equals("")) {
+                    System.out.println("[!] Não foi selecionada nenhuma proposta.");
+                } else {
+                    if (propostasDisponiveis.contains(model.getPropostasByID(input))) {
+                        PoEProposta proposta = model.getPropostasByID(input);
+                        proposta.setNrAlunoAtribuido(aluno.getNrEstudante());
+                        aluno.setPropostaAtribuida(proposta);
+                        System.out.println("[·] Proposta com o ID " + proposta.getId()
+                                + " atribuída ao aluno com o número " + aluno.getNrEstudante());
+                    } else {
+                        System.out.println(
+                                "[!] A proposta selecionada não existe ou já foi atribuída a outro aluno.");
+                    }
+                }
+            }
+
             this.setLeft(manualRemovalSubmenu);
             this.setRight(null);
         });
