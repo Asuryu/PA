@@ -4,12 +4,14 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import pt.isec.pa.apoio_poe.model.ModelManager;
 import pt.isec.pa.apoio_poe.model.data.PoEAluno;
+import pt.isec.pa.apoio_poe.model.data.PoEProposta;
 import pt.isec.pa.apoio_poe.model.fsm.PoEState;
 import pt.isec.pa.apoio_poe.ui.gui.resources.CSSManager;
 
@@ -24,13 +26,15 @@ import java.util.ArrayList;
 public class PropAttributionUI extends BorderPane {
     final ModelManager model;
 
-    Button autoPropAttributionWith, autoPropAttributionWithout, manualPropAttribution, listStudents, listProps, exportToCSV;
+    Button autoPropAttributionWith, autoPropAttributionWithout, manualPropAttribution, manualAttributionRemoval, listStudents, listProps, exportToCSV;
     Button removeAll, removeById, btnBackRemoval;
     Button haveAutopropAssociated, haveApplicationRegistered, havePropAttributed, haveNotPropAttributed, btnBackListStudents;
     Button studentsAutoProps, teachersProps, availableProps, givenProps, btnBackListProps;
     VBox listStudentsSubmenu, listPropsSubmenu, manualRemovalSubmenu;
     VBox mainBtns;
     Text fileText;
+    TextField textfield;
+    Button submitBtn;
     ScrollPane scrollPane;
     VBox content;
 
@@ -40,6 +44,7 @@ public class PropAttributionUI extends BorderPane {
         autoPropAttributionWith = new Button("Atribuição automática das propostas\n com aluno associado");
         autoPropAttributionWithout = new Button("Atribuição automática de uma proposta\n (alunos sem atribuições)");
         manualPropAttribution = new Button("Atribuição manual de propostas \n(alunos sem atribuição)");
+        manualAttributionRemoval = new Button("Remoção manual de uma atribuição");
         listStudents = new Button("Listas de Alunos");
         listProps = new Button("Listas de Propostas");
         exportToCSV = new Button("Exportar alunos para um ficheiro CSV");
@@ -68,6 +73,9 @@ public class PropAttributionUI extends BorderPane {
 
         fileText = new Text();
 
+        textfield = new TextField();
+        submitBtn = new Button();
+
         createViews();
         registerHandlers();
         update();
@@ -80,7 +88,7 @@ public class PropAttributionUI extends BorderPane {
         CSSManager.applyCSS(this, "style.css");
         ActionButtons buttons = new ActionButtons(model);
 
-        mainBtns = new VBox(autoPropAttributionWith, autoPropAttributionWithout, manualPropAttribution, listStudents, listProps, exportToCSV);
+        mainBtns = new VBox(autoPropAttributionWith, autoPropAttributionWithout, manualPropAttribution, manualAttributionRemoval, listStudents, listProps, exportToCSV);
         manualRemovalSubmenu = new VBox(removeAll, removeById, btnBackRemoval);
         listStudentsSubmenu = new VBox(haveAutopropAssociated, haveApplicationRegistered, havePropAttributed, haveNotPropAttributed, btnBackListStudents);
         listPropsSubmenu = new VBox(studentsAutoProps, teachersProps, availableProps, givenProps, btnBackListProps);
@@ -128,6 +136,13 @@ public class PropAttributionUI extends BorderPane {
         bottomBox.setSpacing(10);
         bottomBox.setPadding(new Insets(10, 10, 0, 10));
 
+        textfield.setId("textField");
+        submitBtn.setId("subMenuButton");
+        submitBtn.setPrefSize(310, 25);
+        submitBtn.setMinSize(310, 25);
+        submitBtn.setMaxSize(310, 25);
+        submitBtn.setPadding(new Insets(0, 20, 0, 0));
+
         this.setTop(header);
         this.setLeft(mainBtns);
         this.setPadding(new Insets(10, 10, 10, 10));
@@ -156,6 +171,11 @@ public class PropAttributionUI extends BorderPane {
             this.setLeft(listPropsSubmenu);
             this.setRight(null);
         });
+        manualAttributionRemoval.setOnAction(evt -> {
+            content.getChildren().clear();
+            this.setLeft(manualRemovalSubmenu);
+            this.setRight(null);
+        });
         btnBackRemoval.setOnAction(evt -> {
             content.getChildren().clear();
             this.setLeft(mainBtns);
@@ -170,6 +190,36 @@ public class PropAttributionUI extends BorderPane {
             content.getChildren().clear();
             this.setLeft(mainBtns);
             this.setRight(null);
+        });
+        autoPropAttributionWith.setOnAction(evt -> {
+            content.getChildren().clear();
+            ArrayList<PoEProposta> propostas = model.getPropostas();
+            for(PoEProposta proposta : propostas){
+                Long nrAlunoAtribuido = proposta.getNrAlunoAtribuido();
+                if(nrAlunoAtribuido != null){
+                    PoEAluno aluno = model.getAlunoByID(nrAlunoAtribuido);
+                    if(aluno.getPropostaAtribuida() != null){
+                        continue;
+                    }
+                    aluno.setPropostaAtribuida(proposta);
+                    content.getChildren().add(new Card(
+                        "Proposta #" + proposta.getId(),
+                            "Atribuída ao aluno",
+                            aluno.getNome()
+                    ));
+                }
+            }
+            this.setRight(scrollPane);
+        });
+        autoPropAttributionWithout.setOnAction(evt -> {
+            content.getChildren().clear();
+            //TODO
+            this.setRight(scrollPane);
+        });
+        manualPropAttribution.setOnAction(evt -> {
+            content.getChildren().clear();
+            //TODO
+            this.setRight(scrollPane);
         });
         haveApplicationRegistered.setOnAction(evt -> {
             content.getChildren().clear();
@@ -224,6 +274,73 @@ public class PropAttributionUI extends BorderPane {
             }
             this.setRight(scrollPane);
         });
+        teachersProps.setOnAction(evt -> {
+            content.getChildren().clear();
+            ArrayList<PoEProposta> propostas = model.getPropostasByType("T2");
+            for(PoEProposta proposta : propostas){
+                content.getChildren().add(new Card(
+                        proposta.getTitulo(),
+                        proposta.getDocente() == null ? "Sem docente" : proposta.getDocente().getNome(),
+                        proposta.getId() + ""
+                ));
+            }
+            this.setRight(scrollPane);
+        });
+        availableProps.setOnAction(evt -> {
+            content.getChildren().clear();
+            ArrayList<PoEProposta> propostas = model.getPropostas();
+            for(PoEProposta proposta : propostas){
+                if(proposta.getNrAlunoAtribuido() == null){
+                    content.getChildren().add(new Card(
+                            proposta.getTitulo(),
+                            proposta.getId() + "",
+                            "Proposta disponível"
+                    ));
+                }
+            }
+            this.setRight(scrollPane);
+        });
+        givenProps.setOnAction(evt -> {
+            content.getChildren().clear();
+            ArrayList<PoEProposta> propostas = model.getPropostas();
+            for(PoEProposta proposta : propostas){
+                if(proposta.getNrAlunoAtribuido() != null){
+                    content.getChildren().add(new Card(
+                            proposta.getTitulo(),
+                            proposta.getId() + "",
+                            proposta.getAluno() == null ? "Proposta disponível" : proposta.getAluno().getNome()
+                    ));
+                }
+            }
+            this.setRight(scrollPane);
+        });
+        removeAll.setOnAction(evt -> {
+            content.getChildren().clear();
+            ArrayList<PoEAluno> alunos = model.getAlunos();
+            for(PoEAluno aluno : alunos){
+                PoEProposta proposta = aluno.getPropostaAtribuida();
+                if(proposta != null){
+                    if(proposta.getNrAlunoAtribuido() != null){
+                        aluno.setPropostaAtribuida(null);
+                        proposta.setNrAlunoAtribuido(null);
+                        content.getChildren().add(new Card(
+                                "Proposta removida",
+                                aluno.getNrEstudante() + "",
+                                proposta.getId()
+                        ));
+                    }
+                }
+            }
+            this.setRight(scrollPane);
+        });
+        removeById.setOnAction(evt -> {
+            content.getChildren().clear();
+            textfield.clear();
+            textfield.setPromptText("Número do aluno");
+            submitBtn.setText("Remover");
+            content.getChildren().addAll(textfield, submitBtn);
+            this.setRight(scrollPane);
+        });
         exportToCSV.setOnAction(evt -> {
             content.getChildren().clear();
             FileChooser fileChooser = new FileChooser();
@@ -238,6 +355,23 @@ public class PropAttributionUI extends BorderPane {
                 content.getChildren().add(fileText);
                 this.setRight(content);
             }
+        });
+        submitBtn.setOnAction(evt -> {
+            content.getChildren().clear();
+            PoEAluno aluno = model.getAlunoByID(Long.parseLong(textfield.getText()));
+            PoEProposta proposta = aluno.getPropostaAtribuida();
+            if(proposta != null){
+                if(proposta.getNrAlunoAtribuido() != null){
+                    aluno.setPropostaAtribuida(null);
+                    proposta.setNrAlunoAtribuido(null);
+                    content.getChildren().add(new Card(
+                            "Proposta removida",
+                            aluno.getNrEstudante() + "",
+                            proposta.getId()
+                    ));
+                }
+            }
+            this.setRight(scrollPane);
         });
     }
 
