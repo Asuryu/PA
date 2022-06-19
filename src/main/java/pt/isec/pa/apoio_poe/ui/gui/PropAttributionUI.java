@@ -1,6 +1,7 @@
 package pt.isec.pa.apoio_poe.ui.gui;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 import pt.isec.pa.apoio_poe.model.ModelManager;
 import pt.isec.pa.apoio_poe.model.data.PoEAluno;
@@ -42,9 +44,12 @@ public class PropAttributionUI extends BorderPane {
         this.model = model;
 
         autoPropAttributionWith = new Button("Atribuição automática das propostas\n com aluno associado");
+        autoPropAttributionWith.setTextAlignment(TextAlignment.CENTER);
         autoPropAttributionWithout = new Button("Atribuição automática de uma proposta\n (alunos sem atribuições)");
+        autoPropAttributionWithout.setTextAlignment(TextAlignment.CENTER);
         manualPropAttribution = new Button("Atribuição manual de propostas \n(alunos sem atribuição)");
         manualAttributionRemoval = new Button("Remoção manual de uma atribuição");
+        manualPropAttribution.setTextAlignment(TextAlignment.CENTER);
         listStudents = new Button("Listas de Alunos");
         listProps = new Button("Listas de Propostas");
         exportToCSV = new Button("Exportar alunos para um ficheiro CSV");
@@ -380,5 +385,11 @@ public class PropAttributionUI extends BorderPane {
      */
     private void update() {
         this.setVisible(model != null && model.getState() == PoEState.PROP_ATTRIBUTION);
+        if(model.isClosed()){
+            autoPropAttributionWith.setDisable(true);
+            autoPropAttributionWithout.setDisable(true);
+            manualPropAttribution.setDisable(true);
+            //manualAttributionRemoval.setDisable(true); //TODO: Apagar comentário
+        }
     }
 }

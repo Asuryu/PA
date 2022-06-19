@@ -645,7 +645,6 @@ public class ApplicationOptUI extends BorderPane {
         this.setVisible(model != null && model.getState() == PoEState.APPLICATION_OPT);
         if(model.isClosed()) {
             importApplications.setDisable(true);
-            exportApplications.setDisable(true);
             editApplications.setDisable(true);
             removeApplications.setDisable(true);
             subMenusBox.getChildren().remove(fileText);

@@ -465,7 +465,8 @@ public class OriAttributionUI extends BorderPane {
             attrOriBtn.setDisable(true);
             changeOriBtn.setDisable(true);
             removeOriBtn.setDisable(true);
-            exportToCSV.setDisable(true);
+            manualOriAttribution.setDisable(true);
+            autoOriAttribution.setDisable(true);
         }
     }
 }
