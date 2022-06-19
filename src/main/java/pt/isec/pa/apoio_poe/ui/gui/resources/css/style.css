@@ -150,6 +150,23 @@
     -fx-autosize: true;
 }
 
+#MenuButtonMax{
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10px;
+    -fx-text-fill: #af2821;
+    -fx-font-size: 12px;
+    -fx-border-radius: 3px;
+    -fx-cursor: hand;
+    -fx-text-align: center;
+    -fx-pref-width: 350px;
+    -fx-pref-height: 40px;
+    -fx-max-width: 240px;
+    -fx-max-height: 40px;
+    -fx-min-width: 200px;
+    -fx-min-height: 40px;
+    -fx-autosize: true;
+}
+
 #subMenuButton{
     -fx-background-color: #ffffff;
     -fx-background-radius: 10px;
