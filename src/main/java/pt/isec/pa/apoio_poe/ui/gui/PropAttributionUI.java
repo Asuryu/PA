@@ -134,6 +134,10 @@ public class PropAttributionUI extends BorderPane {
             btn.setId("MenuButton");
         }
 
+        btnBackListProps.setId("returnBtnOut");
+        btnBackListStudents.setId("returnBtnOut");
+        btnBackRemoval.setId("returnBtnOut");
+
         autoPropAttributionWith.setId("MenuButtonMax");
         autoPropAttributionWithout.setId("MenuButtonMax");
         manualPropAttribution.setId("MenuButtonMax");
@@ -179,6 +183,24 @@ public class PropAttributionUI extends BorderPane {
     private void registerHandlers() {
         model.addPropertyChangeListener(ModelManager.PROP_STATE, evt -> {
             update();
+        });
+        btnBackListProps.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_ENTERED, event -> {
+            btnBackListProps.setId("returnBtnIn");
+        });
+        btnBackListProps.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_EXITED, event -> {
+            btnBackListProps.setId("returnBtnOut");
+        });
+        btnBackListStudents.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_ENTERED, event -> {
+            btnBackListStudents.setId("returnBtnIn");
+        });
+        btnBackListStudents.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_EXITED, event -> {
+            btnBackListStudents.setId("returnBtnOut");
+        });
+        btnBackRemoval.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_ENTERED, event -> {
+            btnBackRemoval.setId("returnBtnIn");
+        });
+        btnBackRemoval.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_EXITED, event -> {
+            btnBackRemoval.setId("returnBtnOut");
         });
         manualPropAttribution.setOnAction(evt -> {
             //TODO: Não aparece nada
