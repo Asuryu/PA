@@ -311,7 +311,7 @@ public class ApplicationOptUI extends BorderPane {
                 for(PoECandidatura candidatura : model.getCandidaturas()) {
                     String text;
                     if(model.getAlunoByID(candidatura.getNrEstudante()) != null){
-                        text = model.getAlunoByID(candidatura.getNrEstudante()).get(0).getNome();
+                        text = model.getAlunoByID(candidatura.getNrEstudante()).getNome();
                     } else {
                         text = "Aluno nrº " + candidatura.getNrEstudante();
                     }
@@ -380,7 +380,7 @@ public class ApplicationOptUI extends BorderPane {
                         for(PoECandidatura candidatura : candidaturas) {
                             String text;
                             if(model.getAlunoByID(candidatura.getNrEstudante()) != null){
-                                text = model.getAlunoByID(candidatura.getNrEstudante()).get(0).getNome();
+                                text = model.getAlunoByID(candidatura.getNrEstudante()).getNome();
                             } else {
                                 text = "Aluno nrº " + candidatura.getNrEstudante();
                             }
@@ -407,7 +407,7 @@ public class ApplicationOptUI extends BorderPane {
                         for(PoECandidatura candidatura : candidaturas) {
                             String text;
                             if(model.getAlunoByID(candidatura.getNrEstudante()) != null){
-                                text = model.getAlunoByID(candidatura.getNrEstudante()).get(0).getNome();
+                                text = model.getAlunoByID(candidatura.getNrEstudante()).getNome();
                             } else {
                                 text = "Aluno nrº " + candidatura.getNrEstudante();
                             }
@@ -474,7 +474,7 @@ public class ApplicationOptUI extends BorderPane {
                 subMenusBox.setSpacing(30);
             }else{
                 for(PoEProposta proposta : model.getPropostas()) {
-                    PoEAluno aluno = model.getAlunoByID(propostas.get(0).getNrAlunoAtribuido()).get(0);
+                    PoEAluno aluno = model.getAlunoByID(propostas.get(0).getNrAlunoAtribuido());
                     content.getChildren().add(
                             new Card(aluno.getNome(),
                                     aluno.getNrEstudante() + "",
@@ -497,7 +497,7 @@ public class ApplicationOptUI extends BorderPane {
                 subMenusBox.setSpacing(30);
             }else{
                 for(PoECandidatura candidatura : candidaturas) {
-                    PoEAluno aluno = model.getAlunoByID(candidatura.getNrEstudante()).get(0);
+                    PoEAluno aluno = model.getAlunoByID(candidatura.getNrEstudante());
                     content.getChildren().add(
                             new Card(aluno.getNome(),
                                     aluno.getNrEstudante() + "",
