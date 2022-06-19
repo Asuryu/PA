@@ -66,6 +66,7 @@ public class ReviewUI extends BorderPane {
         CSSManager.applyCSS(this, "style.css");
         ActionButtons buttons = new ActionButtons(model);
         btnBack = new Button("Voltar");
+        btnBack.setId("returnBtnOut");
 
         mainBtns = new VBox(listStudentsWithProps, listStudentsWithoutProps, exportToCSV, availableProps, takenProps, statistics);
         submenuStatistics = new VBox(

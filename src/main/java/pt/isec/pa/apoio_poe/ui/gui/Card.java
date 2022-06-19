@@ -9,8 +9,8 @@ import javafx.scene.text.Text;
 import pt.isec.pa.apoio_poe.model.data.PoEAluno;
 
 /**
- * A classe ActionButtons é uma classe que representa os botões
- * de ação da aplicação gráfica (alteração da fase)
+ * A classe Card é uma classe que representa uma carta
+ * da aplicação gráfica (alteração da fase)
  */
 public class Card extends VBox {
     String header, content, footer;
