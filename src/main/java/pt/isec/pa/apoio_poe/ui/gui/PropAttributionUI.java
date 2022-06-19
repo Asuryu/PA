@@ -1,5 +1,6 @@
 package pt.isec.pa.apoio_poe.ui.gui;
 
+import com.sun.javafx.scene.control.InputField;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -38,8 +39,9 @@ public class PropAttributionUI extends BorderPane {
     VBox listStudentsSubmenu, listPropsSubmenu, manualRemovalSubmenu;
     VBox mainBtns;
     Text fileText, info;
+    String inputText;
     TextField textfield;
-    Button submitBtn;
+    Button submitBtn, searchBtn;
     ScrollPane scrollPane;
     VBox content;
 
@@ -86,6 +88,13 @@ public class PropAttributionUI extends BorderPane {
 
         textfield = new TextField();
         submitBtn = new Button();
+
+        textfield = new TextField();
+        textfield.setPrefWidth(220);
+        textfield.setId("textField");
+        textfield.getText();
+        inputText = new String();
+        inputText = textfield.getText();
 
         createViews();
         registerHandlers();
@@ -168,6 +177,7 @@ public class PropAttributionUI extends BorderPane {
             update();
         });
         manualPropAttribution.setOnAction(evt -> {
+            //TODO: Não aparece nada
             content.getChildren().clear();
 
             ArrayList<PoEAluno> alunosSemProposta = new ArrayList<>();
@@ -188,29 +198,35 @@ public class PropAttributionUI extends BorderPane {
                     idsPropostasDisponiveis.append(prop.getId()).append(" ");
                 }
                 idsPropostasDisponiveis.append("\n");
-                System.out.println(idsPropostasDisponiveis);
-                System.out.println(aluno);
-                Scanner sc = new Scanner(System.in);
-                System.out.print("[?] Selecione a proposta que pretende atribuir a este aluno: ");
-                String input = sc.nextLine().toUpperCase();
-                if (input.equals("")) {
-                    System.out.println("[!] Não foi selecionada nenhuma proposta.");
+                Text text = new Text(idsPropostasDisponiveis.toString());
+                content.getChildren().add(info);
+                content.getChildren().add(text);
+                content.getChildren().add(
+                        new Card(aluno.getNome(),
+                                aluno.getNrEstudante().toString(),
+                                aluno.getCurso() + " | " + aluno.getRamo()
+                        )
+                );
+                textfield.clear();
+                textfield.setPromptText("Introduza a proposta que pretende atribuir a este aluno:");
+                content.getChildren().addAll(textfield, searchBtn);
+                if (textfield.getText().equals("")) {
+                    info.setText("Não foi selecionada nenhuma proposta.");
                 } else {
-                    if (propostasDisponiveis.contains(model.getPropostasByID(input))) {
-                        PoEProposta proposta = model.getPropostasByID(input);
+                    if (propostasDisponiveis.contains(model.getPropostasByID(textfield.getText()))) {
+                        PoEProposta proposta = model.getPropostasByID(textfield.getText());
                         proposta.setNrAlunoAtribuido(aluno.getNrEstudante());
                         aluno.setPropostaAtribuida(proposta);
-                        System.out.println("[·] Proposta com o ID " + proposta.getId()
-                                + " atribuída ao aluno com o número " + aluno.getNrEstudante());
+                        info.setText("Proposta com o ID" + proposta.getId()
+                                + " atribuída ao aluno com o número " + aluno.getNrEstudante() + ".");
                     } else {
-                        System.out.println(
-                                "[!] A proposta selecionada não existe ou já foi atribuída a outro aluno.");
+                        info.setText("A proposta selecionada não existe ou já foi atribuída a outro aluno.");
                     }
                 }
             }
 
             this.setLeft(manualRemovalSubmenu);
-            this.setRight(null);
+            this.setRight(scrollPane);
         });
         listStudents.setOnAction(evt -> {
             content.getChildren().clear();
@@ -431,7 +447,7 @@ public class PropAttributionUI extends BorderPane {
      */
     private void update() {
         this.setVisible(model != null && model.getState() == PoEState.PROP_ATTRIBUTION);
-        if(model.isClosed()){
+        if(model.isClosed() && model.getState() == PoEState.PROP_ATTRIBUTION){
             autoPropAttributionWith.setDisable(true);
             autoPropAttributionWithout.setDisable(true);
             manualPropAttribution.setDisable(true);

@@ -253,7 +253,7 @@ public class ApplicationOptUI extends BorderPane {
             if (selectedFile != null && selectedFile.getName().endsWith(".csv")) {
                 model.addCandidaturasCSV("csv/" + selectedFile.getName()); //Not working!! Não foi possível abrir o ficheiro
                 fileText.setVisible(true);
-                fileText.setText("Ficheiro " + selectedFile.getName() + " carregado com sucesso!");
+                fileText.setText("Ficheiro " + selectedFile.getName() + " carregado com sucesso!"); //TODO: Verificar porque é que não aparece a mensagem
                 fileText.setFill(javafx.scene.paint.Color.WHITE);
                 fileText.setId("defaultText");
                 subMenusBox.getChildren().add(info);
@@ -643,7 +643,7 @@ public class ApplicationOptUI extends BorderPane {
      */
     private void update() {
         this.setVisible(model != null && model.getState() == PoEState.APPLICATION_OPT);
-        if(model.isClosed()) {
+        if(model.isClosed() && model.getState() == PoEState.APPLICATION_OPT) {
             importApplications.setDisable(true);
             editApplications.setDisable(true);
             removeApplications.setDisable(true);

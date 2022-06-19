@@ -461,7 +461,7 @@ public class OriAttributionUI extends BorderPane {
      */
     private void update() {
         this.setVisible(model != null && model.getState() == PoEState.ORI_ATTRIBUTION);
-        if(model.isClosed()){
+        if(model.isClosed() && model.getState() == PoEState.ORI_ATTRIBUTION){
             attrOriBtn.setDisable(true);
             changeOriBtn.setDisable(true);
             removeOriBtn.setDisable(true);

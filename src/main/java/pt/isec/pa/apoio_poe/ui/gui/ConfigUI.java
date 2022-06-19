@@ -1033,7 +1033,7 @@ public class ConfigUI extends BorderPane {
      */
     private void update() {
         this.setVisible(model != null && model.getState() == PoEState.CONFIG);
-        if(model.isClosed()) {
+        if(model.isClosed() && model.getState() == PoEState.CONFIG) {
             importStudents.setDisable(true);
             importTeachers.setDisable(true);
             importProps.setDisable(true);
