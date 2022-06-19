@@ -68,6 +68,38 @@
     -fx-cursor: hand;
 }
 
+#returnBtnIn{
+    -fx-background-color: #a82e25;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-radius: 10px;
+    -fx-font-size: 12px;
+    -fx-border-radius: 10px;
+    -fx-cursor: hand;
+    -fx-text-align: left;
+    -fx-pref-width: 150px;
+    -fx-pref-height: 30px;
+    -fx-max-width: 150px;
+    -fx-max-height: 30px;
+    -fx-min-width: 200px;
+    -fx-min-height: 30px;
+}
+
+#returnBtnOut{
+    -fx-background-color: #d31e13;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-radius: 10px;
+    -fx-font-size: 12px;
+    -fx-border-radius: 10px;
+    -fx-cursor: hand;
+    -fx-text-align: left;
+    -fx-pref-width: 150px;
+    -fx-pref-height: 30px;
+    -fx-max-width: 150px;
+    -fx-max-height: 30px;
+    -fx-min-width: 200px;
+    -fx-min-height: 30px;
+}
+
 #defaultText{
     -fx-font-family: "Arial";
     -fx-text-fill: #FFFFFF;

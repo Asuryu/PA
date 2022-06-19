@@ -1,6 +1,7 @@
 package pt.isec.pa.apoio_poe.ui.gui;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -58,7 +59,7 @@ public class OriAttributionUI extends BorderPane {
 
         listOriBtn = new Button("Consultar orientadores");
         attrOriBtn = new Button("Atribuir orientadores");
-        changeOriBtn = new Button("Alterar orientadores");
+        changeOriBtn = new Button("Editar orientadores");
         removeOriBtn = new Button("Eliminar orientadores");
         btnBackOriMgmt = new Button("Voltar");
 
@@ -128,11 +129,20 @@ public class OriAttributionUI extends BorderPane {
         for (Node btn : searchOriSubmenu.getChildren()) {
             btn.setId("MenuButton");
         }
+        btnBackOriMgmt.setId("returnBtnOut");
+        btnBackListData.setId("returnBtnOut");
+        btnBackSearchOri.setId("returnBtnOut");
+        oriManagementSubmenu.setAlignment(Pos.TOP_CENTER);
+        listDataSubmenu.setAlignment(Pos.TOP_CENTER);
+        searchOriSubmenu.setAlignment(Pos.TOP_CENTER);
 
         content.setSpacing(5);
-        content.setPadding(new Insets(0, 0, 0, 0));
+        content.setPadding(new Insets(10, 10, 10, 10));
         content.setStyle("-fx-background: #212121; -fx-border-color: #212121;");
-        content.setPrefWidth(350);
+        content.setPrefWidth(300);
+        content.setMaxWidth(300);
+        content.setMinWidth(300);
+
         scrollPane.setContent(content);
         scrollPane.setPrefWidth(320);
         scrollPane.setPadding(new Insets(0, 0, 0, 0));
@@ -152,16 +162,16 @@ public class OriAttributionUI extends BorderPane {
         bottomBox.setPadding(new Insets(10, 10, 0, 10));
 
         textfield.setId("textField");
-        textfield.setPrefSize(310, 35);
-        textfield.setMinSize(310, 35);
-        textfield.setMaxSize(310, 35);
-        textfield.setPadding(new Insets(0, 0, 0, 10));
+        //textfield.setPrefSize(310, 35);
+        //textfield.setMinSize(310, 35);
+        //textfield.setMaxSize(310, 35);
+        //textfield.setPadding(new Insets(0, 0, 0, 10));
 
         textfield2.setId("textField");
-        textfield2.setPrefSize(310, 35);
-        textfield2.setMinSize(310, 35);
-        textfield2.setMaxSize(310, 35);
-        textfield2.setPadding(new Insets(0, 0, 0, 10));
+        //textfield2.setPrefSize(310, 35);
+        //textfield2.setMinSize(310, 35);
+        //textfield2.setMaxSize(310, 35);
+        //textfield2.setPadding(new Insets(0, 0, 0, 10));
 
         submitBtn.setId("subMenuButton");
         submitBtn.setPrefSize(310, 25);
@@ -184,6 +194,24 @@ public class OriAttributionUI extends BorderPane {
         });
         model.addPropertyChangeListener(ModelManager.PROP_DATA, evt -> {
             update();
+        });
+        btnBackOriMgmt.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_ENTERED, event -> {
+            btnBackOriMgmt.setId("returnBtnIn");
+        });
+        btnBackOriMgmt.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_EXITED, event -> {
+            btnBackOriMgmt.setId("returnBtnOut");
+        });
+        btnBackListData.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_ENTERED, event -> {
+            btnBackListData.setId("returnBtnIn");
+        });
+        btnBackListData.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_EXITED, event -> {
+            btnBackListData.setId("returnBtnOut");
+        });
+        btnBackSearchOri.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_ENTERED, event -> {
+            btnBackSearchOri.setId("returnBtnIn");
+        });
+        btnBackSearchOri.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_EXITED, event -> {
+            btnBackSearchOri.setId("returnBtnOut");
         });
         oriManagement.setOnAction(evt -> {
             content.getChildren().clear();
@@ -433,5 +461,11 @@ public class OriAttributionUI extends BorderPane {
      */
     private void update() {
         this.setVisible(model != null && model.getState() == PoEState.ORI_ATTRIBUTION);
+        if(model.isClosed()){
+            attrOriBtn.setDisable(true);
+            changeOriBtn.setDisable(true);
+            removeOriBtn.setDisable(true);
+            exportToCSV.setDisable(true);
+        }
     }
 }
