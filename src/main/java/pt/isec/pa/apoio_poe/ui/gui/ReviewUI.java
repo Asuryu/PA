@@ -26,7 +26,7 @@ import java.util.*;
  */
 public class ReviewUI extends BorderPane {
     final ModelManager model;
-    Button btnPrev, listStudentsWithProps, listStudentsWithoutProps, exportToCSV, availableProps, takenProps, statistics;
+    Button listStudentsWithProps, listStudentsWithoutProps, exportToCSV, availableProps, takenProps, statistics;
     ScrollPane scrollPane;
     VBox content;
     VBox submenuStatistics;

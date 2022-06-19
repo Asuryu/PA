@@ -256,7 +256,7 @@ public class ApplicationOptUI extends BorderPane {
                 fileText.setText("Ficheiro " + selectedFile.getName() + " carregado com sucesso!");
                 fileText.setFill(javafx.scene.paint.Color.WHITE);
                 fileText.setId("defaultText");
-                subMenusBox.getChildren().add(fileText);
+                subMenusBox.getChildren().add(info);
                 subMenusBox.setAlignment(Pos.CENTER);
                 subMenusBox.setSpacing(30);
             }else if(selectedFile != null && !selectedFile.getName().endsWith(".csv")){
@@ -265,7 +265,7 @@ public class ApplicationOptUI extends BorderPane {
                 fileText.setId("defaultText");
                 fileText.setFill(javafx.scene.paint.Color.WHITE);
                 fileText.setTextAlignment(TextAlignment.CENTER);
-                subMenusBox.getChildren().add(fileText);
+                subMenusBox.getChildren().add(info);
                 subMenusBox.setAlignment(Pos.CENTER);
                 subMenusBox.setSpacing(30);
             }
@@ -285,7 +285,7 @@ public class ApplicationOptUI extends BorderPane {
                 fileText.setText("Ficheiro " + file.getName() + " exportado com sucesso!");
                 fileText.setId("defaultText");
                 fileText.setFill(javafx.scene.paint.Color.WHITE);
-                subMenusBox.getChildren().add(fileText);
+                subMenusBox.getChildren().add(info);
                 subMenusBox.setAlignment(Pos.CENTER);
                 subMenusBox.setSpacing(30);
             }
@@ -371,9 +371,11 @@ public class ApplicationOptUI extends BorderPane {
                     content.getChildren().clear();
                     candidaturas = model.getCandidaturaByAluno(Long.valueOf(applicationsTextField.getText()));
                     if(candidaturas.size() == 0) {
-                        content.getChildren().add(info);
                         info.setText("Não foram encontrados alunos com esse ID");
-                        content.setAlignment(Pos.CENTER);
+                        if(!subMenusBox.getChildren().contains(info))
+                            subMenusBox.getChildren().add(info);
+                        subMenusBox.setAlignment(Pos.CENTER);
+                        subMenusBox.setSpacing(30);
                     }else{
                         for(PoECandidatura candidatura : candidaturas) {
                             String text;
@@ -396,9 +398,11 @@ public class ApplicationOptUI extends BorderPane {
                     content.getChildren().clear();
                     candidaturas = model.getCandidaturasByProposta(applicationsTextField.getText());
                     if(candidaturas.size() == 0) {
-                        content.getChildren().add(info);
                         info.setText("Não foi encontrado nenhum aluno com esse ID");
-                        content.setAlignment(Pos.CENTER);
+                        if(!subMenusBox.getChildren().contains(info))
+                            subMenusBox.getChildren().add(info);
+                        subMenusBox.setAlignment(Pos.CENTER);
+                        subMenusBox.setSpacing(30);
                     }else{
                         for(PoECandidatura candidatura : candidaturas) {
                             String text;
@@ -423,29 +427,36 @@ public class ApplicationOptUI extends BorderPane {
                     Long nrAluno = Long.parseLong(applicationsTextField.getText());
                     ArrayList<PoECandidatura> candidatura = model.getCandidaturaByAluno(nrAluno);
                     if(candidatura.size() == 0) {
-                        content.getChildren().add(info);
                         info.setText("Não foi encontrada nenhuma\n candidatura para esse aluno");
-                        content.setAlignment(Pos.CENTER);
+                        if(!subMenusBox.getChildren().contains(info))
+                            subMenusBox.getChildren().add(info);
+                        subMenusBox.setAlignment(Pos.CENTER);
+                        subMenusBox.setSpacing(30);
                     } else {
                         if(model.removeCandidatura(candidatura.get(0))) {
                             content.getChildren().clear();
-                            content.getChildren().add(info);
                             info.setText("Aluno removido com sucesso");
-                            content.setAlignment(Pos.CENTER);
+                            if(!subMenusBox.getChildren().contains(info))
+                                subMenusBox.getChildren().add(info);
+                            subMenusBox.setAlignment(Pos.CENTER);
+                            subMenusBox.setSpacing(30);
                         } else {
                             content.getChildren().clear();
-                            content.getChildren().add(info);
                             info.setText("Não foi possível remover o aluno");
-                            content.setAlignment(Pos.CENTER);
+                            if(!subMenusBox.getChildren().contains(info))
+                                subMenusBox.getChildren().add(info);
+                            subMenusBox.setAlignment(Pos.CENTER);
+                            subMenusBox.setSpacing(30);
                         }
                     }
                     this.setRight(scrollPane);
                     break;
                 default:
                     info.setText("Proposta não encontrado!");
-                    if(!content.getChildren().contains(info))
-                        content.getChildren().add(info);
-                    content.setAlignment(Pos.CENTER);
+                    if(!subMenusBox.getChildren().contains(info))
+                        subMenusBox.getChildren().add(info);
+                    subMenusBox.setAlignment(Pos.CENTER);
+                    subMenusBox.setSpacing(30);
                     break;
             }
         });
@@ -456,9 +467,11 @@ public class ApplicationOptUI extends BorderPane {
             content.getChildren().clear();
             ArrayList<PoEProposta> propostas = model.getPropostasByType("T3");
             if(propostas.size() == 0) {
-                content.getChildren().add(info);
                 info.setText("Alunos com autoproposta (" + model.getPropostas().size() + ")");
-                content.setAlignment(Pos.CENTER);
+                if(!subMenusBox.getChildren().contains(info))
+                    subMenusBox.getChildren().add(info);
+                subMenusBox.setAlignment(Pos.CENTER);
+                subMenusBox.setSpacing(30);
             }else{
                 for(PoEProposta proposta : model.getPropostas()) {
                     PoEAluno aluno = model.getAlunoByID(propostas.get(0).getNrAlunoAtribuido()).get(0);
@@ -477,9 +490,11 @@ public class ApplicationOptUI extends BorderPane {
             content.getChildren().clear();
             ArrayList<PoECandidatura> candidaturas = model.getCandidaturas();
             if(candidaturas.size() == 0) {
-                content.getChildren().add(info);
                 info.setText("Alunos com candidatura registada (" + model.getPropostas().size() + ")");
-                content.setAlignment(Pos.CENTER);
+                if(!subMenusBox.getChildren().contains(info))
+                    subMenusBox.getChildren().add(info);
+                subMenusBox.setAlignment(Pos.CENTER);
+                subMenusBox.setSpacing(30);
             }else{
                 for(PoECandidatura candidatura : candidaturas) {
                     PoEAluno aluno = model.getAlunoByID(candidatura.getNrEstudante()).get(0);
@@ -499,9 +514,11 @@ public class ApplicationOptUI extends BorderPane {
             ArrayList<PoEAluno> alunos = model.getAlunos();
             ArrayList<PoEAluno> alunosSemCandidatura = new ArrayList<>();
             if(alunos.size() == 0) {
-                content.getChildren().add(info);
                 info.setText("Alunos sem autoproposta (" + model.getPropostas().size() + ")");
-                content.setAlignment(Pos.CENTER);
+                if(!subMenusBox.getChildren().contains(info))
+                    subMenusBox.getChildren().add(info);
+                subMenusBox.setAlignment(Pos.CENTER);
+                subMenusBox.setSpacing(30);
             }else{
                 for(PoEAluno aluno : alunos){
                     if(aluno.getCandidatura() == null) {
@@ -527,9 +544,11 @@ public class ApplicationOptUI extends BorderPane {
             content.getChildren().clear();
             propostas = model.getPropostasByType("T3");
             if(propostas.size() == 0) {
-                content.getChildren().add(info);
                 info.setText("Não foram encontradas autopropostas");
-                content.setAlignment(Pos.CENTER);
+                if(!subMenusBox.getChildren().contains(info))
+                    subMenusBox.getChildren().add(info);
+                subMenusBox.setAlignment(Pos.CENTER);
+                subMenusBox.setSpacing(30);
             }else{
                 for(PoEProposta proposta : propostas) {
                     content.getChildren().add(
@@ -547,9 +566,11 @@ public class ApplicationOptUI extends BorderPane {
             content.getChildren().clear();
             propostas = model.getPropostasByType("T2");
             if(propostas.size() == 0) {
-                content.getChildren().add(info);
-                info.setText("Não foram encontradas propostas de docentes");
-                content.setAlignment(Pos.CENTER);
+                info.setText("Não foram encontradas \npropostas de docentes");
+                if(!subMenusBox.getChildren().contains(info))
+                    subMenusBox.getChildren().add(info);
+                subMenusBox.setAlignment(Pos.CENTER);
+                subMenusBox.setSpacing(30);
             }else{
                 for(PoEProposta proposta : propostas) {
                     content.getChildren().add(
@@ -572,9 +593,11 @@ public class ApplicationOptUI extends BorderPane {
                 }
             }
             if(propostas.size() == 0) {
-                content.getChildren().add(info);
                 info.setText("Não foram encontradas propostas");
-                content.setAlignment(Pos.CENTER);
+                if(!subMenusBox.getChildren().contains(info))
+                    subMenusBox.getChildren().add(info);
+                subMenusBox.setAlignment(Pos.CENTER);
+                subMenusBox.setSpacing(30);
             }else{
                 for(PoEProposta proposta : propostasComCandidatura) {
                     content.getChildren().add(
@@ -597,9 +620,11 @@ public class ApplicationOptUI extends BorderPane {
                 }
             }
             if(propostas.size() == 0) {
-                content.getChildren().add(info);
                 info.setText("Não foram encontradas propostas");
-                content.setAlignment(Pos.CENTER);
+                if(!subMenusBox.getChildren().contains(info))
+                    subMenusBox.getChildren().add(info);
+                subMenusBox.setAlignment(Pos.CENTER);
+                subMenusBox.setSpacing(30);
             }else{
                 for(PoEProposta proposta : propostasSemCandidatura) {
                     content.getChildren().add(
@@ -618,5 +643,12 @@ public class ApplicationOptUI extends BorderPane {
      */
     private void update() {
         this.setVisible(model != null && model.getState() == PoEState.APPLICATION_OPT);
+        if(model.isClosed()) {
+            importApplications.setDisable(true);
+            exportApplications.setDisable(true);
+            editApplications.setDisable(true);
+            removeApplications.setDisable(true);
+            subMenusBox.getChildren().remove(fileText);
+        }
     }
 }

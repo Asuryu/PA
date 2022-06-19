@@ -151,6 +151,8 @@ public class MenuUI extends BorderPane {
             public void changed(ObservableValue<? extends Toggle> observableValue, Toggle toggle, Toggle newValue) {
                 if (group.getSelectedToggle() == rb)
                     selected = 1;
+                if (group.getSelectedToggle() == rb2)
+                    selected = 2;
             }
         });
 
@@ -222,21 +224,19 @@ public class MenuUI extends BorderPane {
             load.setVisible(false);
             menu.setVisible(true);
             stateText.setText("Bem-vindo ao PoEDEIS");
-            questionText.setText("Software de Gestão de projetos e estágios");
+            questionText.setText("Deseja carregar um ficheiro de estado?");
             textBox.getChildren().addAll(stateText, questionText);
             textBox.setAlignment(Pos.CENTER);
             textBox.setSpacing(10);
             textBox.getChildren().get(0).setId("stateText");
             textBox.getChildren().get(1).setId("questionText");
-            menu = new VBox(5); // 5 pixels de espaçamento entre os elementos
-            menu.getChildren().addAll(imageView, textBox, btnStart);
+            menu = new VBox(5);
+            menu.getChildren().addAll(imageView, textBox, buttonsBox, btnNext);
             menu.setStyle("-fx-background-color: #212121;");
             menu.setAlignment(Pos.CENTER);
             menu.setSpacing(20);
-            CSSManager.applyCSS(this, "style.css");
             this.setCenter(menu);
         });
-
     }
 
     /**

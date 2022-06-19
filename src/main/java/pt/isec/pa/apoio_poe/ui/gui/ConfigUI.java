@@ -255,7 +255,7 @@ public class ConfigUI extends BorderPane {
         this.setRight(content);
         this.setBottom(bottomBox);
         this.setTop(header);
-        this.setPadding(new Insets(10, 20, 10, 10));
+        this.setPadding(new Insets(10, 10, 10, 10));
     }
 
     /**
@@ -309,7 +309,7 @@ public class ConfigUI extends BorderPane {
             if (selectedFile != null && selectedFile.getName().endsWith(".csv")) {
                 model.addAlunosCSV("csv/" + selectedFile.getName()); //Not working!! Não foi possível abrir o ficheiro
                 fileText.setVisible(true);
-                fileText.setText("Ficheiro " + selectedFile.getName() + " carregado com sucesso!");
+                fileText.setText("Ficheiro " + selectedFile.getName() + "\n carregado com sucesso!");
                 fileText.setFill(javafx.scene.paint.Color.WHITE);
                 fileText.setId("defaultText");
                 subMenusBox.getChildren().add(fileText);
@@ -338,7 +338,7 @@ public class ConfigUI extends BorderPane {
             if (file != null) {
                 model.saveAlunosCSV(file.getAbsolutePath());
                 fileText.setVisible(true);
-                fileText.setText("Ficheiro " + file.getName() + " exportado com sucesso!");
+                fileText.setText("Ficheiro " + file.getName() + "   n exportado com sucesso!");
                 fileText.setId("defaultText");
                 fileText.setFill(javafx.scene.paint.Color.WHITE);
                 subMenusBox.getChildren().add(fileText);
@@ -541,7 +541,7 @@ public class ConfigUI extends BorderPane {
             if (selectedFile != null && selectedFile.getName().endsWith(".csv")) {
                 model.addDocentesCSV("csv/" + selectedFile.getName()); //Not working!! Não foi possível abrir o ficheiro
                 fileText.setVisible(true);
-                fileText.setText("Ficheiro " + selectedFile.getName() + " carregado com sucesso!");
+                fileText.setText("Ficheiro " + selectedFile.getName() + "\n carregado com sucesso!");
                 fileText.setFill(javafx.scene.paint.Color.WHITE);
                 fileText.setId("defaultText");
                 subMenusBox.getChildren().add(fileText);
@@ -570,7 +570,7 @@ public class ConfigUI extends BorderPane {
             if (file != null) {
                 model.saveDocentesCSV(file.getAbsolutePath());
                 fileText.setVisible(true);
-                fileText.setText("Ficheiro " + file.getName() + " exportado com sucesso!");
+                fileText.setText("Ficheiro " + file.getName() + "   n exportado com sucesso!");
                 fileText.setId("defaultText");
                 fileText.setFill(javafx.scene.paint.Color.WHITE);
                 subMenusBox.getChildren().add(fileText);
@@ -728,7 +728,7 @@ public class ConfigUI extends BorderPane {
             if (selectedFile != null && selectedFile.getName().endsWith(".csv")) {
                 model.addPropostasCSV("csv/" + selectedFile.getName()); //Not working!! Não foi possível abrir o ficheiro
                 fileText.setVisible(true);
-                fileText.setText("Ficheiro " + selectedFile.getName() + " carregado com sucesso!");
+                fileText.setText("Ficheiro " + selectedFile.getName() + "\n carregado com sucesso!");
                 fileText.setFill(javafx.scene.paint.Color.WHITE);
                 fileText.setId("defaultText");
                 subMenusBox.getChildren().add(fileText);
@@ -757,7 +757,7 @@ public class ConfigUI extends BorderPane {
             if (file != null) {
                 model.savePropostasCSV(file.getAbsolutePath());
                 fileText.setVisible(true);
-                fileText.setText("Ficheiro " + file.getName() + " exportado com sucesso!");
+                fileText.setText("Ficheiro " + file.getName() + "\n exportado com sucesso!");
                 fileText.setId("defaultText");
                 fileText.setFill(javafx.scene.paint.Color.WHITE);
                 subMenusBox.getChildren().add(fileText);
@@ -816,7 +816,7 @@ public class ConfigUI extends BorderPane {
         propType.setOnAction(e -> {
             propMethod = 3;
             content.getChildren().clear();
-            // Adicionar 3 opções Estágio / Projeto / Estágio±Projeto Autoproposto || Listing para cada um deles
+            //TODO: Adicionar 3 opções Estágio / Projeto / Estágio±Projeto Autoproposto || Listing para cada um deles
             propTextField.clear();
             content.getChildren().addAll(propTextField, propBtn);
         });
@@ -979,5 +979,20 @@ public class ConfigUI extends BorderPane {
      */
     private void update() {
         this.setVisible(model != null && model.getState() == PoEState.CONFIG);
+        if(model.isClosed()) {
+            importStudents.setDisable(true);
+            importTeachers.setDisable(true);
+            importProps.setDisable(true);
+            exportStudents.setDisable(true);
+            exportTeachers.setDisable(true);
+            exportProps.setDisable(true);
+            editStudent.setDisable(true);
+            editTeacher.setDisable(true);
+            editProp.setDisable(true);
+            removeStudent.setDisable(true);
+            removeTeacher.setDisable(true);
+            removeProp.setDisable(true);
+            subMenusBox.getChildren().remove(fileText);
+        }
     }
 }
