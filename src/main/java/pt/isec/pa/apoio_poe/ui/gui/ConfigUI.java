@@ -467,20 +467,18 @@ public class ConfigUI extends BorderPane {
                     break;
                 case 2:
                     content.getChildren().clear();
-                    alunos = model.getAlunoByID(Long.parseLong(studentTextField.getText()));
-                    if(alunos.size() == 0) {
+                    PoEAluno aluno = model.getAlunoByID(Long.parseLong(studentTextField.getText()));
+                    if(aluno == null) {
                         content.getChildren().add(info);
                         info.setText("Não foi encontrado nenhum aluno com esse ID");
                         content.setAlignment(Pos.CENTER);
                     }else{
-                        for(PoEAluno aluno : alunos) {
-                            content.getChildren().add(
-                                    new Card(aluno.getNome(),
-                                            aluno.getNrEstudante().toString(),
-                                            aluno.getCurso() + " | " + aluno.getRamo()
-                                    )
-                            );
-                        }
+                        content.getChildren().add(
+                                new Card(aluno.getNome(),
+                                        aluno.getNrEstudante().toString(),
+                                        aluno.getCurso() + " | " + aluno.getRamo()
+                                )
+                        );
                     }
                     break;
                 case 3:
@@ -491,11 +489,11 @@ public class ConfigUI extends BorderPane {
                         info.setText("Não foram encontrados alunos com esse curso");
                         content.setAlignment(Pos.CENTER);
                     }else{
-                        for(PoEAluno aluno : alunos) {
+                        for(PoEAluno aluno1 : alunos) {
                             content.getChildren().add(
-                                    new Card(aluno.getNome(),
-                                            aluno.getNrEstudante().toString(),
-                                            aluno.getCurso() + " | " + aluno.getRamo()
+                                    new Card(aluno1.getNome(),
+                                            aluno1.getNrEstudante().toString(),
+                                            aluno1.getCurso() + " | " + aluno1.getRamo()
                                     )
                             );
                         }
@@ -509,11 +507,11 @@ public class ConfigUI extends BorderPane {
                         info.setText("Não foram encontrados alunos com esse ramo");
                         content.setAlignment(Pos.CENTER);
                     }else{
-                        for(PoEAluno aluno : alunos) {
+                        for(PoEAluno aluno2 : alunos) {
                             content.getChildren().add(
-                                    new Card(aluno.getNome(),
-                                            aluno.getNrEstudante().toString(),
-                                            aluno.getCurso() + " | " + aluno.getRamo()
+                                    new Card(aluno2.getNome(),
+                                            aluno2.getNrEstudante().toString(),
+                                            aluno2.getCurso() + " | " + aluno2.getRamo()
                                     )
                             );
                         }

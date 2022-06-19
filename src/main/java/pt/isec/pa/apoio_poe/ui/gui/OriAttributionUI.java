@@ -318,7 +318,7 @@ public class OriAttributionUI extends BorderPane {
         searchByName.setOnAction(evt -> {
             content.getChildren().clear();
             textfield.clear();
-            textfield.setPromptText("Nome do orientador:");
+            textfield.setPromptText("Nome do orientador");
             submitBtn.setText("Procurar");
             selectedType = 1;
             content.getChildren().addAll(textfield, submitBtn);
@@ -327,7 +327,7 @@ public class OriAttributionUI extends BorderPane {
         searchByEmail.setOnAction(evt -> {
             content.getChildren().clear();
             textfield.clear();
-            textfield.setPromptText("Email do orientador:");
+            textfield.setPromptText("Email do orientador");
             submitBtn.setText("Procurar");
             selectedType = 2;
             content.getChildren().addAll(textfield, submitBtn);

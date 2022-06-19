@@ -83,12 +83,8 @@ public class ModelManager {
         return ctx.getAlunosByName(name);
     }
 
-    public ArrayList<PoEAluno> getAlunoByID(Long id){
-        ArrayList<PoEAluno> aluno = new ArrayList<>();
-        if(ctx.getAlunoById(id) != null){
-            aluno.add(ctx.getAlunoById(id));
-        }
-        return aluno;
+    public PoEAluno getAlunoByID(Long id){
+        return ctx.getAlunoById(id);
     }
 
     public ArrayList<PoEAluno> getAlunosByRamo(String ramo){
