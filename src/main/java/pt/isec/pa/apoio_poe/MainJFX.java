@@ -13,9 +13,8 @@ import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import pt.isec.pa.apoio_poe.model.ModelManager;
-import pt.isec.pa.apoio_poe.ui.gui.resources.CSSManager;
+import pt.isec.pa.apoio_poe.ui.gui.MenuUI;
 import pt.isec.pa.apoio_poe.ui.gui.resources.ImageManager;
-import pt.isec.pa.apoio_poe.ui.gui.RootPane;
 
 import java.io.File;
 
@@ -29,8 +28,8 @@ public class MainJFX extends Application {
 
     @Override
     public void start(Stage stage) {
-        RootPane root = new RootPane(model);
-        Scene scene = new Scene(root,900,500);
+        MenuUI menu = new MenuUI(model);
+        Scene scene = new Scene(menu,900,500);
         stage.setScene(scene);
         stage.setTitle("PoEDEIS - Gestão de projetos e estágios");
         stage.getIcons().add(ImageManager.getImage("icon.png"));
