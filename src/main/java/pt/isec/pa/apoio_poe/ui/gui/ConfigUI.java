@@ -18,6 +18,7 @@ import pt.isec.pa.apoio_poe.model.fsm.PoEState;
 import pt.isec.pa.apoio_poe.ui.gui.resources.CSSManager;
 
 import java.io.File;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -838,13 +839,28 @@ public class ConfigUI extends BorderPane {
             content.getChildren().clear();
             content.getChildren().add(comboBoxPropType);
             content.setAlignment(Pos.TOP_CENTER);
+            ArrayList<PoEProposta> propostas = model.getPropostasByType("T1");
+            if(propostas.size() == 0) {
+                content.getChildren().add(info);
+                content.setAlignment(Pos.CENTER);
+            }else{
+                for(PoEProposta p : propostas) {
+                    content.getChildren().add(new Card(p.getTitulo(),
+                            p.getId(),
+                            "Estágio"
+                    ));
+                }
+            }
+            this.setRight(scrollPane);
+            content.setAlignment(Pos.TOP_CENTER);
         });
 
-        //TODO: Verificar!!
         comboBoxPropType.setOnAction(e -> {
             ArrayList<PoEProposta> propostas;
             switch (comboBoxPropType.getValue().toString()) {
                 case "Estágio":
+                    content.getChildren().clear();
+                    content.getChildren().add(comboBoxPropType);
                     content.setAlignment(Pos.TOP_CENTER);
                     propostas = model.getPropostasByType("T1");
                     if(propostas.size() == 0) {
@@ -852,17 +868,17 @@ public class ConfigUI extends BorderPane {
                         content.setAlignment(Pos.CENTER);
                     }else{
                         for(PoEProposta p : propostas) {
-                            if(propTextField.getText().equalsIgnoreCase("projeto")) {
                                 content.getChildren().add(new Card(p.getTitulo(),
                                         p.getId(),
-                                        "Projeto"
+                                        "Estágio"
                                 ));
-                            }
                         }
-                        this.setRight(scrollPane);
                     }
+                    this.setRight(scrollPane);
                     break;
                 case "Projeto":
+                    content.getChildren().clear();
+                    content.getChildren().add(comboBoxPropType);
                     content.setAlignment(Pos.TOP_CENTER);
                     propostas = model.getPropostasByType("T2");
                     if(propostas.size() == 0) {
@@ -870,17 +886,17 @@ public class ConfigUI extends BorderPane {
                         content.setAlignment(Pos.CENTER);
                     }else{
                         for(PoEProposta p : propostas) {
-                            if(propTextField.getText().equalsIgnoreCase("projeto")) {
                                 content.getChildren().add(new Card(p.getTitulo(),
                                         p.getId(),
                                         "Projeto"
                                 ));
-                            }
                         }
-                        this.setRight(scrollPane);
                     }
+                    this.setRight(scrollPane);
                     break;
                 case "Estágio/projeto autoproposto":
+                    content.getChildren().clear();
+                    content.getChildren().add(comboBoxPropType);
                     content.setAlignment(Pos.TOP_CENTER);
                     propostas = model.getPropostasByType("T3");
                     if(propostas.size() == 0) {
@@ -888,15 +904,13 @@ public class ConfigUI extends BorderPane {
                         content.setAlignment(Pos.CENTER);
                     }else{
                         for(PoEProposta p : propostas) {
-                            if(propTextField.getText().equalsIgnoreCase("projeto")) {
                                 content.getChildren().add(new Card(p.getTitulo(),
                                         p.getId(),
-                                        "Projeto"
+                                        "Estágio/projeto autoproposto"
                                 ));
-                            }
                         }
-                        this.setRight(scrollPane);
                     }
+                    this.setRight(scrollPane);
                     break;
             }
         });
