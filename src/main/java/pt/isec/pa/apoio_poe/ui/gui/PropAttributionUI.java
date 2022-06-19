@@ -3,6 +3,7 @@ package pt.isec.pa.apoio_poe.ui.gui;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -11,8 +12,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import pt.isec.pa.apoio_poe.model.ModelManager;
 import pt.isec.pa.apoio_poe.model.data.PoEAluno;
+import pt.isec.pa.apoio_poe.model.data.PoECandidatura;
 import pt.isec.pa.apoio_poe.model.data.PoEProposta;
 import pt.isec.pa.apoio_poe.model.fsm.PoEState;
 import pt.isec.pa.apoio_poe.ui.gui.resources.CSSManager;
@@ -20,6 +23,7 @@ import pt.isec.pa.apoio_poe.ui.gui.resources.CSSManager;
 import java.io.File;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * A classe PropAttributionUI é uma classe que representa a interface gráfica
@@ -218,7 +222,48 @@ public class PropAttributionUI extends BorderPane {
         });
         autoPropAttributionWithout.setOnAction(evt -> {
             content.getChildren().clear();
-            //TODO
+            ArrayList<PoEProposta> propostas = model.getPropostas();
+            ArrayList<PoEAluno> alunos = model.getAlunos();
+            for(PoEProposta proposta : propostas){
+                ArrayList<PoEAluno> alunosSemProposta = new ArrayList<>();
+                for(PoEAluno aluno : alunos){
+                    if(aluno.getPropostaAtribuida() == null){
+                        alunosSemProposta.add(aluno);
+                    }
+                }
+                if(alunosSemProposta.size() == 0){
+                    return;
+                }
+                if(proposta.getNrAlunoAtribuido() != null){
+                    continue;
+                }
+                ArrayList<PoECandidatura> candidaturas = proposta.getCandidaturas();
+                if(candidaturas.size() == 0){
+                    Random r = new Random();
+                    int index = r.nextInt(alunosSemProposta.size());
+                    PoEAluno aluno = alunosSemProposta.get(index);
+                    aluno.setPropostaAtribuida(proposta);
+                    proposta.setNrAlunoAtribuido(aluno.getNrEstudante());
+                    content.getChildren().add(new Card(
+                            "Proposta #" + proposta.getId(),
+                            "Atribuída ao aluno",
+                            aluno.getNome()
+                    ));
+                } else if(candidaturas.size() == 1) {
+                    PoECandidatura candidatura = candidaturas.get(0);
+                    PoEAluno aluno = model.getAlunoByID(candidatura.getNrEstudante());
+                    aluno.setPropostaAtribuida(proposta);
+                    proposta.setNrAlunoAtribuido(aluno.getNrEstudante());
+                    content.getChildren().add(new Card(
+                        "Proposta #" + proposta.getId(),
+                            "Atribuída ao aluno",
+                            aluno.getNome()
+                    ));
+                } else {
+                    //TODO
+                }
+            }
+
             this.setRight(scrollPane);
         });
         manualPropAttribution.setOnAction(evt -> {
@@ -389,7 +434,7 @@ public class PropAttributionUI extends BorderPane {
             autoPropAttributionWith.setDisable(true);
             autoPropAttributionWithout.setDisable(true);
             manualPropAttribution.setDisable(true);
-            //manualAttributionRemoval.setDisable(true); //TODO: Apagar comentário
+            manualAttributionRemoval.setDisable(true);
         }
     }
 }
